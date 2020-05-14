@@ -1,5 +1,5 @@
 nodejs:
-  applicationPort: 3100
+  applicationPort: 8080
   aadIdentityName: rpe
   ingressHost: rpe-expressjs-template.{{ .Values.global.environment }}.platform.hmcts.net
   environment:
