@@ -1,13 +1,6 @@
 import * as express from 'express';
 import { v4 as uuidv4 } from 'uuid';
-
-interface Session {
-  id: string;
-  description: string;
-  dateOfHearing: Date;
-  documents: string[];
-  participants: string[];
-}
+import { Session } from '../models/Session';
 
 const db: { [key: string]: Session } = {};
 
