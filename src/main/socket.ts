@@ -1,9 +1,11 @@
 import { Sessions } from './models/Sessions';
+import { Server } from 'socket.io';
 
-const actions = require('models/actions')
+const actions = require('models/actions');
 const socketio = require('socket.io');
 
-const socket = function (server: any, sessions: Sessions) {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const socket = function (server: Server, sessions: Sessions) {
 
   const io = socketio(server, {'origins': '*:*'} );
 
