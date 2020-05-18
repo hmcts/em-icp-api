@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import { Helmet } from './modules/helmet';
 import * as path from 'path';
-import { RouterFinder } from './router/routerFinder';
+import { RouterFinder } from 'router/routerFinder';
 import { HTTPError } from 'HttpError';
 const { setupDev } = require('./development');
 

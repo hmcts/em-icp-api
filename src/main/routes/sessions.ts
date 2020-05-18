@@ -20,3 +20,4 @@ router.get('/icp/sessions/:id', function(req, res) {
 });
 
 module.exports = router;
+module.exports.db = db;
