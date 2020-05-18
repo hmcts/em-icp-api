@@ -1,15 +1,17 @@
+import { Sessions } from './models/Sessions';
+
 const actions = require('models/actions')
 const socketio = require('socket.io');
 
-const socket = function (server: any, db: any) {
+const socket = function (server: any, sessions: Sessions) {
 
   const io = socketio(server, {'origins': '*:*'} );
 
   io.on('connection', function (client: SocketIO.Socket) {
-    console.log('SocketIO client connecting...')
+    console.log('SocketIO client connecting...');
 
     client.on('join', (data) => {
-      const sessionExists = Object.keys(db).includes(data.session);
+      const sessionExists = Object.keys(sessions).includes(data.session);
 
       if (sessionExists) {
         client.join(data.session);

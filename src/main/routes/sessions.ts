@@ -1,23 +1,24 @@
 import * as express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { Session } from '../models/Session';
+import {Sessions} from '../models/Sessions';
 
-const db: { [key: string]: Session } = {};
+const sessions: Sessions = {};
 
 const router = express.Router();
 
 router.post('/icp/sessions', (req, res) => {
   const newSession: Session = req.body;
   newSession.id = uuidv4();
-  db[newSession.id] = newSession;
+  sessions[newSession.id] = newSession;
   res.send(newSession);
 });
 
 router.get('/icp/sessions/:id', function(req, res) {
   const sessionId: string = req.params.id;
-  const session = db[sessionId];
+  const session = sessions[sessionId];
   res.send(session);
 });
 
 module.exports = router;
-module.exports.db = db;
+module.exports.sessions = sessions;

@@ -5,7 +5,7 @@ import * as https from 'https';
 import * as path from 'path';
 import { app } from './app';
 const socket = require('./socket');
-const db = require('./routes/sessions');
+const sessions = require('./routes/sessions');
 
 const logger = Logger.getLogger('server');
 
@@ -22,10 +22,10 @@ if (app.locals.ENV === 'development') {
   server.listen(port, () => {
     logger.info(`Application started: https://localhost:${port}`);
   });
-  socket(server, db.db);
+  socket(server, sessions.sessions);
 } else {
   const server = app.listen(port, () => {
     logger.info(`Application started: http://localhost:${port}`);
   });
-  socket(server, db.db);
+  socket(server, sessions.sessions);
 }
