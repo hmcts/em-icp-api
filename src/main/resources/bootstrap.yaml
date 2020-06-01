@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    propertiesvolume:
+#      properties are loaded from given paths
+      enabled: true
+#      parent directory prefixes the property names
+      prefixed: false
+      paths: /mnt/secrets/em-icp
+      aliases:
+        AppInsightsInstrumentationKey: azure.application-insights.instrumentation-key
