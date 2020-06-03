@@ -22,7 +22,10 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 
-withPipeline(type, product, component) {
+withPipeline("nodejs", product, component) {
+  after('build') {
+    sh 'yarn setup'
+  }
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
   disableLegacyDeployment()
