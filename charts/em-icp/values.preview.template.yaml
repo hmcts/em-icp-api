@@ -9,3 +9,8 @@ nodejs:
 redis:
   enabled: true
   usePassword: false
+idam-pr:
+  enabled: true
+  redirect_uris:
+    ICP:
+      - https://${SERVICE_FQDN}/oauth2/callback
