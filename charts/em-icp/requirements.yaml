@@ -6,3 +6,7 @@ dependencies:
     version: 10.5.7
     repository: '@stable'
     condition: redis.enabled
+  - name: idam-pr
+    version: ~2.2.6
+    repository: '@hmctspublic'
+    condition: idam-pr.enabled

@@ -32,3 +32,5 @@ redis:
     enabled: false
     slaveCount: 0
   usePassword: false
+idam-pr:
+  enabled: false
