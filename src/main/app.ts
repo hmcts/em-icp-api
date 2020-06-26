@@ -35,8 +35,8 @@ export const app = express();
 app.locals.ENV = env;
 
 const limiter = rateLimit({
-  windowMs: 15 * 1000, // 15 seconds
-  max: 3, // limit each IP to 3 requests per windowMs
+  windowMs: config.rateLimit.time,
+  max: config.rateLimit.max,
 });
 
 app.use(limiter);
