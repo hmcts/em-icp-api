@@ -48,6 +48,7 @@ router.get("/icp/sessions/:caseId", async (req, res) => {
         dateOfHearing: today,
         presenterId: "",
         presenterName: "",
+        participants: "",
       };
       redis.hmset(caseId, newSession);
       return res.send({

@@ -32,15 +32,27 @@ const socket = (server: Server) => {
         }
 
         client.join(data.sessionId);
+        redis.watch(data.caseId, (watchError) => {
+          if (watchError) {
+            logger.error("Error watching caseId: ", watchError);
+            throw watchError;
+          }
 
-        if (io.sockets.adapter.rooms[session.sessionId].length === 1) {
-          session.presenterName = "";
-          session.presenterId = "";
-          redis.watch(session.caseId, (watchError) => {
-            if (watchError) {
-              logger.error("Error watching caseId: ", watchError);
-              throw watchError;
-            }
+          const participants = session.participants ? JSON.parse(session.participants) : {};
+          participants[client.id] = data.username;
+          redis.multi()
+            .hset(data.caseId, "participants", JSON.stringify(participants))
+            .exec((execError) => {
+              if (execError) {
+                logger.error("Error executing changes in Redis: ", execError);
+                throw execError;
+              }
+            });
+
+
+          if (io.sockets.adapter.rooms[session.sessionId].length === 1) {
+            session.presenterName = "";
+            session.presenterId = "";
             redis.multi()
               .hset(session.caseId, "presenterId", "")
               .hset(session.caseId, "presenterName", "")
@@ -50,14 +62,17 @@ const socket = (server: Server) => {
                   throw execError;
                 }
               });
-          });
-        }
+          }
 
-        io.to(client.id).emit(actions.CLIENT_JOINED,
-          { client: { id: client.id, username: data.username },
-            presenter: { id: session.presenterId, username: session.presenterName }});
+          io.to(client.id).emit(actions.CLIENT_JOINED,
+            {
+              client: {id: client.id, username: data.username},
+              presenter: {id: session.presenterId, username: session.presenterName},
+              participants: participants,
+            });
 
-        io.to(session.sessionId).emit(actions.NEW_PARTICIPANT_JOINED);
+          io.to(session.sessionId).emit(actions.NEW_PARTICIPANT_JOINED, {id: client.id, username: data.username});
+        });
       });
     });
 

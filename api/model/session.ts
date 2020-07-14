@@ -4,4 +4,5 @@ export interface Session {
   dateOfHearing: number;
   presenterId: string;
   presenterName: string;
+  participants: string;
 }
