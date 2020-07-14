@@ -61,6 +61,15 @@ describe("Socket io functional tests", () => {
     socket.emit("join", icpSession);
   });
 
+  it("join web socket icp session and trigger PARTICIPANTS_UPDATED event", (done) => {
+    socket.on(actions.PARTICIPANTS_UPDATED, (data) => {
+      const id = socket.id;
+      chai.expect(data[id]).equal("John Smith");
+      done();
+    });
+    socket.emit("join", icpSession);
+  });
+
   it("emit disconnecting event and listen for CLIENT_DISCONNECTED event", (done) => {
     socket.on(actions.CLIENT_DISCONNECTED, () => {
       done();

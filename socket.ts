@@ -38,10 +38,19 @@ const socket = (server: Server) => {
             throw watchError;
           }
 
+          if (io.sockets.adapter.rooms[session.sessionId].length === 1) {
+            session.presenterName = "";
+            session.presenterId = "";
+            session.participants = "";
+          }
+
           const participants = session.participants ? JSON.parse(session.participants) : {};
           participants[client.id] = data.username;
+
           redis.multi()
             .hset(data.caseId, "participants", JSON.stringify(participants))
+            .hset(session.caseId, "presenterId", session.presenterId)
+            .hset(session.caseId, "presenterName", session.presenterName)
             .exec((execError) => {
               if (execError) {
                 logger.error("Error executing changes in Redis: ", execError);
@@ -49,29 +58,14 @@ const socket = (server: Server) => {
               }
             });
 
-
-          if (io.sockets.adapter.rooms[session.sessionId].length === 1) {
-            session.presenterName = "";
-            session.presenterId = "";
-            redis.multi()
-              .hset(session.caseId, "presenterId", "")
-              .hset(session.caseId, "presenterName", "")
-              .exec((execError) => {
-                if (execError) {
-                  logger.error("Error executing changes in Redis: ", execError);
-                  throw execError;
-                }
-              });
-          }
-
           io.to(client.id).emit(actions.CLIENT_JOINED,
             {
               client: {id: client.id, username: data.username},
               presenter: {id: session.presenterId, username: session.presenterName},
-              participants: participants,
             });
 
-          io.to(session.sessionId).emit(actions.NEW_PARTICIPANT_JOINED, {id: client.id, username: data.username});
+          io.to(session.sessionId).emit(actions.PARTICIPANTS_UPDATED, participants);
+          io.to(session.sessionId).emit(actions.NEW_PARTICIPANT_JOINED);
         });
       });
     });
@@ -103,6 +97,22 @@ const socket = (server: Server) => {
 
     client.on("leave", () => {
       client.disconnect();
+    });
+
+    client.on(actions.REMOVE_PARTICIPANT, (data) => {
+      redis.hgetall(data.caseId, (error: string, session) => {
+        const participants = JSON.parse(session.participants);
+        delete participants[data.participantId];
+        redis.multi()
+          .hset(data.caseId, "participants", JSON.stringify(participants))
+          .exec((execError) => {
+            if (execError) {
+              logger.error("Error executing changes in Redis: ", execError);
+              throw execError;
+            }
+          });
+        io.to(session.sessionId).emit(actions.PARTICIPANTS_UPDATED, participants);
+      });
     });
 
     client.on("disconnecting", () => {
