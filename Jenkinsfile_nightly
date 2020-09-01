@@ -11,5 +11,8 @@ def product = "em"
 def component = "icp"
 
 withNightlyPipeline(type, product, component) {
-
+  loadVaultSecrets(secrets)
+  enableCrossBrowserTest()
+  enableSecurityScan()
+  enableFullFunctionalTest(200)
 }
