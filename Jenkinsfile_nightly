@@ -8,12 +8,33 @@ pipelineTriggers([cron('H 05 * * *')])
 @Library("Infrastructure")
 
 def type = "nodejs"
-def product = "rpe"
-def component = "expressjs-template"
+def product = "em"
+def component = "icp-api"
+
+env.IDAM_API_BASE_URL= "http://idam-api.aat.platform.hmcts.net"
+env.IDAM_S2S_URL= "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+env.REDIS_HOST= "em-icp-redis-cache-aat.redis.cache.windows.net"
+env.REDIS_PORT= 6380
+
+def secrets = [
+  'em-icp-${env}': [
+    secret('microservicekey-em-icp', 'S2S_KEY'),
+    secret('redis-password', 'REDIS_PASSWORD')
+  ]
+]
+
+static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
+  [ $class: 'AzureKeyVaultSecret',
+    secretType: 'Secret',
+    name: secretName,
+    version: '',
+    envVariable: envVar
+  ]
+}
 
 withNightlyPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   enableCrossBrowserTest()
   enableSecurityScan()
-  enableFullFunctionalTest(200)
+  enableFunctionalTest(200)
 }
