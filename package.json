@@ -16,7 +16,7 @@
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
     "sonar-scan": "cross-env NODE_PATH=. sonar-scanner -Dsonar.projectKey='em-icp-api' -Dsonar.sources=src/main -Dsonar.tests=src/test -Dsonar.exclusions=src/test/**,node_modules/**,src/** ",
     "test:smoke": "NODE_ENV=test mocha -r ts-node/register 'src/test/smoke/healthcheck.test.ts' --timeout 25000 --reporter spec --exit",
-    "test:functional": "cross-env NODE_PATH=. mocha --require ts-node/register 'src/test/functional/*.test.ts' --timeout 25000 --reporter spec --recursive --exit",
+    "test:fullfunctional": "cross-env NODE_PATH=. mocha --require ts-node/register 'src/test/functional/*.test.ts' --timeout 25000 --reporter spec --recursive --exit",
     "cichecks": "yarn && yarn lint  && yarn test"
   },
   "dependencies": {
