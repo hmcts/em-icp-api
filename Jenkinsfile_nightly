@@ -33,7 +33,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 withNightlyPipeline(type, product, component) {
   loadVaultSecrets(secrets)
-  enableCrossBrowserTest()
-  enableSecurityScan()
+//  enableCrossBrowserTest()
+//  enableSecurityScan()
   enableFullFunctionalTest(200)
 }
