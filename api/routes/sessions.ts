@@ -1,8 +1,7 @@
 import * as express from "express";
 import { v4 as uuidv4 } from "uuid";
-import { Session } from "../model/session";
-import { UserInfo } from "../model/userInfo";
-import { redisClient as redis } from "../redis";
+import { UserInfo, Session } from "../model/interfaces";
+import { client as redis } from "../redis";
 import { IdamClient } from "../security/idam-client";
 
 const { Logger } = require("@hmcts/nodejs-logging");
@@ -34,14 +33,15 @@ router.get("/icp/sessions/:caseId", async (req, res) => {
     return res.status(400).send();
   }
 
-  const today = Date.now();
-  await redis.hgetall(caseId, (e, session) => {
-    if (e) {
+  const today = new Date().toDateString();
+
+  await redis.hgetall(caseId, (err, session) => {
+    if (err) {
       res.statusMessage = "Error accessing data from Redis";
-      return res.status(500).send({error: e});
+      return res.status(500).send({ error: err });
     }
 
-    if (!session || new Date(parseInt(session.dateOfHearing)).toDateString() !== new Date(today).toDateString()) {
+    if (!session || session.dateOfHearing !== today) {
       const newSession: Session = {
         sessionId: uuidv4(),
         caseId: caseId,
@@ -51,15 +51,9 @@ router.get("/icp/sessions/:caseId", async (req, res) => {
         participants: "",
       };
       redis.hmset(caseId, newSession);
-      return res.send({
-        username: username,
-        session: {sessionId: newSession.sessionId, caseId: newSession.caseId, dateOfHearing: newSession.dateOfHearing},
-      });
-    } else if (new Date(parseInt(session.dateOfHearing)).toDateString() === new Date(today).toDateString()) {
-      return res.send({
-        username: username,
-        session: {sessionId: session.sessionId, caseId: session.caseId, dateOfHearing: session.dateOfHearing},
-      });
+      return res.send({ username, session: newSession });
+    } else if (session.dateOfHearing === today) {
+      return res.send({ username, session });
     }
   });
 });

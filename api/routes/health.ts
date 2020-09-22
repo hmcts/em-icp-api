@@ -1,4 +1,4 @@
-import { redisClient as redis } from "../redis";
+import { client as redis } from "../redis";
 import * as express from "express";
 
 import * as healthcheck from "@hmcts/nodejs-healthcheck";

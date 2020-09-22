@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as propertiesVolume from "@hmcts/properties-volume";
+import { Session } from "../../api/model/interfaces";
 
 const config = require("config");
 const url = require("url");
@@ -12,7 +13,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 export class TestUtil {
 
-  async createIcpSession(token: string, caseId: string) {
+  async createIcpSession(token: string, caseId: string): Promise<{ username: string, session: Session }> {
     const headers = {
       "Authorization": `Bearer ${token}`,
     };
@@ -26,7 +27,7 @@ export class TestUtil {
     }
   }
 
-  async createNewUser(username: string, password: string) {
+  async createNewUser(username: string, password: string): Promise<void> {
     await axios.delete(`${idamUrl}/testing-support/accounts/b@a.com`)
       .catch(() => console.log("User could not be found"));
     const userInfo = {
@@ -49,7 +50,7 @@ export class TestUtil {
     }
   }
 
-  async requestUserToken(username: string, password: string) {
+  async requestUserToken(username: string, password: string): Promise<string> {
     const headers = {
       "Content-Type": "application/x-www-form-urlencoded",
     };

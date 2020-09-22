@@ -1,5 +1,5 @@
 import Axios, { AxiosInstance } from "axios";
-import { UserInfo } from "../model/userInfo";
+import { UserInfo } from "../model/interfaces";
 
 const config = require("config");
 const jwt = require("jsonwebtoken");
@@ -29,7 +29,7 @@ export class IdamClient {
     return response.data;
   }
 
-  public async verifyToken(token: string) {
+  public async verifyToken(token: string): Promise<void> {
     try {
       const tokenString = token.split(" ")[1];
       const decodedHeader = jwtDecode(tokenString, { header: true });

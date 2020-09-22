@@ -135,7 +135,7 @@ export const swaggerDocument = {
               "type": "string",
             },
             "dateOfHearing": {
-              "type": "number",
+              "type": "string",
             },
           },
         },
