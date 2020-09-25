@@ -2,7 +2,3 @@ testUrl: "http://localhost:8080"
 
 redis:
   import: 'ioredis-mock'
-
-rateLimit:
-  time: 15000
-  max: 50

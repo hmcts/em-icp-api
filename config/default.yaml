@@ -33,7 +33,3 @@ security:
 health:
   timeout: 10000
   deadline: 15000
-
-rateLimit:
-  time: 15000
-  max: 3
