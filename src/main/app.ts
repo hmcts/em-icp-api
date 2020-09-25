@@ -16,8 +16,6 @@ const { setupDev } = require("./development");
 const healthcheck = require("./routes/health");
 const helmet = require("helmet");
 const noCache = require("nocache");
-const rateLimit = require("express-rate-limit");
-
 const redisImport = config.redis.import;
 const Redis = require(redisImport);
 
@@ -33,13 +31,6 @@ const logger = Logger.getLogger("app");
 
 export const app = express();
 app.locals.ENV = env;
-
-const limiter = rateLimit({
-  windowMs: 15 * 1000, // 15 seconds
-  max: 3, // limit each IP to 3 requests per windowMs
-});
-
-app.use(limiter);
 
 const tlsOptions = {
   password: REDIS_PASSWORD,
