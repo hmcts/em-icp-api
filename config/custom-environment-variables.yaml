@@ -16,3 +16,4 @@ idam:
 s2s:
   url: IDAM_S2S_URL
   secret: S2S_KEY
+
