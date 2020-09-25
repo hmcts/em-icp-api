@@ -5,4 +5,4 @@ redis:
 
 rateLimit:
   time: 15000
-  max: 3
+  max: 10
