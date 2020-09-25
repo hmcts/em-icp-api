@@ -21,7 +21,7 @@ idam:
 
 rateLimit:
   time: 15000
-  max: 3
+  max: 10
 
 redis:
   host: 'localhost'
