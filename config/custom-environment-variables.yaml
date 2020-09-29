@@ -17,3 +17,6 @@ s2s:
   url: IDAM_S2S_URL
   secret: S2S_KEY
 
+rateLimit:
+  time: RATE_LIMIT_TIME
+  max: RATE_LIMITE_MAX
