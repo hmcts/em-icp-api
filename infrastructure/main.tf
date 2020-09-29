@@ -26,6 +26,11 @@ resource "azurerm_resource_group" "rg" {
   tags = var.common_tags
 }
 
+data "azurerm_user_assigned_identity" "em-shared-identity" {
+  name                = "em-shared-${var.env}-mi"
+  resource_group_name = "managed-identities-${var.env}-rg"
+}
+
 resource "azurerm_application_insights" "appinsights" {
   name                = "${var.product}-${var.component}-appinsights-${var.env}"
   location            = var.appinsights_location
@@ -44,8 +49,7 @@ module "local_key_vault" {
   resource_group_name        = azurerm_resource_group.rg.name
   product_group_object_id    = "5d9cd025-a293-4b97-a0e5-6f43efce02c0"
   common_tags                = var.common_tags
-  managed_identity_object_ids = ["${var.managed_identity_object_id}"]
-  create_managed_identity = true
+  managed_identity_object_ids = ["${data.azurerm_user_assigned_identity.em-shared-identity.principal_id}","${var.managed_identity_object_id}"]
 }
 
 data "azurerm_key_vault" "s2s_vault" {
