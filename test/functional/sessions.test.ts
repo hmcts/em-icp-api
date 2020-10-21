@@ -5,7 +5,7 @@ import chai from "chai";
 const testUtil = new TestUtil();
 
 const frontendURL = process.env.TEST_URL || "http://localhost:8080";
-const username = "b@a.com";
+const username = "icp.em@hmcts.net";
 const password = "4590fgvhbfgbDdffm3lk4j";
 const caseId = "1234";
 
