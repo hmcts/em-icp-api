@@ -19,7 +19,7 @@ describe("Socket io functional tests", () => {
   });
 
   beforeEach(async () => {
-    setTimeout(() => console.log("throttling tests to one every 2 seconds"), 2000);
+    await testUtil.delay(2000);
     socket = io.connect(baseUrl, {
       path: "/icp/socket.io",
       secure: false,

@@ -20,8 +20,8 @@ describe("/GET sessions", () => {
     token = await testUtil.requestUserToken(username, password);
   });
 
-  beforeEach(() => {
-    setTimeout(() => console.log("throttling tests to one every 2 seconds"), 2000);
+  beforeEach(async () => {
+    await testUtil.delay(2000);
   });
 
   it("it should return (200) OK", async () => {
