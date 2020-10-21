@@ -8,7 +8,7 @@ pipelineTriggers([cron('H 05 * * *')])])
 
 def type = "nodejs"
 def product = "em"
-def component = "icp-api"
+def component = "icp"
 
 env.IDAM_API_BASE_URL= "http://idam-api.aat.platform.hmcts.net"
 env.IDAM_S2S_URL= "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
