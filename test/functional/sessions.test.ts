@@ -20,6 +20,10 @@ describe("/GET sessions", () => {
     token = await testUtil.requestUserToken(username, password);
   });
 
+  beforeEach(() => {
+    setTimeout(() => console.log("throttling tests to one every 2 seconds"), 2000);
+  });
+
   it("it should return (200) OK", async () => {
     headers = { Authorization: `Bearer ${token}` };
     const response = await axios.get(`${frontendURL}/icp/sessions/${caseId}`, { headers: headers });
