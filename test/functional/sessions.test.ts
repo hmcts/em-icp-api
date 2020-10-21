@@ -18,7 +18,6 @@ describe("/GET sessions", () => {
   before(async () => {
     await testUtil.createNewUser(username, password);
     token = await testUtil.requestUserToken(username, password);
-
     headers = {
       "Authorization": `Bearer ${token}`,
     };
