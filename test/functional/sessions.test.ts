@@ -15,7 +15,7 @@ describe("/GET sessions", () => {
   let token;
   let headers;
 
-  beforeEach(async () => {
+  before(async () => {
     await testUtil.createNewUser(username, password);
     token = await testUtil.requestUserToken(username, password);
 
