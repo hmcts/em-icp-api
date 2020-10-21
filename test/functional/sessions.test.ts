@@ -18,20 +18,16 @@ describe("/GET sessions", () => {
   before(async () => {
     await testUtil.createNewUser(username, password);
     token = await testUtil.requestUserToken(username, password);
-    headers = {
-      "Authorization": `Bearer ${token}`,
-    };
   });
 
   it("it should return (200) OK", async () => {
+    headers = { Authorization: `Bearer ${token}` };
     const response = await axios.get(`${frontendURL}/icp/sessions/${caseId}`, { headers: headers });
     chai.expect(response.status).equal(200);
   });
 
   it("it should return (401) Unauthorized with invalid token", async () => {
-    headers = {
-      "Authorization": "Bearer token",
-    };
+    headers = { Authorization: "Bearer token" };
     await axios.get(`${frontendURL}/icp/sessions/${caseId}`, { headers: headers })
       .catch((err) => {
         if (err) {
@@ -53,6 +49,7 @@ describe("/GET sessions", () => {
   });
 
   it("it should return (400) Invalid case id - null", async () => {
+    headers = { Authorization: `Bearer ${token}` };
     await axios.get(`${frontendURL}/icp/sessions/null`, { headers: headers })
       .catch((err) => {
         if (err) {
@@ -62,6 +59,7 @@ describe("/GET sessions", () => {
   });
 
   it("it should return (400) Invalid case id - undefined", async () => {
+    headers = { Authorization: `Bearer ${token}` };
     await axios.get(`${frontendURL}/icp/sessions/undefined`, { headers: headers })
       .catch((err) => {
         if (err) {
