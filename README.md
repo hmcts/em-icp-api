@@ -9,7 +9,7 @@ Setup dependencies using Docker Compose:
 $ az login
 $ az acr login --name hmctspublic && az acr login --name hmctsprivate
 $ docker-compose -f docker-compose-dependencies.yml pull
-$ docker-compose -f docker-compose-dependencies.yml up
+$ ./bin/start-local-environment.sh
 ```
 
 Once the Docker containers have started, open another terminal, install the project dependencies and start the Node js server:

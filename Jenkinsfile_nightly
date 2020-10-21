@@ -12,13 +12,16 @@ def component = "icp-api"
 
 env.IDAM_API_BASE_URL= "http://idam-api.aat.platform.hmcts.net"
 env.IDAM_S2S_URL= "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+env.IDAM_WEBSHOW_WHITELIST = 'https://em-show-aat.service.core-compute-aat.internal/oauth2/callback'
 env.REDIS_HOST= "em-icp-redis-cache-aat.redis.cache.windows.net"
 env.REDIS_PORT= 6380
 
 def secrets = [
-  'em-icp-${env}': [
-    secret('microservicekey-em-icp', 'S2S_KEY'),
-    secret('redis-password', 'REDIS_PASSWORD')
+  's2s-${env}': [
+    secret('microservicekey-em-gw', 'FUNCTIONAL_TEST_CLIENT_S2S_TOKEN')
+  ],
+  'rpa-${env}': [
+    secret('show-oauth2-token', 'FUNCTIONAL_TEST_CLIENT_OAUTH_SECRET')
   ]
 ]
 
