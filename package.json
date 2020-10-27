@@ -10,13 +10,13 @@
     "start:dev": "nodemon --config nodemon.json",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "NODE_ENV=test yarn test:unit",
-    "test:unit": "mocha --require ts-node/register 'test/unit/**/*.test.ts' --reporter spec --recursive --exit",
+    "test:unit": "mocha --require ts-node/register 'test/unit/**/*.test.ts'",
     "test:coverage": "cross-env NODE_ENV=test NODE_PATH=. nyc yarn test:unit",
     "test:a11y": "cross-env NODE_PATH=.",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
     "sonar-scan": "cross-env NODE_PATH=. sonar-scanner",
-    "test:smoke": "NODE_ENV=test mocha -r ts-node/register 'test/smoke/healthcheck.test.ts' --timeout 25000 --reporter spec --exit",
-    "test:functional": "cross-env NODE_PATH=. mocha --require ts-node/register 'test/functional/*.test.ts' --timeout 25000 --reporter spec --recursive --exit",
+    "test:smoke": "NODE_ENV=test mocha -r ts-node/register 'test/smoke/welcome.test.ts'",
+    "test:functional": "cross-env NODE_PATH=. mocha --require ts-node/register 'test/functional/*.test.ts'",
     "test:fullfunctional": "yarn test:functional",
     "cichecks": "yarn && yarn lint  && yarn test"
   },
@@ -93,5 +93,11 @@
     "include": ["api/**/*.ts"],
     "exclude": ["test/**/*.ts"],
     "reporter": "lcov"
+  },
+  "mocha": {
+    "reporter": "spec",
+    "recursive": true,
+    "exit": true,
+    "timeout": 50000
   }
 }

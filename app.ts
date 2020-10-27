@@ -12,7 +12,6 @@ import * as appInsights from "applicationinsights";
 import * as swaggerUi from "swagger-ui-express";
 import { Express, Logger } from "@hmcts/nodejs-logging";
 
-const healthcheck = require("./api/routes/health");
 const helmet = require("helmet");
 const noCache = require("nocache");
 const config = require("config");
@@ -85,5 +84,3 @@ if (config.app.useCSRFProtection === "true") {
     next();
   });
 }
-
-app.use("/health", healthcheck);
