@@ -21,7 +21,7 @@ describe("/GET welcome message", () => {
     sandbox.restore();
   });
 
-  it("it should return (200) OK for the same session", (done) => {
+  it("it should return welcome message", (done) => {
     sandbox.stub(IdamClient.prototype, "verifyToken").returns(Promise.resolve());
     sandbox.stub(IdamClient.prototype, "getUserInfo")
       .returns(Promise.resolve({ name: "Test User" }));

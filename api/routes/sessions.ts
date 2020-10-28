@@ -34,13 +34,8 @@ router.get("/icp/sessions/:caseId", async (req, res) => {
   }
 
   const today = new Date().toDateString();
-
-  await redis.hgetall(caseId, (err, session) => {
-    if (err) {
-      res.statusMessage = "Error accessing data from Redis";
-      return res.status(500).send({ error: err });
-    }
-
+  try {
+    const session = await redis.hgetall(caseId);
     if (!session || session.dateOfHearing !== today) {
       const newSession: Session = {
         sessionId: uuidv4(),
@@ -55,7 +50,10 @@ router.get("/icp/sessions/:caseId", async (req, res) => {
     } else if (session.dateOfHearing === today) {
       return res.send({ username, session });
     }
-  });
+  } catch (err) {
+    res.statusMessage = "Error accessing data from Redis";
+    return res.status(500).send({ error: err });
+  }
 });
 
 module.exports = router;
