@@ -57,6 +57,24 @@ describe("/GET sessions", () => {
     });
   });
 
+  it("it should return 500 OK for redis error", (done) => {
+    sandbox.stub(IdamClient.prototype, "verifyToken").returns(Promise.resolve());
+    sandbox.stub(IdamClient.prototype, "getUserInfo")
+      .returns(Promise.resolve({ name: "Test User" }));
+    sandbox.stub(client, "hgetall").throws("cannot access redis");
+
+    setTimeout(() => {
+      chai.request(app)
+        .get("/icp/sessions/5678")
+        .set("Authorization", "Token")
+        .end((err, res) => {
+          chai.expect(res.status).to.equal(500);
+          chai.expect(res.body.error).to.eql({ name : "cannot access redis" });
+          done();
+        });
+    });
+  });
+
   it("it should return (401) Unauthorized when invalid Auth token is passed", (done) => {
     setTimeout(() => {
       chai.request(app)

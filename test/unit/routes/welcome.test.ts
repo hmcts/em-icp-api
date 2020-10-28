@@ -37,4 +37,22 @@ describe("/GET welcome message", () => {
         });
     });
   });
+
+  it("it should return 500 OK for redis error", (done) => {
+    sandbox.stub(IdamClient.prototype, "verifyToken").returns(Promise.resolve());
+    sandbox.stub(IdamClient.prototype, "getUserInfo")
+      .returns(Promise.resolve({ name: "Test User" }));
+    sandbox.stub(client, "hgetall").throws("cannot access redis");
+
+    setTimeout(() => {
+      chai.request(app)
+        .get("/")
+        .set("Authorization", "Token")
+        .end((err, res) => {
+          chai.expect(res.status).to.equal(500);
+          chai.expect(res.body.error).to.eql({ name : "cannot access redis" });
+          done();
+        });
+    });
+  });
 });

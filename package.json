@@ -91,7 +91,7 @@
   "nyc": {
     "extension": [".ts"],
     "include": ["api/**/*.ts"],
-    "exclude": ["test/**/*.ts","api/routes/welcome.ts","api/routes/health.ts"],
+    "exclude": ["test/**/*.ts"],
     "reporter": "lcov"
   },
   "mocha": {
