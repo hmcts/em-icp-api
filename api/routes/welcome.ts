@@ -8,7 +8,6 @@ router.get("/", async (req, res) => {
     await redis.hgetall("random-case-id");
     return res.status(200).send("Welcome to ICP backend API");
   } catch (err) {
-    console.log("it came to the error")
     res.statusMessage = "Error accessing data from Redis";
     return res.status(500).send({ error: err });
   }
