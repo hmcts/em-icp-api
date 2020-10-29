@@ -12,12 +12,8 @@ describe("GET /", () => {
     const response = await axios.get(frontendURL);
 
     chai.expect(response.status).equals(200);
-  }).timeout(httpTimeout);
-
-  it("should return welcome message @smoke", async () => {
-    const response = await axios.get(frontendURL);
-
     chai.expect(response.data).equals("Welcome to ICP backend API");
+
   }).timeout(httpTimeout);
 
 });
