@@ -33,7 +33,7 @@
     "@types/helmet": "^0.0.45",
     "@types/node": "^13.7.0",
     "@types/require-directory": "^2.1.1",
-    "@types/socket.io": "^2.1.5",
+    "@types/socket.io": "^2.1.13",
     "@types/uuid": "^7.0.3",
     "applicationinsights": "^1.4.0",
     "axios": "^0.21.1",
