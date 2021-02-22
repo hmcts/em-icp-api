@@ -3657,10 +3657,10 @@ inquirer@^7.0.0:
     strip-ansi "^6.0.0"
     through "^2.3.6"
 
-ioredis-mock@^4.21.1:
-  version "4.21.3"
-  resolved "https://registry.yarnpkg.com/ioredis-mock/-/ioredis-mock-4.21.3.tgz#2bef8d6095e60c5a9682c4431c048de00f7c98bd"
-  integrity sha512-8HzNfW4h/MQB6NEoXhdgJlN91XhnAXOE9pzjVZFf6c4MAsJudv3oYVsx39yAuthXoAR5N/Wp3vD6eJKX9wokKA==
+ioredis-mock@^5.2.4:
+  version "5.2.4"
+  resolved "https://registry.yarnpkg.com/ioredis-mock/-/ioredis-mock-5.2.4.tgz#274a5d3e78aa92c01d579ed16dd21e9a2176e52a"
+  integrity sha512-Ek4pC+hl0rjKilaxYpm4E9qZRILevFzb5vFsjf3njR1a1EDM1DXHnxjQiMgeugcObxFLouksfadysuCXJJ8bZQ==
   dependencies:
     array-from "^2.1.1"
     es6-map "^0.1.5"
@@ -3669,7 +3669,6 @@ ioredis-mock@^4.21.1:
     fengari-interop "^0.1.2"
     lodash "^4.17.20"
     minimatch "^3.0.4"
-    object-assign "^4.1.1"
     standard-as-callback "^2.0.1"
 
 ioredis@^4.17.3:
@@ -4498,7 +4497,7 @@ oauth-sign@~0.9.0:
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
   integrity sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==
 
-object-assign@^4, object-assign@^4.1.1:
+object-assign@^4:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=

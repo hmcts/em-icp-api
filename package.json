@@ -43,7 +43,7 @@
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "ioredis": "^4.17.3",
-    "ioredis-mock": "^4.21.1",
+    "ioredis-mock": "^5.2.4",
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.3",
     "jwt-decode": "^2.2.0",
