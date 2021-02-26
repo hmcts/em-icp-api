@@ -1271,12 +1271,11 @@
   resolved "https://registry.yarnpkg.com/@types/cors/-/cors-2.8.9.tgz#4bd1fcac72eca8d5bec93e76c7fdcbdc1bc2cd4a"
   integrity sha512-zurD1ibz21BRlAOIKP8yhrxlqKx6L9VCwkB5kMiP6nZAhoF5MvC7qS1qPA7nRcr1GJolfkQC7/EAL4hdYejLtg==
 
-"@types/csurf@^1.9.36":
-  version "1.9.36"
-  resolved "https://registry.yarnpkg.com/@types/csurf/-/csurf-1.9.36.tgz#f0139ef24f4d2a1a59674e2fcd7a13d86cff626a"
-  integrity sha512-arAJD++ZGT9eZVR+BQa1eaT7Id5pZ9nt4/x2Emxg8OEo6WAQV0ztVXS7A8n0RDd4KAaw2YYcwZUdjUvqg2k9tw==
+"@types/csurf@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@types/csurf/-/csurf-1.11.0.tgz#2809e89f55f12a2df8cd2826c06dfd66600dd14d"
+  integrity sha512-IwqGRWImcbIdwumGprYR0EgIZ7GAklOIGaNqe2u7jb0YUilg7yrrxXth11VA/AJK8wQWYHxTQagkCE75oaoBvQ==
   dependencies:
-    "@types/express" "*"
     "@types/express-serve-static-core" "*"
 
 "@types/es6-promisify@^6.0.0":
