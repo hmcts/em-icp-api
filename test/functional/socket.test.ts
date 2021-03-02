@@ -19,6 +19,8 @@ describe("Socket io functional tests", () => {
   });
 
   beforeEach(async () => {
+    await TestUtil.waitFor(10000)
+
     socket = io.connect(baseUrl, {
       path: "/icp/socket.io",
       secure: false,

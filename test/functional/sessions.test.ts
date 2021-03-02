@@ -18,6 +18,10 @@ describe("/GET sessions", () => {
     token = await TestUtil.requestUserToken(username, password);
   });
 
+  beforeEach(async () => {
+    await TestUtil.waitFor(10000)
+  });
+
   it("it should return (200) OK", async () => {
     headers = { Authorization: `Bearer ${token}` };
     const response = await axios.get(`${frontendURL}/icp/sessions/${caseId}`, { headers: headers });

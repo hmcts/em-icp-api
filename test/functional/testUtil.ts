@@ -70,4 +70,8 @@ export class TestUtil {
       throw err;
     }
   }
+
+  static async waitFor(time): Promise<void> {
+    return new Promise(res => setTimeout(res, time));
+  }
 }
