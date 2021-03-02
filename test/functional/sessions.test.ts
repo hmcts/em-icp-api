@@ -19,7 +19,7 @@ describe("/GET sessions", () => {
   });
 
   beforeEach(async () => {
-    await TestUtil.waitFor(10000)
+    await TestUtil.waitFor(10000);
   });
 
   it("it should return (200) OK", async () => {
