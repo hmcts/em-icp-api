@@ -30,15 +30,11 @@ export class TestUtil {
     await axios.delete(`${idamUrl}/testing-support/accounts/${username}`)
       .catch(() => console.log("User could not be found"));
     const userInfo = {
-      "email": username,
-      "forename": "John",
-      "password": password,
-      "roles": [
-        {
-          "code": "caseworker",
-        },
-      ],
-      "surname": "Smith",
+      forename: "John",
+      surname: "Smith",
+      email: username,
+      password: password,
+      roles: [{ code: "caseworker" }],
     };
 
     try {
