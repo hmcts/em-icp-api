@@ -3,8 +3,6 @@ import axios from "axios";
 import chai from "chai";
 
 const frontendURL = process.env.TEST_URL || "http://localhost:8080";
-const username = "icpFTestUser@em.com";
-const password = "4590fgvhbfgbDdffm3lk4j";
 const caseId = "1234";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -14,12 +12,12 @@ describe("/GET sessions", () => {
   let headers;
 
   before(async () => {
-    await TestUtil.createNewUser(username, password);
-    token = await TestUtil.requestUserToken(username, password);
+    await TestUtil.createNewUser();
+    token = await TestUtil.requestUserToken();
   });
 
   beforeEach(async () => {
-    await TestUtil.waitFor(10000);
+    await TestUtil.waitFor(500);
   });
 
   it("it should return (200) OK", async () => {
