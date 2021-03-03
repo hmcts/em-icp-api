@@ -21,7 +21,7 @@ export class TestUtil {
       const response = await axios.get(`${frontendURL}/icp/sessions/${caseId}`, { headers: headers });
       return response.data;
     } catch (err) {
-      console.log("error creating new icp session");
+      console.log("error creating new icp session", err);
       throw err;
     }
   }
