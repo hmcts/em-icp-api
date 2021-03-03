@@ -27,8 +27,6 @@ export class TestUtil {
   }
 
   static async createNewUser(): Promise<void> {
-    await axios.delete(`${idamUrl}/testing-support/accounts/${username}`)
-      .catch(() => console.log("User could not be found"));
     const userInfo = {
       forename: "John",
       surname: "Smith",
