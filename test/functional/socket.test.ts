@@ -11,13 +11,13 @@ describe("Socket io functional tests", () => {
 
   before(async () => {
     await TestUtil.createNewUser();
-    token = await TestUtil.requestUserToken();
-    const icpSession = await TestUtil.createIcpSession(token, "1234");
-    clientInfo = { username: icpSession.username, ...icpSession.session };
   });
 
   beforeEach(async () => {
     await TestUtil.waitFor(2000);
+    token = await TestUtil.requestUserToken();
+    const icpSession = await TestUtil.createIcpSession(token, "1234");
+    clientInfo = { username: icpSession.username, ...icpSession.session };
 
     socket = io.connect(baseUrl, {
       path: "/icp/socket.io",

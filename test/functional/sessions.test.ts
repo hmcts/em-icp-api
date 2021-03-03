@@ -13,11 +13,11 @@ describe("/GET sessions", () => {
 
   before(async () => {
     await TestUtil.createNewUser();
-    token = await TestUtil.requestUserToken();
   });
 
   beforeEach(async () => {
     await TestUtil.waitFor(2000);
+    token = await TestUtil.requestUserToken();
   });
 
   it("it should return (200) OK", async () => {
