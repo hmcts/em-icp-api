@@ -1,5 +1,4 @@
 provider "azurerm" {
-  version = "=2.49.0"
   features {}
 }
 
@@ -42,7 +41,7 @@ resource "azurerm_application_insights" "appinsights" {
 }
 
 module "local_key_vault" {
-  source                     = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+  source                     = "git@github.com:hmcts/cnp-module-key-vault?ref=azurermv2"
   product                    = local.app_full_name
   env                        = var.env
   tenant_id                  = var.tenant_id

@@ -7,25 +7,19 @@ import { Actions } from "./api/model/actions";
 import { PresenterUpdate } from "./api/model/interfaces";
 const socketio = require("socket.io");
 
-let io: Server, socket: Socket;
+let io: Server, ioClient: Socket;
 const logger = Logger.getLogger("socket");
 const redisClient = new RedisClient();
 
 export class SocketIO {
 
   static start(server: HttpServer): void {
-    io = socketio(server, {
-      cors: {
-        origin: "*:*",
-        methods: ["GET", "POST", "DELETE"],
-        credentials: true,
-      },
-      path: "/icp/socket.io",
-    });
-    io.use(SocketIO.verifyIdamToken).on("connection", SocketIO.addEventListeners);
+    io = socketio(server, { "origins": "*:*" , path: "/icp/socket.io" } );
+    io.use(SocketIO.verifyIdamToken)
+      .on("connection", SocketIO.addEventListeners);
   }
 
-  static async verifyIdamToken(client: Socket, next: (err?: any) => void): Promise<void> {
+  static async verifyIdamToken(client: Socket, next: (err?: unknown) => void): Promise<void> {
     try {
       await new IdamClient().verifyToken(client.request.headers["authorization"]);
       next();
@@ -36,7 +30,7 @@ export class SocketIO {
   }
 
   static addEventListeners(client: Socket): void {
-    socket = client;
+    ioClient = client;
     logger.info("SocketIO client connecting...");
     client.on("join", SocketIO.onJoin);
     client.on(Actions.UPDATE_SCREEN, SocketIO.onUpdateScreen);
@@ -48,21 +42,21 @@ export class SocketIO {
 
   static async onJoin(data: { caseId: string, sessionId: string, username: string }): Promise<void> {
     const session = await redisClient.getSession(data.caseId);
-    socket.join(data.sessionId);
+    ioClient.join(data.sessionId);
     await redisClient.getLock(data.caseId);
 
-    if (io.sockets.adapter.rooms[session.sessionId]) {
+    if (io.sockets.adapter.rooms[session.sessionId].length === 1) {
       session.presenterName = "";
       session.presenterId = "";
       session.participants = "";
     }
 
     const participants = session.participants ? JSON.parse(session.participants) : {};
-    participants[socket.id] = data.username;
+    participants[ioClient.id] = data.username;
     await redisClient.onJoin(session, participants);
 
-    io.to(socket.id).emit(Actions.CLIENT_JOINED, {
-      client: { id: socket.id, username: data.username },
+    io.to(ioClient.id).emit(Actions.CLIENT_JOINED, {
+      client: { id: ioClient.id, username: data.username },
       presenter: { id: session.presenterId, username: session.presenterName },
     });
 
@@ -82,7 +76,7 @@ export class SocketIO {
   }
 
   static onLeave(): void {
-    socket.disconnect();
+    ioClient.disconnect();
     logger.info("SocketIO client disconnecting");
   }
 
@@ -97,10 +91,10 @@ export class SocketIO {
   }
 
   static onDisconnection(): void {
-    for(const room of socket.rooms.keys()) {
-      io.in(room).emit(Actions.CLIENT_DISCONNECTED, socket.id);
-    }
-    socket.leave(socket.id);
+    Object.keys(ioClient.rooms)
+      .forEach(room => io.in(room)
+        .emit(Actions.CLIENT_DISCONNECTED, ioClient.id));
+    ioClient.leave(ioClient.id);
     logger.info("SocketIO client disconnecting");
   }
 }

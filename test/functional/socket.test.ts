@@ -3,20 +3,23 @@ import chai from "chai";
 
 import { Actions } from "../../api/model/actions";
 const io = require("socket.io-client");
+const testUtil = new TestUtil();
 
 describe("Socket io functional tests", () => {
   const baseUrl = process.env.TEST_URL || "http://localhost:8080";
+  const username = "icpFTestUser@em.com";
+  const password = "4590fgvhbfgbDdffm3lk4j";
 
-  let clientInfo, socket, token: string;
+  let icpSession, socket, token: string;
 
   before(async () => {
-    token = await TestUtil.requestUserToken();
-    const icpSession = await TestUtil.createIcpSession(token, "1234");
-    clientInfo = { username: icpSession.username, ...icpSession.session };
+    await testUtil.createNewUser(username, password);
+    token = await testUtil.requestUserToken(username, password);
+    icpSession = await testUtil.createIcpSession(token, "1234");
   });
 
   beforeEach(async () => {
-    await TestUtil.waitFor(1000);
+    await testUtil.delay(2000);
     socket = io.connect(baseUrl, {
       path: "/icp/socket.io",
       secure: false,
@@ -48,14 +51,14 @@ describe("Socket io functional tests", () => {
 
       done();
     });
-    socket.emit("join", clientInfo);
+    socket.emit("join", icpSession);
   });
 
   it("join web socket icp session and trigger NEW_PARTICIPANT_JOINED event", (done) => {
     socket.on(Actions.NEW_PARTICIPANT_JOINED, () => {
       done();
     });
-    socket.emit("join", clientInfo);
+    socket.emit("join", icpSession);
   });
 
   it("join web socket icp session and trigger PARTICIPANTS_UPDATED event", (done) => {
@@ -64,11 +67,13 @@ describe("Socket io functional tests", () => {
       chai.expect(data[id]).equal("John Smith");
       done();
     });
-    socket.emit("join", clientInfo);
+    socket.emit("join", icpSession);
   });
 
   it("emit disconnecting event and listen for CLIENT_DISCONNECTED event", (done) => {
-    socket.on("disconnect", () => done());
-    socket.emit("leave");
+    socket.on(Actions.CLIENT_DISCONNECTED, () => {
+      done();
+    });
+    socket.emit("disconnecting");
   });
 });

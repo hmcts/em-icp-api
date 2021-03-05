@@ -6,8 +6,6 @@ const config = require("config");
 const url = require("url");
 const frontendURL = process.env.TEST_URL || "http://localhost:8080";
 const idamUrl = process.env.IDAM_API_BASE_URL || "http://localhost:5000";
-const username = "icpFTestUser@em.com";
-const password = "4590fgvhbfgbDdffm3lk4j";
 
 propertiesVolume.addTo(config);
 
@@ -15,19 +13,44 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 export class TestUtil {
 
-  static async createIcpSession(token: string, caseId: string): Promise<{ username: string, session: Session }> {
-    const headers = { Authorization: `Bearer ${token}` };
+  async createIcpSession(token: string, caseId: string): Promise<{ username: string, session: Session }> {
+    const headers = {
+      "Authorization": `Bearer ${token}`,
+    };
+
     try {
       const response = await axios.get(`${frontendURL}/icp/sessions/${caseId}`, { headers: headers });
       return response.data;
     } catch (err) {
-      console.log("error creating new icp session", err.message);
+      console.log("error creating new icp session");
       throw err;
     }
   }
 
-  static async requestUserToken(): Promise<string> {
-    await this.createNewUser();
+  async createNewUser(username: string, password: string): Promise<void> {
+    await axios.delete(`${idamUrl}/testing-support/accounts/${username}`)
+      .catch(() => console.log("User could not be found"));
+    const userInfo = {
+      "email": username,
+      "forename": "John",
+      "password": password,
+      "roles": [
+        {
+          "code": "caseworker",
+        },
+      ],
+      "surname": "Smith",
+    };
+
+    try {
+      await axios.post(`${idamUrl}/testing-support/accounts`, userInfo).catch(err => console.log(err));
+    } catch (err) {
+      console.log("error creating new user");
+      throw err;
+    }
+  }
+
+  async requestUserToken(username: string, password: string): Promise<string> {
     const headers = {
       "Content-Type": "application/x-www-form-urlencoded",
     };
@@ -48,28 +71,8 @@ export class TestUtil {
     }
   }
 
-
-  static async createNewUser(): Promise<void> {
-    await axios.delete(`${idamUrl}/testing-support/accounts/${username}`)
-      .catch(() => console.log("User could not be found"));
-
-    const userInfo = {
-      forename: "John",
-      surname: "Smith",
-      email: username,
-      password: password,
-    };
-
-    try {
-      await axios.post(`${idamUrl}/testing-support/accounts`, userInfo)
-        .catch(err => console.log(err));
-    } catch (err) {
-      console.log("error creating new user");
-      throw err;
-    }
-  }
-
-  static async waitFor(time): Promise<void> {
+  async delay(time): Promise<void> {
     return new Promise(res => setTimeout(res, time));
   }
+
 }
