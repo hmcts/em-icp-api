@@ -6,17 +6,19 @@ const io = require("socket.io-client");
 
 describe("Socket io functional tests", () => {
   const baseUrl = process.env.TEST_URL || "http://localhost:8080";
+  const username = "icpFTestUser@em.com";
+  const password = "4590fgvhbfgbDdffm3lk4j";
 
   let clientInfo, socket, token: string;
 
   before(async () => {
-    token = await TestUtil.requestUserToken();
+    await TestUtil.createNewUser(username, password);
+    token = await TestUtil.requestUserToken(username, password);
     const icpSession = await TestUtil.createIcpSession(token, "1234");
     clientInfo = { username: icpSession.username, ...icpSession.session };
   });
 
   beforeEach(async () => {
-    await TestUtil.waitFor(1000);
     socket = io.connect(baseUrl, {
       path: "/icp/socket.io",
       secure: false,
