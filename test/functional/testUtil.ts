@@ -6,6 +6,8 @@ const config = require("config");
 const url = require("url");
 const frontendURL = process.env.TEST_URL || "http://localhost:8080";
 const idamUrl = process.env.IDAM_API_BASE_URL || "http://localhost:5000";
+const username = "icpFTestUser@em.com";
+const password = "4590fgvhbfgbDdffm3lk4j";
 
 propertiesVolume.addTo(config);
 
@@ -13,33 +15,30 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 export class TestUtil {
 
-  async createIcpSession(token: string, caseId: string): Promise<{ username: string, session: Session }> {
-    const headers = {
-      "Authorization": `Bearer ${token}`,
-    };
-
+  static async createIcpSession(token: string, caseId: string): Promise<{ username: string, session: Session }> {
+    const headers = { "Authorization": `Bearer ${token}` };
     try {
       const response = await axios.get(`${frontendURL}/icp/sessions/${caseId}`, { headers: headers });
       return response.data;
     } catch (err) {
-      console.log("error creating new icp session");
+      console.log("error creating new icp session", err.message);
       throw err;
     }
   }
 
-  async createNewUser(username: string, password: string): Promise<void> {
+  static async createNewUser(): Promise<void> {
     await axios.delete(`${idamUrl}/testing-support/accounts/${username}`)
       .catch(() => console.log("User could not be found"));
     const userInfo = {
       "email": username,
-      "forename": "John",
       "password": password,
+      "forename": "John",
+      "surname": "Smith",
       "roles": [
         {
           "code": "caseworker",
         },
       ],
-      "surname": "Smith",
     };
 
     try {
@@ -50,7 +49,8 @@ export class TestUtil {
     }
   }
 
-  async requestUserToken(username: string, password: string): Promise<string> {
+  static async requestUserToken(): Promise<string> {
+    await this.createNewUser();
     const headers = {
       "Content-Type": "application/x-www-form-urlencoded",
     };
@@ -71,7 +71,7 @@ export class TestUtil {
     }
   }
 
-  async delay(time): Promise<void> {
+  static async waitFor(time): Promise<void> {
     return new Promise(res => setTimeout(res, time));
   }
 }
