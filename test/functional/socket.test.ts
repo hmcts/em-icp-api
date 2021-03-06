@@ -1,8 +1,10 @@
-import { TestUtil } from "./testUtil";
+import {TestUtil} from "./testUtil";
 import chai from "chai";
 
-import { Actions } from "../../api/model/actions";
+import {Actions} from "../../api/model/actions";
+
 const io = require("socket.io-client");
+const testUtil = new TestUtil();
 
 describe("Socket io functional tests", () => {
   const baseUrl = process.env.TEST_URL || "http://localhost:8080";
@@ -10,18 +12,19 @@ describe("Socket io functional tests", () => {
   let clientInfo, socket, token: string;
 
   before(async () => {
-    token = await TestUtil.requestUserToken();
+    token = await testUtil.requestUserToken();
     console.log("this is the token ", token);
-    clientInfo = await TestUtil.createIcpSession(token, "1234");
+    const icpSession = await testUtil.createIcpSession(token, "1234");
+    clientInfo = {username: icpSession.username, ...icpSession.session};
   });
 
   beforeEach(async () => {
-    await TestUtil.waitFor(2000);
+    await testUtil.waitFor(2000);
     socket = io.connect(baseUrl, {
       path: "/icp/socket.io",
       secure: false,
       rejectUnauthorized: false,
-      extraHeaders: { "Authorization": `Bearer ${token}` },
+      extraHeaders: {"Authorization": `Bearer ${token}`},
     });
   });
 

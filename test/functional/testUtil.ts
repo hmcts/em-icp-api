@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as propertiesVolume from "@hmcts/properties-volume";
-import { Session } from "../../api/model/interfaces";
+import {Session} from "../../api/model/interfaces";
 
 const config = require("config");
 const url = require("url");
@@ -15,10 +15,10 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 export class TestUtil {
 
-  static async createIcpSession(token: string, caseId: string): Promise<{ username: string, session: Session }> {
-    const headers = { "Authorization": `Bearer ${token}` };
+  async createIcpSession(token: string, caseId: string): Promise<{ username: string, session: Session }> {
+    const headers = {"Authorization": `Bearer ${token}`};
     try {
-      const response = await axios.get(`${frontendURL}/icp/sessions/${caseId}`, { headers: headers });
+      const response = await axios.get(`${frontendURL}/icp/sessions/${caseId}`, {headers: headers});
       return response.data;
     } catch (err) {
       console.log("error creating new icp session", err.message);
@@ -26,7 +26,7 @@ export class TestUtil {
     }
   }
 
-  static async createNewUser(): Promise<void> {
+  async createNewUser(): Promise<void> {
     await axios.delete(`${idamUrl}/testing-support/accounts/${username}`)
       .catch(() => console.log("User could not be found"));
     const userInfo = {
@@ -49,7 +49,7 @@ export class TestUtil {
     }
   }
 
-  static async requestUserToken(): Promise<string> {
+  async requestUserToken(): Promise<string> {
     await this.createNewUser();
     const headers = {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -63,7 +63,7 @@ export class TestUtil {
     params.append("username", username);
     params.append("password", password);
     try {
-      const response = await axios.post(`${idamUrl}/o/token`, params, { headers });
+      const response = await axios.post(`${idamUrl}/o/token`, params, {headers});
       return response.data["access_token"];
     } catch (err) {
       console.log("error fetching token");
@@ -71,7 +71,7 @@ export class TestUtil {
     }
   }
 
-  static async waitFor(time): Promise<void> {
+  async waitFor(time: number): Promise<void> {
     return new Promise(res => setTimeout(res, time));
   }
 }
