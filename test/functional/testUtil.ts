@@ -74,5 +74,4 @@ export class TestUtil {
   async delay(time): Promise<void> {
     return new Promise(res => setTimeout(res, time));
   }
-
 }
