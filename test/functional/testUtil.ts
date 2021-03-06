@@ -27,6 +27,9 @@ export class TestUtil {
   }
 
   async createNewUser(): Promise<void> {
+    console.log(`idamUrl==> ${idamUrl}`);
+    console.log(`frontendURL==> ${frontendURL}`);
+
     await axios.delete(`${idamUrl}/testing-support/accounts/${username}`)
       .catch(() => console.log("User could not be found"));
     const userInfo = {
@@ -34,12 +37,25 @@ export class TestUtil {
       "password": password,
       "forename": "John",
       "surname": "Smith",
+      "roles": [
+        {
+          "code": "caseworker",
+        },
+      ],
+      "userGroup": {
+        "code": "caseworker",
+      },
     };
 
     try {
       await axios.post(`${idamUrl}/testing-support/accounts`, userInfo).catch(err => console.log(err));
+
+      const userDetails = await axios.get(`${idamUrl}/testing-support/accounts/${username}`).catch(err => console.log(err));
+      console.log(`username==>${username}`);
+      console.log(`userDetails from Idam==>${userDetails}`);
+
     } catch (err) {
-      console.log("error creating new user");
+      console.log("error creating new user", err);
       throw err;
     }
   }

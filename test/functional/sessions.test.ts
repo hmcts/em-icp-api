@@ -15,16 +15,17 @@ describe("/GET sessions", () => {
 
   before(async () => {
     token = await testUtil.requestUserToken();
-    console.log("this is the token ", token);
+    console.log("this is the token \n", token);
   });
 
   beforeEach(async () => {
-    await testUtil.waitFor(2000);
+    await testUtil.waitFor(3000);
   });
 
   it("it should return (200) OK", async () => {
     headers = {"Authorization": `Bearer ${token}`};
     const response = await axios.get(`${frontendURL}/icp/sessions/${caseId}`, {headers: headers});
+    console.log("response => ", response);
     chai.expect(response.status).equal(200);
   });
 
