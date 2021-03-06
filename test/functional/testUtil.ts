@@ -34,11 +34,6 @@ export class TestUtil {
       "password": password,
       "forename": "John",
       "surname": "Smith",
-      "roles": [
-        {
-          "code": "caseworker",
-        },
-      ],
     };
 
     try {
