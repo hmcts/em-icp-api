@@ -31,11 +31,19 @@ export class IdamClient {
 
   public async verifyToken(token: string): Promise<void> {
     try {
+      console.log(`token==>${token}`);
       const tokenString = token.split(" ")[1];
+      console.log(`tokenString==>${tokenString}`);
       const decodedHeader = jwtDecode(tokenString, { header: true });
+      console.log(`decodedHeader==>${decodedHeader}`);
       const algorithm = await this.getJwks(decodedHeader.alg);
+      console.log(`algorithm==>${algorithm}`);
       const pem = jwkToPem(algorithm);
-      return await jwt.verify(tokenString, pem, {algorithms: algorithm.alg});
+      console.log(`pem==>${pem}`);
+      const verify = await jwt.verify(tokenString, pem, {algorithms: algorithm.alg});
+      console.log(`verify==>${verify}`);
+
+      return verify;
     } catch (e) {
       logger.error("Idam Client: Error encountered when verifying User token");
       logger.error(e);
