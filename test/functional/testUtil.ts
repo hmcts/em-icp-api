@@ -6,7 +6,7 @@ const config = require("config");
 const url = require("url");
 const frontendURL = process.env.TEST_URL || "http://localhost:8080";
 const idamUrl = process.env.IDAM_API_BASE_URL || "http://localhost:5000";
-const username = "icpFTestUser@em.com";
+const username = "icpUser@evidence.com";
 const password = "4590fgvhbfgbDdffm3lk4j";
 
 propertiesVolume.addTo(config);
