@@ -30,8 +30,8 @@ describe("/GET sessions", () => {
   });
 
   it("it should return (401) Unauthorized with invalid token", async () => {
-    headers = {"Authorization": `Bearer ${token}`};
-    await axios.get(`${frontendURL}/icp/sessions/${caseId}`, {headers: headers})
+    headers = { "Authorization": "Bearer token" };
+    await axios.get(`${frontendURL}/icp/sessions/${caseId}`, { headers: headers })
       .catch((err) => {
         if (err) {
           chai.expect(err.response.status).equal(401);

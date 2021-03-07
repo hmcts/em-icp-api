@@ -6,8 +6,8 @@ const config = require("config");
 const url = require("url");
 const frontendURL = process.env.TEST_URL || "http://localhost:8080";
 const idamUrl = process.env.IDAM_API_BASE_URL || "http://localhost:5000";
-const username = "icpFTestUser@em.com";
-const password = "4590fgvhbfgbDdffm3lk4j";
+// const username = "icpFTestUser@em.com";
+// const password = "4590fgvhbfgbDdffm3lk4j";
 
 propertiesVolume.addTo(config);
 
@@ -30,11 +30,11 @@ export class TestUtil {
     console.log(`idamUrl==> ${idamUrl}`);
     console.log(`frontendURL==> ${frontendURL}`);
 
-    await axios.delete(`${idamUrl}/testing-support/accounts/${username}`)
+    await axios.delete(`${idamUrl}/testing-support/accounts/icpFTestUser@em.com`)
       .catch(() => console.log("User could not be found"));
     const userInfo = {
-      "email": username,
-      "password": password,
+      "email": "icpFTestUser@em.com",
+      "password": "4590fgvhbfgbDdffm3lk4j",
       "forename": "John",
       "surname": "Smith",
       "roles": [
@@ -50,8 +50,8 @@ export class TestUtil {
     try {
       await axios.post(`${idamUrl}/testing-support/accounts`, userInfo).catch(err => console.log(err));
 
-      const userDetails = await axios.get(`${idamUrl}/testing-support/accounts/${username}`).catch(err => console.log(err));
-      console.log(`username==>${username}`);
+      const userDetails = await axios.get(`${idamUrl}/testing-support/accounts/icpFTestUser@em.com`).catch(err => console.log(err));
+      console.log("username==>icpFTestUser@em.com");
       console.log(`userDetails from Idam==>${userDetails}`);
 
     } catch (err) {
@@ -71,8 +71,8 @@ export class TestUtil {
     params.append("redirect_uri", process.env.IDAM_WEBSHOW_WHITELIST || "http://localhost:8080/oauth2redirect");
     params.append("client_id", "webshow");
     params.append("client_secret", process.env.FUNCTIONAL_TEST_CLIENT_OAUTH_SECRET || "AAAAAAAAAAAAAAAA");
-    params.append("username", username);
-    params.append("password", password);
+    params.append("username", "icpFTestUser@em.com");
+    params.append("password", "4590fgvhbfgbDdffm3lk4j");
     try {
       const response = await axios.post(`${idamUrl}/o/token`, params, {headers});
       return response.data["access_token"];

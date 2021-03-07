@@ -1,8 +1,7 @@
 import {TestUtil} from "./testUtil";
 import chai from "chai";
 
-import {Actions} from "../../api/model/actions";
-
+import { Actions } from "../../api/model/actions";
 const io = require("socket.io-client");
 const testUtil = new TestUtil();
 
