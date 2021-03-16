@@ -18,7 +18,10 @@
     "test:smoke": "NODE_ENV=test mocha -r ts-node/register 'test/smoke/healthcheck.test.ts' --timeout 25000 --reporter spec --exit",
     "test:functional": "cross-env NODE_PATH=. mocha --require ts-node/register 'test/functional/*.test.ts' --timeout 25000 --reporter spec --recursive --exit",
     "test:fullfunctional": "yarn test:functional",
-    "cichecks": "yarn && yarn lint  && yarn test"
+    "cichecks": "yarn && yarn lint  && yarn test",
+    "test-pact": "NODE_PATH=. LOG_LEVEL=error TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --timeout 10000 -r ts-node/register test/pact/**/*.spec.ts",
+    "publish-pact": "NODE_PATH=. LOG_LEVEL=error TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --timeout 15000 -r ts-node/register  test/pact/publish/publish.ts --reporter spec",
+    "test:pact:run-and-publish": "yarn test-pact && yarn publish-pact"
   },
   "dependencies": {
     "@hmcts/info-provider": "^1.0.0",
@@ -61,13 +64,15 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.12.16",
-    "@types/chai": "^4.2.11",
+    "@types/chai": "^4.2.15",
     "@types/chai-as-promised": "^7.1.1",
     "@types/mocha": "^8.2.1",
     "@types/sinon": "^7.0.12",
     "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/eslint-plugin-tslint": "^2.19.2",
     "@typescript-eslint/parser": "^3.1.0",
+    "@pact-foundation/pact": "^9.11.1",
+    "@pact-foundation/pact-node": "^10.9.7",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
     "chai": "^4.3.0",
@@ -75,6 +80,7 @@
     "cross-env": "^7.0.3",
     "debug": "^4.1.1",
     "eslint": "^6.8.0",
+    "git-rev-sync": "^2.0.0",
     "mocha": "^8.3.0",
     "nock": "^11.7.2",
     "nodemon": "^2.0.2",
