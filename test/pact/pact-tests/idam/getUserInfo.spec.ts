@@ -54,9 +54,9 @@ describe("IDAM API user details", () => {
       }).then(() => {
         pactSetUp.provider.verify();
         pactSetUp.provider.finalize();
-        });
       });
     });
+  });
 });
 
 export interface IdamGetInfoResponseDto {
