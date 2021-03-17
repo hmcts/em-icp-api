@@ -38,4 +38,9 @@ withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
   disableLegacyDeployment()
+  onMaster() {
+    enablePactAs([
+      AppPipelineDsl.PactRoles.CONSUMER
+    ])
+  }
 }
