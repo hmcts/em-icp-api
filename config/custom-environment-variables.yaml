@@ -17,6 +17,6 @@ rateLimit:
   time: RATE_LIMIT_TIME
   max: RATE_LIMITE_MAX
 pact:
-  branchName: "PACT_BRANCH_NAME"
-  brokerUrl: "PACT_BROKER_URL"
-  consumerVersion: "PACT_CONSUMER_VERSION"
+  branchName: PACT_BRANCH_NAME
+  brokerUrl: PACT_BROKER_URL
+  consumerVersion: PACT_CONSUMER_VERSION
