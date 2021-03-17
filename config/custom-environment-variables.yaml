@@ -20,3 +20,4 @@ pact:
   branchName: PACT_BRANCH_NAME
   brokerUrl: PACT_BROKER_URL
   consumerVersion: PACT_CONSUMER_VERSION
+  pactBrokerUrl: PACT_BROKER_URL
