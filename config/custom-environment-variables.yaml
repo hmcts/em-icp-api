@@ -3,10 +3,6 @@ redis:
   port: REDIS_PORT
   password: REDIS_PASSWORD
   useTLS: REDIS_USE_TLS
-
-pact:
-  pactBrokerUrl: PACT_BROKER_URL
-
 appInsights:
   instrumentationKey: APPINSIGHTS_INSTRUMENTATIONKEY
 
@@ -20,3 +16,7 @@ s2s:
 rateLimit:
   time: RATE_LIMIT_TIME
   max: RATE_LIMITE_MAX
+pact:
+  branchName: "PACT_BRANCH_NAME"
+  brokerUrl: "PACT_BROKER_URL"
+  consumerVersion: "PACT_CONSUMER_VERSION"

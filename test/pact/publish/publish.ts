@@ -7,13 +7,13 @@ const publish = async (): Promise<void> => {
   try {
 
     const pactBroker = config.get("pact.brokerUrl") ?
-      process.env.PACT_BROKER_FULL_URL : "http://localhost:80";
+      config.get("pact.brokerUrl") : "http://localhost:80";
 
-    const pactTag = git.branch() ?
-      git.branch() : config.get("pact.branchName");
+    const pactTag = config.get("pact.branchName") ?
+      config.get("pact.branchName") : "Dev";
 
-    const consumerVersion = git.short() ?
-      git.short() : config.get("pact.consumerVersion");
+    const consumerVersion = config.get("pact.consumerVersion") !== "" ?
+      config.get("pact.consumerVersion") : git.short();
 
     const certPath = path.resolve(__dirname, "../cer/ca-bundle.crt");
     process.env.SSL_CERT_FILE = certPath;
