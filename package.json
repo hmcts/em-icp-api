@@ -21,6 +21,7 @@
     "cichecks": "yarn && yarn lint  && yarn test",
     "test-pact": "NODE_PATH=. LOG_LEVEL=error TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --timeout 10000 -r ts-node/register test/pact/**/*.spec.ts",
     "publish-pact": "NODE_PATH=. LOG_LEVEL=error TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --timeout 15000 -r ts-node/register  test/pact/publish/publish.ts --reporter spec",
+    "test:can-i-deploy:consumer": "export VERSION=$(git rev-parse --short HEAD) && SSL_CERT_FILE=test/pact/cer/ca-bundle.crt pact-broker can-i-deploy --pacticipant 'em_icpApi' --version ${VERSION} --broker-base-url https://pact-broker.platform.hmcts.net",
     "test:pact:run-and-publish": "yarn test-pact && yarn publish-pact"
   },
   "dependencies": {
