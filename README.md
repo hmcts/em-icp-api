@@ -6,6 +6,7 @@ The In Court Presentation API is a Node Js backend server application that facil
 ### Setup and running locally
 Setup dependencies using Docker Compose:
 ```
+$ brew install redis
 $ az login
 $ az acr login --name hmctspublic && az acr login --name hmctsprivate
 $ docker-compose -f docker-compose-dependencies.yml pull
