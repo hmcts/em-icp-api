@@ -48,6 +48,7 @@
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.4",
     "jwt-decode": "^3.1.2",
+    "lodash": "4.17.21",
     "require-directory": "^2.1.1",
     "socket.io": "3.1.1",
     "socket.io-client": "^3.1.1",
@@ -58,6 +59,11 @@
     "typescript": "^4.1.5",
     "uuid": "^3.4.0",
     "xmlhttprequest-ssl": "^1.6.2"
+  },
+  "resolutions": {
+    "xmlhttprequest-ssl": "^1.6.2",
+    "lodash": "^4.17.21",
+    "y18n": "^5.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
