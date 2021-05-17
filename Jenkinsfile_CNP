@@ -38,4 +38,15 @@ withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
   disableLegacyDeployment()
+
+  after('fullFunctionalTest') {
+    publishHTML([
+      allowMissing         : true,
+      alwaysLinkToLastBuild: true,
+      keepAll              : true,
+      reportDir            : "functional-output/reports/html",
+      reportFiles          : 'index.html',
+      reportName           : 'EM-ShowCase Full functional Tests'
+    ])
+  }
 }

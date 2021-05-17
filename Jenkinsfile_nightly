@@ -40,4 +40,15 @@ withNightlyPipeline(type, product, component) {
 //  enableCrossBrowserTest()
 //  enableSecurityScan()
   enableFullFunctionalTest(200)
+
+  after('fullFunctionalTest') {
+    publishHTML([
+      allowMissing         : true,
+      alwaysLinkToLastBuild: true,
+      keepAll              : true,
+      reportDir            : "functional-output/reports/html",
+      reportFiles          : 'index.html',
+      reportName           : 'EM-ShowCase Full functional Tests'
+    ])
+  }
 }
