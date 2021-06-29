@@ -1,5 +1,7 @@
 FROM hmctspublic.azurecr.io/base/node:12-alpine as base
 
+USER hmcts
+
 COPY --chown=hmcts:hmcts . .
 RUN yarn install --production \
   && yarn cache clean
