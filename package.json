@@ -40,8 +40,10 @@
     "config": "^3.3.3",
     "cookie-parser": "^1.4.4",
     "csurf": "^1.11.0",
+    "engine.io": "^6.1.3",
     "express": "^4.17.1",
     "express-rate-limit": "^5.1.3",
+    "follow-redirects": "^1.14.9",
     "helmet": "^3.21.2",
     "ioredis": "^4.17.3",
     "ioredis-mock": "^4.21.1",
@@ -53,13 +55,14 @@
     "socket.io": "3.1.1",
     "socket.io-client": "^3.1.1",
     "superagent": "^6.1.0",
+    "swagger-ui-dist": "^4.5.2",
     "swagger-ui-express": "^4.1.4",
     "ts-node": "^8.6.2",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.1.5",
     "uuid": "^3.4.0",
-    "xmlhttprequest-ssl": "^1.6.2",
-    "ws": "^7.4.6"
+    "ws": "^7.4.6",
+    "xmlhttprequest-ssl": "^1.6.2"
   },
   "resolutions": {
     "xmlhttprequest-ssl": "^1.6.2",
