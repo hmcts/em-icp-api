@@ -1634,13 +1634,13 @@ babel-eslint@^10.1.0:
     eslint-visitor-keys "^1.0.0"
     resolve "^1.12.0"
 
-babel-loader@^8.0.6:
-  version "8.2.4"
-  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.2.4.tgz#95f5023c791b2e9e2ca6f67b0984f39c82ff384b"
-  integrity sha512-8dytA3gcvPPPv4Grjhnt8b5IIiTcq/zeXOPk4iTYI0SVXcsmuGg7JtBRDp8S9X+gJfhQ8ektjXZlDu1Bb33U8A==
+babel-loader@^8.2.2:
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.2.2.tgz#9363ce84c10c9a40e6c753748e1441b60c8a0b81"
+  integrity sha512-JvTd0/D889PQBtUXJ2PXaKU/pjZDMtHA9V2ecm+eNRmmBCMR09a+fmpGTNwnJtFmFl5Ei7Vy47LjBb+L0wQ99g==
   dependencies:
     find-cache-dir "^3.3.1"
-    loader-utils "^2.0.0"
+    loader-utils "^1.4.0"
     make-dir "^3.1.0"
     schema-utils "^2.6.5"
 
@@ -4224,10 +4224,10 @@ nanoid@3.3.1:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.1.tgz#6347a18cac88af88f58af0b3594b723d5e99bb35"
   integrity sha512-n6Vs/3KGyxPQd6uO0eH4Bv0ojGSUvuLlIHtC3Y0kEO23YRge8H9x1GCzLn28YX0H66pMkxuaeESFq4tKISKwdw==
 
-nanoid@^3.3.1:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.2.tgz#c89622fafb4381cd221421c69ec58547a1eec557"
-  integrity sha512-CuHBogktKwpm5g2sRgv83jEy2ijFzBwMoYA60orPDR7ynsLijJDqgsi4RDGj3OJpy3Ieb+LYwiRmIOGyytgITA==
+nanoid@3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
+  integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
 
 natural-compare@^1.4.0:
   version "1.4.0"
@@ -4260,15 +4260,14 @@ nocache@2.1.0:
   resolved "https://registry.yarnpkg.com/nocache/-/nocache-2.1.0.tgz#120c9ffec43b5729b1d5de88cd71aa75a0ba491f"
   integrity sha512-0L9FvHG3nfnnmaEQPjT9xhfN4ISk0A8/2j4M37Np4mcDesJjHgEUfgPhdCyZuFI954tjokaIj/A3NdpFNdEh4Q==
 
-nock@^11.7.2:
-  version "11.9.1"
-  resolved "https://registry.yarnpkg.com/nock/-/nock-11.9.1.tgz#2b026c5beb6d0dbcb41e7e4cefa671bc36db9c61"
-  integrity sha512-U5wPctaY4/ar2JJ5Jg4wJxlbBfayxgKbiAeGh+a1kk6Pwnc2ZEuKviLyDSG6t0uXl56q7AALIxoM6FJrBSsVXA==
+nock@^13.1.1:
+  version "13.1.1"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-13.1.1.tgz#3c830129d4560957f59b6f480a41ddbaf9cf57af"
+  integrity sha512-YKTR9MjfK3kS9/l4nuTxyYm30cgOExRHzkLNhL8nhEUyU4f8Za/dRxOqjhVT1vGs0svWo3dDnJTUX1qxYeWy5w==
   dependencies:
     debug "^4.1.0"
     json-stringify-safe "^5.0.1"
-    lodash "^4.17.13"
-    mkdirp "^0.5.0"
+    lodash.set "^4.3.2"
     propagate "^2.0.0"
 
 node-preload@^0.2.1:
