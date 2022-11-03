@@ -986,7 +986,7 @@
     js-yaml "^3.8.4"
     superagent "5"
 
-"@hmcts/nodejs-logging@^3.0.1", "@hmcts/nodejs-logging@^3.0.2":
+"@hmcts/nodejs-logging@^3.0.1":
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-3.0.4.tgz#82418571e85f0a275e021f53008195accc55e3b9"
   integrity sha512-42JgVVxxMI9JD+lnKkBcwIYAiJM/mIUlSLlqs8uVqnzHG/JdMhg1g6cYWqWc3UIhxl2KS+n8y4bh09nLC47nSA==
@@ -995,7 +995,7 @@
     on-finished "^2.3.0"
     winston "^2.4.5"
 
-"@hmcts/nodejs-logging@^4.0.4":
+"@hmcts/nodejs-logging@^4.0.0", "@hmcts/nodejs-logging@^4.0.4":
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-4.0.4.tgz#83d8757c6e2f28ac68b57c87b35d71f72024a5f2"
   integrity sha512-VtrVD6ERZKWu/iy17GZXNuFq/MoK0Q8DrEhd5P30WMzsYDrSKBIr3szEV8M3Ht59oaTm3MUA6Az7PldnFWg3Ow==
