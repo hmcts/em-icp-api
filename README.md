@@ -29,7 +29,7 @@ To view our REST API go to {HOST}:{PORT}/swagger
 
 ## Tech
 
-The ICP API uses the following technologies:
+The ICP API uses the following technologies: 
 
 - Node (v12.0.0)
 - Redis
