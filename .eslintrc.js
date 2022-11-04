@@ -4,6 +4,7 @@ module.exports = {
   "globals": { "Atomics": "readonly", "SharedArrayBuffer": "readonly" },
   "parser": "@babel/eslint-parser",
   "parserOptions": {
+    "requireConfigFile": false,
     "ecmaVersion": 2018,
     "sourceType": "module",
   },
