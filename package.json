@@ -64,14 +64,14 @@
     "typescript": "^4.8.4",
     "typescript-eslint": "^0.0.1-alpha.0",
     "uuid": "^9.0.0",
-    "ws": "^7.4.6",
+    "ws": "^8.0.0",
     "xmlhttprequest-ssl": "^2.1.0"
   },
   "resolutions": {
     "xmlhttprequest-ssl": "^1.6.2",
     "lodash": "^4.17.21",
     "y18n": "^5.0.5",
-    "ws": "^7.4.6",
+    "ws": "^8.0.0",
     "axios": "^1.0.0"
   },
   "devDependencies": {
