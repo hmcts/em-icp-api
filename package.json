@@ -63,7 +63,7 @@
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.8.4",
     "typescript-eslint": "^0.0.1-alpha.0",
-    "uuid": "^3.4.0",
+    "uuid": "^9.0.0",
     "ws": "^7.4.6",
     "xmlhttprequest-ssl": "^2.1.0"
   },
