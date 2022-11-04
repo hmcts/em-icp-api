@@ -56,7 +56,7 @@
     "require-directory": "^2.1.1",
     "socket.io": "3.1.2",
     "socket.io-client": "^3.1.1",
-    "superagent": "^6.1.0",
+    "superagent": "^8.0.0",
     "swagger-ui-dist": "^4.5.2",
     "swagger-ui-express": "^4.1.4",
     "ts-node": "^8.6.2",
