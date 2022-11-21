@@ -58,7 +58,7 @@
     "socket.io": "4.5.3",
     "socket.io-client": "^4.0.0",
     "superagent": "^8.0.0",
-    "swagger-ui-dist": "^4.5.2",
+    "swagger-ui-dist": "^4.15.5",
     "swagger-ui-express": "^4.6.0",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^4.0.0",
