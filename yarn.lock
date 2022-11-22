@@ -1262,7 +1262,7 @@
   dependencies:
     type-detect "4.0.8"
 
-"@sinonjs/fake-timers@^7.0.4", "@sinonjs/fake-timers@^7.1.0":
+"@sinonjs/fake-timers@^7.0.4":
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/@sinonjs/fake-timers/-/fake-timers-7.1.2.tgz#2524eae70c4910edccf99b2f4e6efc5894aff7b5"
   integrity sha512-iQADsW4LBMISqZ6Ci1dupJL9pprqwcVFTcOsEmQOEhW+KLCVn/Y4Jrvg2k19fIHCp+iFprriYPTdRcQR8NbUPg==
@@ -1472,12 +1472,17 @@
     "@types/mime" "^1"
     "@types/node" "*"
 
-"@types/sinon@^10.0.2":
-  version "10.0.2"
-  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-10.0.2.tgz#f360d2f189c0fd433d14aeb97b9d705d7e4cc0e4"
-  integrity sha512-BHn8Bpkapj8Wdfxvh2jWIUoaYB/9/XhsL0oOvBfRagJtKlSl9NWPcFOz2lRukI9szwGxFtYZCTejJSqsGDbdmw==
+"@types/sinon@^10.0.13":
+  version "10.0.13"
+  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-10.0.13.tgz#60a7a87a70d9372d0b7b38cc03e825f46981fb83"
+  integrity sha512-UVjDqJblVNQYvVNUsj0PuYYw0ELRmgt1Nt5Vk0pT5f16ROGfcKJY8o1HVuMOJOpD727RrGB9EGvoaTQE5tgxZQ==
   dependencies:
-    "@sinonjs/fake-timers" "^7.1.0"
+    "@types/sinonjs__fake-timers" "*"
+
+"@types/sinonjs__fake-timers@*":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@types/sinonjs__fake-timers/-/sinonjs__fake-timers-8.1.2.tgz#bf2e02a3dbd4aecaf95942ecd99b7402e03fad5e"
+  integrity sha512-9GcLXF0/v3t80caGs5p2rRfkB+a8VBGLJZVih6CNFkx8IZ994wiKKLSRs9nuFwk1HevWs/1mnUmkApGrSGsShA==
 
 "@types/superagent@^3.8.3":
   version "3.8.7"
@@ -2957,10 +2962,10 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
-express-rate-limit@^6.6.0:
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-6.6.0.tgz#3bbc2546540d327b1b0bfa9ab5f1b2c49075af98"
-  integrity sha512-HFN2+4ZGdkQOS8Qli4z6knmJFnw6lZed67o6b7RGplWeb1Z0s8VXaj3dUgPIdm9hrhZXTRpCTHXA0/2Eqex0vA==
+express-rate-limit@^6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-6.7.0.tgz#6aa8a1bd63dfe79702267b3af1161a93afc1d3c2"
+  integrity sha512-vhwIdRoqcYB/72TK3tRZI+0ttS8Ytrk24GfmsxDXK9o9IhHNO5bXRiXQSExPQ4GbaE5tvIS7j1SGrxsuWs+sGA==
 
 express@^4.16.2, express@^4.18.2:
   version "4.18.2"
