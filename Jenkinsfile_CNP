@@ -1,5 +1,18 @@
 #!groovy
 
+import uk.gov.hmcts.contino.AppPipelineDsl
+
+properties([
+  [
+    $class       : 'GithubProjectProperty',
+    displayName  : 'Presenting Evidence Digitally Backend API',
+    projectUrlStr: 'https://github.com/hmcts/em-icp-api'
+  ],
+  pipelineTriggers([
+    [$class: 'GitHubPushTrigger']
+  ])
+])
+
 @Library("Infrastructure")
 
 def type = "nodejs"
