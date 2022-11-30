@@ -141,3 +141,23 @@ module "policy" {
   api_name               = module.api.name
   api_policy_xml_content = local.api_policy
 }
+
+resource "azurerm_web_pubsub" "ped_web_pubsub" {
+  name                          = "${local.app_full_name}-webpubsub-${var.env}"
+  location                      = var.location
+  resource_group_name           = "${local.app_full_name}-${var.env}"
+  sku                           = "Standard_S1"
+  capacity                      = 1
+  public_network_access_enabled = true
+  live_trace {
+    enabled                     = true
+    messaging_logs_enabled      = true
+    connectivity_logs_enabled   = false
+  }
+  tags                          = var.common_tags
+
+  identity {
+   type         = "UserAssigned"
+   identity_ids = [data.azurerm_user_assigned_identity.em-shared-identity.id]
+  }
+}
