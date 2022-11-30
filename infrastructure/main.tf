@@ -158,5 +158,6 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
 
   identity {
    type         = "UserAssigned"
-   identity_ids = [data.azurerm_user_assigned_identity.rpa-shared-identity.id]
+   identity_ids = [data.azurerm_user_assigned_identity.em-shared-identity.id]
   }
+}
