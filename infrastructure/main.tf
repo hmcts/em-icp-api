@@ -161,3 +161,10 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
    identity_ids = [data.azurerm_user_assigned_identity.em-shared-identity.id]
   }
 }
+
+resource "azurerm_key_vault_secret" "em_icp_web_pubsub_primary_connection_string" {
+  name         = "em-icp-web-pubsub-primary-connection-string"
+  value        = azurerm_web_pubsub.ped_web_pubsub.primary_connection_string
+  key_vault_id = module.local_key_vault.key_vault_id
+}
+
