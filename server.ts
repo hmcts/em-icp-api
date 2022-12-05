@@ -5,15 +5,13 @@ import * as fs from "fs";
 import * as https from "https";
 import * as path from "path";
 import { app } from "./app";
-import { SocketIO } from "./socket";
-
 
 const logger = Logger.getLogger("server");
-const port: number = parseInt(process.env.PORT, 10) || 8080;
+const port: number = parseInt(process.env.PORT, 10) || 8082;
 let server: Server;
 
 if (app.locals.ENV === "development") {
-  const sslDirectory = path.join(__dirname, "resources", "localhost-ssl");
+  const sslDirectory = path.join(__dirname, "api/resources", "localhost-ssl");
 
   const sslOptions = {
     cert: fs.readFileSync(path.join(sslDirectory, "localhost.crt")),
@@ -30,4 +28,4 @@ if (app.locals.ENV === "development") {
   });
 }
 
-SocketIO.start(server);
+
