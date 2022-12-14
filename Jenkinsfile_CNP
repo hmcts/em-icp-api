@@ -25,6 +25,9 @@ def secrets = [
   ],
   'rpa-${env}': [
     secret('show-oauth2-token', 'FUNCTIONAL_TEST_CLIENT_OAUTH_SECRET')
+  ],
+  'em-icp-${env}': [
+    secret('em-icp-web-pubsub-primary-connection-string', 'WEB_PUBSUB_PRIMARY_CONN_STRING')
   ]
 ]
 
