@@ -1,6 +1,7 @@
 {
+  "restartable": "rs",
   "watch": ["/"],
   "ext": "ts,js",
-  "ignore": ["test/**/*.test.ts"],
+  "ignore": ["test/**/*.test.ts", ".git", "node_modules/**/node_modules"],
   "exec": "ts-node ./server.ts"
 }

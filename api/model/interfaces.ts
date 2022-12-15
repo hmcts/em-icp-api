@@ -14,6 +14,7 @@ export interface Session {
   presenterId: string;
   presenterName: string;
   participants: string;
+  connectionUrl: string;
 }
 
 export interface PresenterUpdate {

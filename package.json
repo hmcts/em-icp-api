@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=production ./node_modules/.bin/ts-node -r tsconfig-paths/register server.ts",
-    "start:dev": "nodemon --config nodemon.json",
+    "start:dev": "nodemon --inspect --config nodemon.json",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "NODE_ENV=test yarn test:unit",
     "test:unit": "mocha --require ts-node/register 'test/unit/**/*.test.ts' --reporter spec --recursive --exit",
@@ -21,6 +21,8 @@
     "cichecks": "yarn && yarn lint  && yarn test"
   },
   "dependencies": {
+    "@azure/web-pubsub": "^1.0.0",
+    "@azure/web-pubsub-express": "^1.0.3",
     "@hmcts/info-provider": "^1.0.0",
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.0",

@@ -27,10 +27,10 @@ export class SocketIO {
 
   static async verifyIdamToken(client: Socket, next: (err?: any) => void): Promise<void> {
     try {
-      await new IdamClient().verifyToken(client.request.headers["authorization"]);
+      // await new IdamClient().verifyToken(client.request.headers["authorization"]);
       next();
     } catch (err) {
-      client.disconnect();
+      // client.disconnect();
       next(err);
     }
   }
@@ -97,7 +97,7 @@ export class SocketIO {
   }
 
   static onDisconnection(): void {
-    for(const room of socket.rooms.keys()) {
+    for (const room of socket.rooms.keys()) {
       io.in(room).emit(Actions.CLIENT_DISCONNECTED, socket.id);
     }
     socket.leave(socket.id);

@@ -11,6 +11,8 @@ import { swaggerDocument } from "./api/swagger";
 import * as appInsights from "applicationinsights";
 import * as swaggerUi from "swagger-ui-express";
 import { Express, Logger } from "@hmcts/nodejs-logging";
+import { EmWebPubEventHandlerOptions } from "./api/em-web-pub-event-handler-options";
+import { WebPubSubEventHandler } from "@azure/web-pubsub-express";
 
 const healthcheck = require("./api/routes/health");
 const helmet = require("helmet");
@@ -23,6 +25,7 @@ const env = process.env.NODE_ENV || "development";
 propertiesVolume.addTo(config);
 
 const APP_INSIGHTS_KEY = config.secrets ? config.secrets["em-icp"]["AppInsightsInstrumentationKey"] : undefined;
+const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : undefined;
 
 const logger = Logger.getLogger("app");
 
@@ -34,6 +37,16 @@ const limiter = rateLimit({
   max: config.rateLimit.max,
 });
 
+const webPubSubOptions = new EmWebPubEventHandlerOptions(primaryConnectionstring);
+const handler = new WebPubSubEventHandler("hub", {
+  path: "/eventhandler",
+  handleConnect: webPubSubOptions.handleConnect,
+  handleUserEvent: webPubSubOptions.handleUserEvent,
+  onConnected: webPubSubOptions.onConnected,
+  onDisconnected: webPubSubOptions.onDisconnected,
+});
+
+app.use(handler.getMiddleware());
 app.use(limiter);
 app.use(Express.accessLogger());
 
@@ -50,7 +63,7 @@ app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(noCache());
 app.use(helmet());
-app.use(helmet.xssFilter({setOnOldIE: true}));
+app.use(helmet.xssFilter({ setOnOldIE: true }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
