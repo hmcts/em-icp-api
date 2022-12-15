@@ -7,7 +7,7 @@ import * as path from "path";
 import { app } from "./app";
 
 const logger = Logger.getLogger("server");
-const port: number = parseInt(process.env.PORT, 10) || 8082;
+const port: number = parseInt(process.env.PORT, 10) || 8080;
 let server: Server;
 
 if (app.locals.ENV === "development") {
