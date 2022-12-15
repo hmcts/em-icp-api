@@ -25,7 +25,7 @@ const env = process.env.NODE_ENV || "development";
 propertiesVolume.addTo(config);
 
 const APP_INSIGHTS_KEY = config.secrets ? config.secrets["em-icp"]["AppInsightsInstrumentationKey"] : undefined;
-const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : "Endpoint=https://em-ped-api-webpubsub-aat.webpubsub.azure.com;AccessKey=IGqOSD5XcEKV6dMnt1Ib5FvFMW8UhNcXyp6LMLUoJSU=;Version=1.0;";
+const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : undefined;
 
 const logger = Logger.getLogger("app");
 
