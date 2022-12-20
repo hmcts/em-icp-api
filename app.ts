@@ -1,6 +1,6 @@
 import * as bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import express from "express";
+import express, {json} from "express";
 import * as path from "path";
 import { RouterFinder } from "./api/router/routerFinder";
 import { HttpError } from "./api/model/httpError";
@@ -14,11 +14,12 @@ import { Express, Logger } from "@hmcts/nodejs-logging";
 import { EmWebPubEventHandlerOptions } from "./api/em-web-pub-event-handler-options";
 import { WebPubSubEventHandler } from "@azure/web-pubsub-express";
 
-console.log("Initial lines before creating constants");
+
 const healthcheck = require("./api/routes/health");
 const helmet = require("helmet");
 const noCache = require("nocache");
 const config = require("config");
+console.log("config " + JSON.stringify(config));
 const rateLimit = require("express-rate-limit");
 
 const env = process.env.NODE_ENV || "development";
