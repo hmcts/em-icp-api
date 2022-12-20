@@ -26,9 +26,10 @@ const env = process.env.NODE_ENV || "development";
 propertiesVolume.addTo(config);
 console.log("Before accessing the AppInsightsInstrumentationKey secret");
 const APP_INSIGHTS_KEY = config.secrets ? config.secrets["em-icp"]["AppInsightsInstrumentationKey"] : undefined;
+console.log("AppInsightsInstrumentationKey secret : " + APP_INSIGHTS_KEY);
 console.log("Before accessing the PrimaryConnString secret");
 const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : undefined;
-
+console.log("primaryConnectionstring secret : " + primaryConnectionstring);
 const logger = Logger.getLogger("app");
 
 export const app = express();
