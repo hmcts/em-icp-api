@@ -13,7 +13,7 @@ import * as swaggerUi from "swagger-ui-express";
 import { Express, Logger } from "@hmcts/nodejs-logging";
 import { EmWebPubEventHandlerOptions } from "./api/em-web-pub-event-handler-options";
 import { WebPubSubEventHandler } from "@azure/web-pubsub-express";
-import { PropertiesVolume } from "properties-values";
+import { PropertiesVolume } from "./api/properties-values";
 
 const healthcheck = require("./api/routes/health");
 const helmet = require("helmet");

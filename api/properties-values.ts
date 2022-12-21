@@ -1,5 +1,3 @@
-import { execSync } from "child_process";
-
 import * as propertiesVolume from "@hmcts/properties-volume";
 import config from "config";
 import { get, set } from "lodash";
