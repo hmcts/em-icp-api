@@ -15,21 +15,21 @@ const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-ic
 
 router.get("/icp/sessions/:caseId", async (req, res) => {
   const token = req.header("Authorization");
-  if (!token) {
-    logger.error("No Authorization header found");
-    return res.status(401).send({ error: "Unauthorized user" });
-  }
+  // if (!token) {
+  //   logger.error("No Authorization header found");
+  //   return res.status(401).send({ error: "Unauthorized user" });
+  // }
 
-  try {
-    await idam.verifyToken(token);
-  } catch (e) {
-    logger.error("Error when attempting to verify Auth token");
-    logger.error(e);
-    return res.status(401).send({ error: e });
-  }
+  // try {
+  //   await idam.verifyToken(token);
+  // } catch (e) {
+  //   logger.error("Error when attempting to verify Auth token");
+  //   logger.error(e);
+  //   return res.status(401).send({ error: e });
+  // }
 
-  const userInfo: UserInfo = await idam.getUserInfo(token);
-  const username = userInfo.name;
+  // const userInfo: UserInfo = await idam.getUserInfo(token);
+  const username = "Munish";//userInfo.name;
   const caseId: string = req.params.caseId;
 
   if (!caseId || caseId === "null" || caseId === "undefined") {

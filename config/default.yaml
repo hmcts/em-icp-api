@@ -37,3 +37,7 @@ s2s:
   secret: "AAAAAAAAAAAAAAAA"
 
 tokenRefreshTime: 3600000 # (60 mins)
+
+
+webpubsub:
+  connectionstring:""
