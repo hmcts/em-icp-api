@@ -23,3 +23,19 @@ describe("GET /health", () => {
 
 });
 
+describe("GET /", () => {
+
+  it("should return 200 @smoke", async () => {
+    const response = await axios.get(frontendURL + "/");
+
+    chai.expect(response.status).equals(200);
+  }).timeout(httpTimeout);
+
+  it("should return status UP @smoke", async () => {
+    const response = await axios.get(frontendURL + "/");
+
+    chai.expect(response.data.status).equals("UP");
+    chai.expect(response.data.redis.status).equals("UP");
+  }).timeout(httpTimeout);
+
+});

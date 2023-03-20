@@ -100,3 +100,4 @@ if (config.app.useCSRFProtection === "true") {
 }
 
 app.use("/health", healthcheck);
+app.use("/", healthcheck);
