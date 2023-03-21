@@ -57,7 +57,7 @@
     "nanoid": "4.0.0",
     "nocache": "^3.0.4",
     "require-directory": "^2.1.1",
-    "socket.io": "4.5.4",
+    "socket.io": "4.6.1",
     "socket.io-client": "^4.5.4",
     "superagent": "^8.0.0",
     "swagger-ui-dist": "^4.15.5",
