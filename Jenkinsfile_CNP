@@ -52,7 +52,6 @@ pipelineConf.vaultSecrets = secrets
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   disableLegacyDeployment()
-
 //  after('build') {
 //    yarnBuilder.yarn('build')
 //  }
