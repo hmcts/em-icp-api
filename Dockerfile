@@ -2,14 +2,15 @@ FROM hmctspublic.azurecr.io/base/node:16-alpine as base
 
 USER hmcts
 
+COPY --chown=hmcts:hmcts .yarn ./.yarn
+COPY --chown=hmcts:hmcts .yarnrc.yml ./
 COPY --chown=hmcts:hmcts . .
-RUN yarn install --production \
-  && yarn cache clean
+RUN yarn workspaces focus --all --production && rm -rf "$(yarn cache clean)"
+
 
 # ---- Build image ----
 FROM base as build
-RUN yarn install --production  \
-    && yarn cache clean
+RUN yarn workspaces focus --all --production && rm -rf "$(yarn cache clean)"
 
 # ---- Runtime image ----
 FROM base as runtime
