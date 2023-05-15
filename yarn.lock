@@ -3732,7 +3732,7 @@ __metadata:
     cross-env: ^7.0.3
     csurf: ^1.11.0
     debug: ^4.1.1
-    engine.io: ^6.4.2
+    engine.io: ^6.4.1
     eslint: 8.29.0
     express: ^4.18.2
     express-rate-limit: ^6.7.0
@@ -3740,7 +3740,7 @@ __metadata:
     helmet: ^6.0.1
     ioredis: ^5.0.0
     ioredis-mock: ^5.5.2
-    jsonwebtoken: ^9.0.0
+    jsonwebtoken: ^8.5.1
     jwk-to-pem: ^2.0.5
     jwt-decode: ^3.1.2
     lodash: 4.17.21
@@ -3834,25 +3834,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"engine.io@npm:^6.4.2":
-  version: 6.4.2
-  resolution: "engine.io@npm:6.4.2"
-  dependencies:
-    "@types/cookie": ^0.4.1
-    "@types/cors": ^2.8.12
-    "@types/node": ">=10.0.0"
-    accepts: ~1.3.4
-    base64id: 2.0.0
-    cookie: ~0.4.1
-    cors: ~2.8.5
-    debug: ~4.3.1
-    engine.io-parser: ~5.0.3
-    ws: ~8.11.0
-  checksum: c4ca538c98d251ff00756ed955d924c3fd78e61af0a5825c9fa1d77ebb661ead7971598fb61daf079c2655c7be2d4a26094e446759e3c6786d8ac75ccffe36d5
-  languageName: node
-  linkType: hard
-
-"engine.io@npm:~6.4.1":
+"engine.io@npm:^6.4.1, engine.io@npm:~6.4.1":
   version: 6.4.1
   resolution: "engine.io@npm:6.4.1"
   dependencies:
@@ -5384,18 +5366,6 @@ __metadata:
     ms: ^2.1.1
     semver: ^5.6.0
   checksum: 93c9e3f23c59b758ac88ba15f4e4753b3749dfce7a6f7c40fb86663128a1e282db085eec852d4e0cbca4cefdcd3a8275ee255dbd08fcad0df26ad9f6e4cc853a
-  languageName: node
-  linkType: hard
-
-"jsonwebtoken@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "jsonwebtoken@npm:9.0.0"
-  dependencies:
-    jws: ^3.2.2
-    lodash: ^4.17.21
-    ms: ^2.1.1
-    semver: ^7.3.8
-  checksum: b9181cecf9df99f1dc0253f91ba000a1aa4d91f5816d1608c0dba61a5623726a0bfe200b51df25de18c1a6000825d231ad7ce2788aa54fd48dcb760ad9eb9514
   languageName: node
   linkType: hard
 
