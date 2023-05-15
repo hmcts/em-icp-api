@@ -13,3 +13,6 @@
 !socket.ts
 !app.ts
 !server.ts
+
+.yarn/cache
+.yarn/install-state.gz
