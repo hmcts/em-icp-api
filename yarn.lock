@@ -7472,13 +7472,13 @@ __metadata:
   linkType: hard
 
 "swagger-ui-express@npm:^4.6.0":
-  version: 4.6.0
-  resolution: "swagger-ui-express@npm:4.6.0"
+  version: 4.6.3
+  resolution: "swagger-ui-express@npm:4.6.3"
   dependencies:
     swagger-ui-dist: ">=4.11.0"
   peerDependencies:
-    express: ">=4.0.0"
-  checksum: 8e5e2bf431f4b2207fc4c07eeaee78ec983fae4ab14b6df8fd6d87bd7edf0a9c644bf32bb251b8478a9bad7b1617d6bec56c6b87208f5eddb18840832abf55a3
+    express: ">=4.0.0 || >=5.0.0-beta"
+  checksum: bd0e02d2572685fcd82701b29f27ba6a27bc72de2b1553e84f884d008a0bf85a3711c9e236bb658130d702892866744d1a8a30b52b887e4f8224635c57afc63d
   languageName: node
   linkType: hard
 
