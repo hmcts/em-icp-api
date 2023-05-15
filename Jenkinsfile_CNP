@@ -52,12 +52,6 @@ pipelineConf.vaultSecrets = secrets
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   disableLegacyDeployment()
-
-  afterSuccess('checkout') {
-    sh ("rm -rf node_modules")
-    sh ("yarn cache clean")
-    sh ('yarn install --check-cache')
-  }
 //  after('build') {
 //    yarnBuilder.yarn('build')
 //  }
