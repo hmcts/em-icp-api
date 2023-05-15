@@ -138,12 +138,12 @@ __metadata:
   linkType: hard
 
 "@azure/web-pubsub-express@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "@azure/web-pubsub-express@npm:1.0.3"
+  version: 1.0.4
+  resolution: "@azure/web-pubsub-express@npm:1.0.4"
   dependencies:
     "@azure/logger": ^1.0.0
     tslib: ^2.2.0
-  checksum: b198c9711fce1b76c7176e99ff8bd242bef350b904e0bd8352eefeefe8d624d8cc7176bdc755482544013f042d378155f8ebdba5673c01cc2ab8cc63e08f642a
+  checksum: b0468275a60b005695009abf1ca0f6ce230023b09c60c3c7bdcc1ba2b21f00ed3d6016949f3377a2d5c9dbe9f55dfb2106c388309fa6eee2f4fd9e8474774291
   languageName: node
   linkType: hard
 
