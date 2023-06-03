@@ -31,15 +31,6 @@ data "azurerm_user_assigned_identity" "em-shared-identity" {
   resource_group_name = "managed-identities-${var.env}-rg"
 }
 
-resource "azurerm_application_insights" "appinsights" {
-  name                = "${var.product}-${var.component}-appinsights-${var.env}"
-  location            = var.appinsights_location
-  resource_group_name = azurerm_resource_group.rg.name
-  application_type    = "web"
-
-  tags = var.common_tags
-}
-
 module "local_key_vault" {
   source                     = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   product                    = local.app_full_name
@@ -76,7 +67,7 @@ data "azurerm_key_vault" "rpa_vault" {
 
 
 data "azurerm_key_vault_secret" "app_insights_key" {
-  name      = "AppInsightsInstrumentationKey"
+  name      = "EmAppInsightsInstrumentationKey"
   key_vault_id = data.azurerm_key_vault.rpa_vault.id
 }
 
