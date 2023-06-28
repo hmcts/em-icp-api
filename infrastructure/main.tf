@@ -86,7 +86,7 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
   resource_group_name = "core-infra-${var.env}"
 }
 
-/* module "em-icp-redis-cache" {
+module "em-icp-redis-cache" {
   source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product  = "${var.product}-${var.component}-redis-cache"
   location = var.location
@@ -100,7 +100,7 @@ resource "azurerm_key_vault_secret" "local_redis_password" {
   name = "redis-password"
   value = module.em-icp-redis-cache.access_key
   key_vault_id = module.local_key_vault.key_vault_id
-} */
+}
 
 # region API (gateway)
 
