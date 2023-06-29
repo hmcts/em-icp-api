@@ -94,7 +94,8 @@ module "em-icp-redis-cache" {
   source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product  = "${var.product}-${var.component}-redis-cache"
   location = var.location
-  env      = "aat" //This needs to be created on all environments only when we need it. 
+  env      = var.env
+  capacity = var.env == "aat" ? "1" : "0"
   redis_version = "6"
   subnetid = data.azurerm_subnet.core_infra_redis_subnet.id
   common_tags  = var.common_tags
