@@ -105,8 +105,9 @@ module "em-icp-redis-cache" {
 }
 
 resource "azurerm_key_vault_secret" "local_redis_password" {
+  count = var.env == "aat" ? 1 : 0
   name = "redis-password"
-  value = module.em-icp-redis-cache.access_key
+  value = module.em-icp-redis-cache[0].access_key
   key_vault_id = module.local_key_vault.key_vault_id
 }
 
