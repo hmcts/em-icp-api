@@ -95,7 +95,7 @@ module "em-icp-redis-cache" {
   product  = "${var.product}-${var.component}-redis-cache"
   location = var.location
   env      = var.env
-  capacity = var.env == "aat" ? "1" : "0"
+  count    = var.env == "aat" ? "1" : "0"
   redis_version = "6"
   subnetid = data.azurerm_subnet.core_infra_redis_subnet.id
   common_tags  = var.common_tags
