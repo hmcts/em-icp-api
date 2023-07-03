@@ -5262,17 +5262,17 @@ __metadata:
   linkType: hard
 
 "ioredis-mock@npm:^5.5.2":
-  version: 5.5.2
-  resolution: "ioredis-mock@npm:5.5.2"
+  version: 5.9.1
+  resolution: "ioredis-mock@npm:5.9.1"
   dependencies:
     fengari: ^0.1.4
     fengari-interop: ^0.1.2
-    lodash: ^4.17.20
-    minimatch: ^3.0.4
-    standard-as-callback: ^2.0.1
+    lodash: ^4.17.21
+    standard-as-callback: ^2.1.0
   peerDependencies:
     ioredis: 4.x
-  checksum: 3ccdce5744f9647cbc18b03f618a5c26f2c1f0f40fae91d1518eed971c8cd649d5d4736a53e681d3864fcd5e616e58a159c4f2a2370f67d894cae7128baa139e
+    redis-commands: 1.x
+  checksum: af9baeb1c336e927422c9547d291477f2861fd947a9fae62f3fc19c6549816fd2fd0e5613fa5744e05358580e5eade73b484eca169d8457f2257697b0936b3eb
   languageName: node
   linkType: hard
 
@@ -7585,7 +7585,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"standard-as-callback@npm:^2.0.1, standard-as-callback@npm:^2.1.0":
+"standard-as-callback@npm:^2.1.0":
   version: 2.1.0
   resolution: "standard-as-callback@npm:2.1.0"
   checksum: 88bec83ee220687c72d94fd86a98d5272c91d37ec64b66d830dbc0d79b62bfa6e47f53b71646011835fc9ce7fae62739545d13124262b53be4fbb3e2ebad551c
