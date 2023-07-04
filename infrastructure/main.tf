@@ -1,5 +1,9 @@
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }
 
 locals {
@@ -91,13 +95,19 @@ module "em-icp-redis-cache" {
   product  = "${var.product}-${var.component}-redis-cache"
   location = var.location
   env      = var.env
+  count    = var.env == "aat" ? "1" : "0"
+  redis_version = "6"
   subnetid = data.azurerm_subnet.core_infra_redis_subnet.id
   common_tags  = var.common_tags
+  private_endpoint_enabled = true
+  public_network_access_enabled = false
+  business_area = "cft"
 }
 
 resource "azurerm_key_vault_secret" "local_redis_password" {
+  count = var.env == "aat" ? 1 : 0
   name = "redis-password"
-  value = module.em-icp-redis-cache.access_key
+  value = module.em-icp-redis-cache[0].access_key
   key_vault_id = module.local_key_vault.key_vault_id
 }
 
