@@ -3792,7 +3792,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"denque@npm:^2.0.1":
+"denque@npm:^2.1.0":
   version: 2.1.0
   resolution: "denque@npm:2.1.0"
   checksum: 1d4ae1d05e59ac3a3481e7b478293f4b4c813819342273f3d5b826c7ffa9753c520919ba264f377e09108d24ec6cf0ec0ac729a5686cbb8f32d797126c5dae74
@@ -4000,12 +4000,12 @@ __metadata:
     cross-env: ^7.0.3
     csurf: ^1.11.0
     debug: ^4.1.1
-    engine.io: ^6.4.1
+    engine.io: ^6.5.1
     eslint: 8.44.0
     express: ^4.18.2
     express-rate-limit: ^6.7.0
     follow-redirects: ^1.15.2
-    helmet: ^6.0.1
+    helmet: ^7.0.0
     ioredis: ^5.0.0
     ioredis-mock: ^5.5.2
     jsonwebtoken: ^8.5.1
@@ -4014,7 +4014,7 @@ __metadata:
     lodash: 4.17.21
     mocha: ^10.0.0
     nanoid: 4.0.2
-    nocache: ^3.0.4
+    nocache: ^4.0.0
     nock: ^13.3.0
     nodemon: ^2.0.20
     nyc: ^15.1.0
@@ -4033,10 +4033,10 @@ __metadata:
     ts-node: ^10.0.0
     tsconfig-paths: ^4.0.0
     tslint: 5.20.1
-    typescript: ^5.0.2
+    typescript: ^5.1.6
     typescript-eslint: ^0.0.1-alpha.0
     uuid: ^9.0.0
-    ws: ^8.11.0
+    ws: ^8.13.0
     xmlhttprequest-ssl: ^2.1.0
   languageName: unknown
   linkType: soft
@@ -4102,7 +4102,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"engine.io@npm:^6.4.1, engine.io@npm:~6.4.1":
+"engine.io-parser@npm:~5.1.0":
+  version: 5.1.0
+  resolution: "engine.io-parser@npm:5.1.0"
+  checksum: a15fc0ba5d5fc5fb2c3029de1826538970463d0fa5c04d8dc2c72aabde92f1c923a9de409962490c3204da7245704286f9fb0ed4e5d71b55a6b035945f64c281
+  languageName: node
+  linkType: hard
+
+"engine.io@npm:^6.5.1":
+  version: 6.5.1
+  resolution: "engine.io@npm:6.5.1"
+  dependencies:
+    "@types/cookie": ^0.4.1
+    "@types/cors": ^2.8.12
+    "@types/node": ">=10.0.0"
+    accepts: ~1.3.4
+    base64id: 2.0.0
+    cookie: ~0.4.1
+    cors: ~2.8.5
+    debug: ~4.3.1
+    engine.io-parser: ~5.1.0
+    ws: ~8.11.0
+  checksum: e902bbb3a484236edd6f0be89c14eb694cd905e727f88f3082a8b33ba23af9a71ca51e109b213962ccf836b02ba5bb9eea6f680a44d5008eb5b6aa2028d3bb7f
+  languageName: node
+  linkType: hard
+
+"engine.io@npm:~6.4.1":
   version: 6.4.1
   resolution: "engine.io@npm:6.4.1"
   dependencies:
@@ -5038,10 +5063,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"helmet@npm:*, helmet@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "helmet@npm:6.0.1"
-  checksum: 1ca20d0b7888b6208130bbb50d183e68d53bb5fa0caead2106226d6d53216dfc893b4b5c07528304e342884f75d87702003b80884b065cb5dcbc705fb4a6ad52
+"helmet@npm:*, helmet@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "helmet@npm:7.0.0"
+  checksum: 3622b8b68b7ac4736369fe7717adb5b87ddcdcda7c11c13277d79fb5670acab032e8c971835565b1d2144d234f3e0dbcd327a44249b9e61f0f64c0c753faf1bc
   languageName: node
   linkType: hard
 
@@ -5268,19 +5293,19 @@ __metadata:
   linkType: hard
 
 "ioredis@npm:^5.0.0":
-  version: 5.2.4
-  resolution: "ioredis@npm:5.2.4"
+  version: 5.3.2
+  resolution: "ioredis@npm:5.3.2"
   dependencies:
     "@ioredis/commands": ^1.1.1
     cluster-key-slot: ^1.1.0
     debug: ^4.3.4
-    denque: ^2.0.1
+    denque: ^2.1.0
     lodash.defaults: ^4.2.0
     lodash.isarguments: ^3.1.0
     redis-errors: ^1.2.0
     redis-parser: ^3.0.0
     standard-as-callback: ^2.1.0
-  checksum: c3a7df407a41ae516bede8b6db853c568198b13fe4a4785f66be5cd541087121b9d45fb9a6b1b6a5fb668c29ce52ab4685642b994803bdfa0a35f794ea8ef7ae
+  checksum: 9a23559133e862a768778301efb68ae8c2af3c33562174b54a4c2d6574b976e85c75a4c34857991af733e35c48faf4c356e7daa8fb0a3543d85ff1768c8754bc
   languageName: node
   linkType: hard
 
@@ -6140,8 +6165,8 @@ __metadata:
   linkType: hard
 
 "mocha@npm:^10.0.0":
-  version: 10.1.0
-  resolution: "mocha@npm:10.1.0"
+  version: 10.2.0
+  resolution: "mocha@npm:10.2.0"
   dependencies:
     ansi-colors: 4.1.1
     browser-stdout: 1.3.1
@@ -6167,7 +6192,7 @@ __metadata:
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
-  checksum: c64c7305769e09ae5559c1cd31eae8b4c7c0e19e328cf54d1374e5555a0f01e3d5dced99882911d927e0a9d0c613d0644a1750b848a2848fb7dcf4684f97f65f
+  checksum: 406c45eab122ffd6ea2003c2f108b2bc35ba036225eee78e0c784b6fa2c7f34e2b13f1dbacef55a4fdf523255d76e4f22d1b5aacda2394bd11666febec17c719
   languageName: node
   linkType: hard
 
@@ -6260,10 +6285,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nocache@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "nocache@npm:3.0.4"
-  checksum: 6be9ee67eb561ecedc56d805c024c0fda55b9836ecba659c720073b067929aa4fe04bb7121480e004c9cf52989e62d8720f29a7fe0269f1a4941221a1e4be1c2
+"nocache@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "nocache@npm:4.0.0"
+  checksum: ba317f7a5b837069c3bf8616c9a25f61bd5ec63ad7aa2ce83e8425116df402ab5b4914bbdfb1ba54893c0f859886cb3ad9a375f1c45ba7a72a9712cf31392292
   languageName: node
   linkType: hard
 
@@ -7736,10 +7761,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swagger-ui-dist@npm:>=4.11.0, swagger-ui-dist@npm:^4.15.5":
-  version: 4.15.5
-  resolution: "swagger-ui-dist@npm:4.15.5"
-  checksum: b032ecc1245e10729d0fb0fc681fc61115a78925b9410fe0fa5fe025a0a3e7d1505dacc3b5d7d2355835d118162843ad9a754a810010a4bbf65ef71466e40512
+"swagger-ui-dist@npm:>=4.11.0":
+  version: 5.1.0
+  resolution: "swagger-ui-dist@npm:5.1.0"
+  checksum: 41b91708e757852423a4fddfc07d0e87ef38c4ad9fad5757fbc27b23c9e71593a1c48b53661fa2d9bb241043b6800cd9a57d980943a17c9eb388704e30156120
+  languageName: node
+  linkType: hard
+
+"swagger-ui-dist@npm:^4.15.5":
+  version: 4.19.1
+  resolution: "swagger-ui-dist@npm:4.19.1"
+  checksum: ea3c2569e2710a36d2c240cc9159ccc2f4c39edfbbccc0ceedb868257bf2c1597aae6212dc6664572c2d39f3fa88629032373fccd2465aa137c08fb320afeccd
   languageName: node
   linkType: hard
 
@@ -8121,23 +8153,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "typescript@npm:5.0.2"
+"typescript@npm:^5.1.6":
+  version: 5.1.6
+  resolution: "typescript@npm:5.1.6"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bef1dcd166acfc6934b2ec4d72f93edb8961a5fab36b8dd2aaf6f4f4cd5c0210f2e0850aef4724f3b4913d5aef203a94a28ded731b370880c8bcff7e4ff91fc1
+  checksum: b2f2c35096035fe1f5facd1e38922ccb8558996331405eb00a5111cc948b2e733163cc22fab5db46992aba7dd520fff637f2c1df4996ff0e134e77d3249a7350
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^5.0.2#~builtin<compat/typescript>":
-  version: 5.0.2
-  resolution: "typescript@patch:typescript@npm%3A5.0.2#~builtin<compat/typescript>::version=5.0.2&hash=b5f058"
+"typescript@patch:typescript@^5.1.6#~builtin<compat/typescript>":
+  version: 5.1.6
+  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=5da071"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 0411be9e19bf6a547d574b3261fa8598f55a5243123f2a50a79b0dc15a017abbf541f15b8b43331294e409cc978e548ac5ae4e0c5b98ba5ae98029304de047be
+  checksum: f53bfe97f7c8b2b6d23cf572750d4e7d1e0c5fff1c36d859d0ec84556a827b8785077bc27676bf7e71fae538e517c3ecc0f37e7f593be913d884805d931bc8be
   languageName: node
   linkType: hard
 
