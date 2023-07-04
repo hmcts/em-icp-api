@@ -4045,7 +4045,7 @@ __metadata:
     typescript: ^5.0.2
     typescript-eslint: ^0.0.1-alpha.0
     uuid: ^9.0.0
-    ws: ^8.11.0
+    ws: ^8.13.0
     xmlhttprequest-ssl: ^2.1.0
   languageName: unknown
   linkType: soft
