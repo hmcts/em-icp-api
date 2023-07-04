@@ -7777,10 +7777,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swagger-ui-dist@npm:>=4.11.0, swagger-ui-dist@npm:^4.15.5":
-  version: 4.15.5
-  resolution: "swagger-ui-dist@npm:4.15.5"
-  checksum: b032ecc1245e10729d0fb0fc681fc61115a78925b9410fe0fa5fe025a0a3e7d1505dacc3b5d7d2355835d118162843ad9a754a810010a4bbf65ef71466e40512
+"swagger-ui-dist@npm:>=4.11.0":
+  version: 5.1.0
+  resolution: "swagger-ui-dist@npm:5.1.0"
+  checksum: 41b91708e757852423a4fddfc07d0e87ef38c4ad9fad5757fbc27b23c9e71593a1c48b53661fa2d9bb241043b6800cd9a57d980943a17c9eb388704e30156120
+  languageName: node
+  linkType: hard
+
+"swagger-ui-dist@npm:^4.15.5":
+  version: 4.19.1
+  resolution: "swagger-ui-dist@npm:4.19.1"
+  checksum: ea3c2569e2710a36d2c240cc9159ccc2f4c39edfbbccc0ceedb868257bf2c1597aae6212dc6664572c2d39f3fa88629032373fccd2465aa137c08fb320afeccd
   languageName: node
   linkType: hard
 
