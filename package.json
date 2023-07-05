@@ -40,7 +40,7 @@
     "applicationinsights": "^2.3.6",
     "axios": "^1.4.0",
     "chai-http": "^4.3.0",
-    "config": "^3.3.8",
+    "config": "^3.3.9",
     "cookie-parser": "^1.4.4",
     "csurf": "^1.11.0",
     "engine.io": "^6.5.1",
