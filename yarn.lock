@@ -4061,7 +4061,7 @@ __metadata:
     sonar-scanner: ^3.1.0
     superagent: ^8.0.0
     swagger-ui-dist: ^5.0.0
-    swagger-ui-express: ^4.6.0
+    swagger-ui-express: ^5.0.0
     ts-loader: ^9.4.2
     ts-node: ^10.0.0
     tsconfig-paths: ^4.0.0
@@ -7823,21 +7823,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swagger-ui-dist@npm:>=4.11.0, swagger-ui-dist@npm:^5.0.0":
+"swagger-ui-dist@npm:>=5.0.0, swagger-ui-dist@npm:^5.0.0":
   version: 5.1.0
   resolution: "swagger-ui-dist@npm:5.1.0"
   checksum: 41b91708e757852423a4fddfc07d0e87ef38c4ad9fad5757fbc27b23c9e71593a1c48b53661fa2d9bb241043b6800cd9a57d980943a17c9eb388704e30156120
   languageName: node
   linkType: hard
 
-"swagger-ui-express@npm:^4.6.0":
-  version: 4.6.0
-  resolution: "swagger-ui-express@npm:4.6.0"
+"swagger-ui-express@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "swagger-ui-express@npm:5.0.0"
   dependencies:
-    swagger-ui-dist: ">=4.11.0"
+    swagger-ui-dist: ">=5.0.0"
   peerDependencies:
-    express: ">=4.0.0"
-  checksum: 8e5e2bf431f4b2207fc4c07eeaee78ec983fae4ab14b6df8fd6d87bd7edf0a9c644bf32bb251b8478a9bad7b1617d6bec56c6b87208f5eddb18840832abf55a3
+    express: ">=4.0.0 || >=5.0.0-beta"
+  checksum: 565b89717315577785edc6d2f4df8ce83207baa2b714264170ffa677522d2103c184091e146b7cce7baf254e96116c5bb2cb1ab907dc1152fdead3090690983b
   languageName: node
   linkType: hard
 
