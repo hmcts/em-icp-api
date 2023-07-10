@@ -4041,7 +4041,7 @@ __metadata:
     helmet: ^7.0.0
     ioredis: ^5.0.0
     ioredis-mock: ^5.5.2
-    jsonwebtoken: ^8.5.1
+    jsonwebtoken: ^9.0.1
     jwk-to-pem: ^2.0.5
     jwt-decode: ^3.1.2
     lodash: 4.17.21
@@ -5670,6 +5670,18 @@ __metadata:
     ms: ^2.1.1
     semver: ^5.6.0
   checksum: 93c9e3f23c59b758ac88ba15f4e4753b3749dfce7a6f7c40fb86663128a1e282db085eec852d4e0cbca4cefdcd3a8275ee255dbd08fcad0df26ad9f6e4cc853a
+  languageName: node
+  linkType: hard
+
+"jsonwebtoken@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "jsonwebtoken@npm:9.0.1"
+  dependencies:
+    jws: ^3.2.2
+    lodash: ^4.17.21
+    ms: ^2.1.1
+    semver: ^7.3.8
+  checksum: 0eafe268896f4e8f9ab1f0f20e8c645721b7a9cddc41c0aba1e58da5c34564e8c9990817c1a5b646d795bcbb1339350826fe57c4569b5379ba9eea4a9aa5bbd0
   languageName: node
   linkType: hard
 
