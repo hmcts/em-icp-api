@@ -26,7 +26,7 @@
     "@hmcts/info-provider": "^1.1.0",
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.0",
-    "@hmcts/properties-volume": "0.0.14",
+    "@hmcts/properties-volume": "1.0.0",
     "@types/config": "^3.0.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/csurf": "^1.11.0",
