@@ -155,18 +155,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/web-pubsub@npm:^1.0.0":
-  version: 1.1.0
-  resolution: "@azure/web-pubsub@npm:1.1.0"
+"@azure/web-pubsub@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@azure/web-pubsub@npm:1.1.1"
   dependencies:
     "@azure/core-auth": ^1.3.0
     "@azure/core-client": ^1.0.0
     "@azure/core-rest-pipeline": ^1.1.0
     "@azure/core-tracing": ^1.0.0
     "@azure/logger": ^1.0.0
-    jsonwebtoken: ^8.5.1
+    jsonwebtoken: ^9.0.0
     tslib: ^2.2.0
-  checksum: f24a42307af25b27c80e72c65b352dab02f94e4d0133955ee0de6d6e4483f7589114d4a1fd2ea4f31cbfa104db049b77da8bc3a0831b9d34b044642f6a0528d7
+  checksum: dcf882dac8a7eb1a0cab5854995603d40ddb62280d67f8cb2d9d5ead0f1cfc444f7a8dbfa3c602f493f8cc25f5e757ea5b7c34f643b5f11744dcf4ba6f148046
   languageName: node
   linkType: hard
 
@@ -3996,7 +3996,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "em-icp-api@workspace:."
   dependencies:
-    "@azure/web-pubsub": ^1.0.0
+    "@azure/web-pubsub": ^1.1.1
     "@azure/web-pubsub-express": ^1.0.3
     "@babel/core": ^7.20.5
     "@babel/eslint-parser": ^7.19.1
@@ -5670,6 +5670,18 @@ __metadata:
     ms: ^2.1.1
     semver: ^5.6.0
   checksum: 93c9e3f23c59b758ac88ba15f4e4753b3749dfce7a6f7c40fb86663128a1e282db085eec852d4e0cbca4cefdcd3a8275ee255dbd08fcad0df26ad9f6e4cc853a
+  languageName: node
+  linkType: hard
+
+"jsonwebtoken@npm:^9.0.0":
+  version: 9.0.1
+  resolution: "jsonwebtoken@npm:9.0.1"
+  dependencies:
+    jws: ^3.2.2
+    lodash: ^4.17.21
+    ms: ^2.1.1
+    semver: ^7.3.8
+  checksum: 0eafe268896f4e8f9ab1f0f20e8c645721b7a9cddc41c0aba1e58da5c34564e8c9990817c1a5b646d795bcbb1339350826fe57c4569b5379ba9eea4a9aa5bbd0
   languageName: node
   linkType: hard
 
