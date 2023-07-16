@@ -8568,9 +8568,9 @@ __metadata:
   linkType: hard
 
 "xmlhttprequest-ssl@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "xmlhttprequest-ssl@npm:2.1.0"
-  checksum: b60e4950c5ea46bd43f264f0c9c677c09208b060519f4499accc2810e0ef104a8bf1678f9525f4b41f88a5dcd4767f81c58207e5f5c5fe170e6ee3af60303890
+  version: 2.1.1
+  resolution: "xmlhttprequest-ssl@npm:2.1.1"
+  checksum: f427f17c3692e1832c327a0a19d4dfec5cfcc669b79b26a51ac35fd7a17ab474c3bb7339673b12130b2311ce1b251fe15dfc65aabc1c839862f01f138c71985b
   languageName: node
   linkType: hard
 
