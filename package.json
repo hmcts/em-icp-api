@@ -68,7 +68,7 @@
     "typescript-eslint": "^0.0.1-alpha.0",
     "uuid": "^9.0.0",
     "ws": "^8.13.0",
-    "xmlhttprequest-ssl": "^2.1.0"
+    "xmlhttprequest-ssl": "^2.1.1"
   },
   "resolutions": {
     "xmlhttprequest-ssl": "^2.0.0",
