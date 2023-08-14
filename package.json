@@ -37,7 +37,7 @@
     "@types/require-directory": "^2.1.1",
     "@types/uuid": "^9.0.0",
     "ansi-regex": "^6.0.1",
-    "applicationinsights": "^2.3.6",
+    "applicationinsights": "^2.7.2",
     "axios": "^1.4.0",
     "chai-http": "^4.3.0",
     "config": "^3.3.9",
