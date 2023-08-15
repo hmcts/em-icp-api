@@ -6020,7 +6020,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:2.6.0":
+"mime@npm:2.6.0, mime@npm:^2.5.0":
   version: 2.6.0
   resolution: "mime@npm:2.6.0"
   bin:
@@ -7735,8 +7735,8 @@ __metadata:
   linkType: hard
 
 "superagent@npm:7":
-  version: 7.1.6
-  resolution: "superagent@npm:7.1.6"
+  version: 7.1.5
+  resolution: "superagent@npm:7.1.5"
   dependencies:
     component-emitter: ^1.3.0
     cookiejar: ^2.1.3
@@ -7745,35 +7745,17 @@ __metadata:
     form-data: ^4.0.0
     formidable: ^2.0.1
     methods: ^1.1.2
-    mime: 2.6.0
+    mime: ^2.5.0
     qs: ^6.10.3
     readable-stream: ^3.6.0
     semver: ^7.3.7
-  checksum: b73316836003219f1a4886a6d77dd28551a6784c30e871009fb7bad699fae772b20370d39d2ccb5a543c9335ce12b43a76b959a3ca983f1d6365cb4b5682c08f
+  checksum: 4782ca099b18a0933705f93ac4678290bcfcd5e57ca1286dd4f733c7fbb554ca0c7cc1c97261254dc29623ac258aa64fc40aaa18da960cbe759085efa3e4b8f6
   languageName: node
   linkType: hard
 
-"superagent@npm:^8.0.0":
-  version: 8.0.3
-  resolution: "superagent@npm:8.0.3"
-  dependencies:
-    component-emitter: ^1.3.0
-    cookiejar: ^2.1.3
-    debug: ^4.3.4
-    fast-safe-stringify: ^2.1.1
-    form-data: ^4.0.0
-    formidable: ^2.0.1
-    methods: ^1.1.2
-    mime: 2.6.0
-    qs: ^6.11.0
-    semver: ^7.3.8
-  checksum: 5329310f3f9fe1217ccd515a2f06dd99c97d08355ae5e4c387349c9bffdd52115fe02ba6b0fb37199f05977522778e1350d0a68caef1363c8079aa49af8ce6c8
-  languageName: node
-  linkType: hard
-
-"superagent@npm:^8.0.9":
-  version: 8.0.9
-  resolution: "superagent@npm:8.0.9"
+"superagent@npm:^8.0.0, superagent@npm:^8.0.9":
+  version: 8.1.1
+  resolution: "superagent@npm:8.1.1"
   dependencies:
     component-emitter: ^1.3.0
     cookiejar: ^2.1.4
@@ -7785,7 +7767,7 @@ __metadata:
     mime: 2.6.0
     qs: ^6.11.0
     semver: ^7.3.8
-  checksum: 5d00cdc7ceb5570663da80604965750e6b1b8d7d7442b7791e285c62bcd8d578a8ead0242a2426432b59a255fb42eb3a196d636157538a1392e7b6c5f1624810
+  checksum: 29ff344704027b1006d985c8848af6f0dce675d3fde9884737a522a06881bd29f45255e9519a0a43e8676b13c58e45884a3ce813234eb540040e18ecba75670a
   languageName: node
   linkType: hard
 
