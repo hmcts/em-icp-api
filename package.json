@@ -59,7 +59,7 @@
     "require-directory": "^2.1.1",
     "socket.io": "4.7.1",
     "socket.io-client": "^4.5.4",
-    "superagent": "^8.0.0",
+    "superagent": "^8.1.2",
     "swagger-ui-dist": "^5.0.0",
     "swagger-ui-express": "^4.6.0",
     "ts-node": "^10.0.0",
