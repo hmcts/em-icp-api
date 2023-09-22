@@ -1,5 +1,41 @@
 {
-  "enabledManagers": ["helm-requirements","gradle-wrapper"],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "@typescript-eslint/eslint-plugin-tslint",
+        "ioredis",
+        "@babel/core",
+        "y18n",
+        "@types/node",
+        "@babel/preset-env",
+        "typescript",
+        "chai",
+        "socket.io",
+        "socket.io-client",
+        "@types/chai",
+        "nock",
+        "nodemon",
+        "express-rate-limit",
+        "@typescript-eslint/parser",
+        "uuid",
+        "@types/sinon",
+        "tslint",
+        "ts-node",
+        "ts-loader",
+        "applicationinsights",
+        "@types/chai-as-promised",
+        "ioredis-mock",
+        "axios",
+        "@types/socket.io",
+        "@hmcts/nodejs-healthcheck"
+      ],
+      "enabled": false
+    }
+  ],
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>hmcts/.github:renovate-config"
+  ],
   "labels": ["dependencies"],
   "helm-requirements":
   {
