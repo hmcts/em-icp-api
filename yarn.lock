@@ -4036,7 +4036,7 @@ __metadata:
     engine.io: ^6.5.1
     eslint: 8.44.0
     express: ^4.18.2
-    express-rate-limit: ^6.7.0
+    express-rate-limit: ^7.0.2
     follow-redirects: ^1.15.2
     helmet: ^7.0.0
     ioredis: ^5.0.0
@@ -4392,12 +4392,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-rate-limit@npm:^6.7.0":
-  version: 6.7.1
-  resolution: "express-rate-limit@npm:6.7.1"
+"express-rate-limit@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "express-rate-limit@npm:7.0.2"
   peerDependencies:
     express: ^4 || ^5
-  checksum: bb8e00992c9465a955acea077e5b7f2c483c8f2ceb5ea886d733e62c007580ca3c27a2306e72f18191721f0d59c26cec54181d1eab1fe7f51744e1c9ce8c0c3a
+  checksum: 0d3a853d910b0bfcb70d7e38bcd3f39b20a0d1f402528288eafa3e836e14d670ec633952d4f423d10354705ed729a34d883f86a6d74fb7908a44083a5f691ccf
   languageName: node
   linkType: hard
 
