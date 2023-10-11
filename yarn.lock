@@ -6310,14 +6310,14 @@ __metadata:
   linkType: hard
 
 "nock@npm:^13.3.0":
-  version: 13.3.1
-  resolution: "nock@npm:13.3.1"
+  version: 13.3.4
+  resolution: "nock@npm:13.3.4"
   dependencies:
     debug: ^4.1.0
     json-stringify-safe: ^5.0.1
     lodash: ^4.17.21
     propagate: ^2.0.0
-  checksum: 0f2a73e8432f6b5650656c53eef99f9e5bbde3df538dc2f07057edc4438cfc61a394c9d06dd82e60f6e86d42433f20f3c04364a1f088beee7bf03a24e3f0fdd0
+  checksum: 34ba5fdc025db1f6eb3ea5e3067489e37d6982534ad23d2c1e9fe33ab844c73ed9161012ce4c116c7aa9b765e5a9cfb1541163c936e06fb3331d51c61e2869f7
   languageName: node
   linkType: hard
 
