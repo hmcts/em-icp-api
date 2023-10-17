@@ -1,14 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>hmcts/.github:renovate-config"
-  ],
-  "labels": ["dependencies"],
-  "helm-requirements":
-  {
-    "fileMatch": ["\\Chart.yaml$"],
-    "aliases": {
-      "hmctspublic": "https://hmctspublic.azurecr.io/helm/v1/repo/"
-    }
-  }
+    "extends": [
+      "github>hmcts/.github//renovate/automerge-minor",
+      "local>hmcts/.github:renovate-config"
+    ]
 }
+

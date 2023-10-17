@@ -8,8 +8,8 @@ provider "azurerm" {
 
 locals {
   app_full_name = "${var.product}-${var.component}"
-  local_env           = var.env == "preview" ? "aat" : var.env
-  s2s_key             = data.azurerm_key_vault_secret.s2s_key.value
+  local_env     = var.env == "preview" ? "aat" : var.env
+  s2s_key       = data.azurerm_key_vault_secret.s2s_key.value
   # list of the thumbprints of the SSL certificates that should be accepted by the API (gateway)
   allowed_certificate_thumbprints = [
     # API tests
@@ -36,15 +36,15 @@ data "azurerm_user_assigned_identity" "em-shared-identity" {
 }
 
 module "local_key_vault" {
-  source                     = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
-  product                    = local.app_full_name
-  env                        = var.env
-  tenant_id                  = var.tenant_id
-  object_id                  = var.jenkins_AAD_objectId
-  resource_group_name        = azurerm_resource_group.rg.name
-  product_group_object_id    = "5d9cd025-a293-4b97-a0e5-6f43efce02c0"
-  common_tags                = var.common_tags
-  managed_identity_object_ids = ["${data.azurerm_user_assigned_identity.em-shared-identity.principal_id}","${var.managed_identity_object_id}"]
+  source                      = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
+  product                     = local.app_full_name
+  env                         = var.env
+  tenant_id                   = var.tenant_id
+  object_id                   = var.jenkins_AAD_objectId
+  resource_group_name         = azurerm_resource_group.rg.name
+  product_group_object_id     = "5d9cd025-a293-4b97-a0e5-6f43efce02c0"
+  common_tags                 = var.common_tags
+  managed_identity_object_ids = ["${data.azurerm_user_assigned_identity.em-shared-identity.principal_id}", "${var.managed_identity_object_id}"]
 }
 
 data "azurerm_key_vault" "s2s_vault" {
@@ -71,7 +71,7 @@ data "azurerm_key_vault" "rpa_vault" {
 
 
 data "azurerm_key_vault_secret" "app_insights_key" {
-  name      = "EmAppInsightsInstrumentationKey"
+  name         = "EmAppInsightsInstrumentationKey"
   key_vault_id = data.azurerm_key_vault.rpa_vault.id
 }
 
@@ -87,27 +87,30 @@ resource "azurerm_key_vault_secret" "local_app_insights_key" {
 data "azurerm_subnet" "core_infra_redis_subnet" {
   name                 = "core-infra-subnet-1-${var.env}"
   virtual_network_name = "core-infra-vnet-${var.env}"
-  resource_group_name = "core-infra-${var.env}"
+  resource_group_name  = "core-infra-${var.env}"
 }
 
 module "em-icp-redis-cache" {
-  source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product  = "${var.product}-${var.component}-redis-cache"
-  location = var.location
-  env      = var.env
-  count    = var.env == "aat" ? "1" : "0"
-  redis_version = "6"
-  subnetid = data.azurerm_subnet.core_infra_redis_subnet.id
-  common_tags  = var.common_tags
-  private_endpoint_enabled = true
+  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  product                       = "${var.product}-${var.component}-redis-cache"
+  location                      = var.location
+  env                           = var.env
+  count                         = var.env == "aat" ? "1" : "0"
+  redis_version                 = "6"
+  subnetid                      = data.azurerm_subnet.core_infra_redis_subnet.id
+  common_tags                   = var.common_tags
+  private_endpoint_enabled      = true
   public_network_access_enabled = false
-  business_area = "cft"
+  business_area                 = "cft"
+  sku_name                      = var.sku_name
+  family                        = var.family
+  capacity                      = var.capacity
 }
 
 resource "azurerm_key_vault_secret" "local_redis_password" {
-  count = var.env == "aat" ? 1 : 0
-  name = "redis-password"
-  value = module.em-icp-redis-cache[0].access_key
+  count        = var.env == "aat" ? 1 : 0
+  name         = "redis-password"
+  value        = module.em-icp-redis-cache[0].access_key
   key_vault_id = module.local_key_vault.key_vault_id
 }
 
@@ -118,7 +121,7 @@ module "em-icp-api" {
 
   api_mgmt_name = "core-api-mgmt-${var.env}"
   api_mgmt_rg   = "core-infra-${var.env}"
-  name = "em-icp-api"
+  name          = "em-icp-api"
 }
 
 
@@ -151,15 +154,15 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
   capacity                      = 1
   public_network_access_enabled = true
   live_trace {
-    enabled                     = true
-    messaging_logs_enabled      = true
-    connectivity_logs_enabled   = false
+    enabled                   = true
+    messaging_logs_enabled    = true
+    connectivity_logs_enabled = false
   }
-  tags                          = var.common_tags
+  tags = var.common_tags
 
   identity {
-   type         = "UserAssigned"
-   identity_ids = [data.azurerm_user_assigned_identity.em-shared-identity.id]
+    type         = "UserAssigned"
+    identity_ids = [data.azurerm_user_assigned_identity.em-shared-identity.id]
   }
 }
 
