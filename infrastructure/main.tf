@@ -146,29 +146,29 @@ module "policy" {
   api_policy_xml_content = local.api_policy
 }
 
-resource "azurerm_web_pubsub" "ped_web_pubsub" {
-  name                          = "${local.app_full_name}-webpubsub-${var.env}"
-  location                      = var.location
-  resource_group_name           = "${local.app_full_name}-${var.env}"
-  sku                           = "Standard_S1"
-  capacity                      = 1
-  public_network_access_enabled = true
-  live_trace {
-    enabled                   = true
-    messaging_logs_enabled    = true
-    connectivity_logs_enabled = false
-  }
-  tags = var.common_tags
-
-  identity {
-    type         = "UserAssigned"
-    identity_ids = [data.azurerm_user_assigned_identity.em-shared-identity.id]
-  }
-}
-
-resource "azurerm_key_vault_secret" "em_icp_web_pubsub_primary_connection_string" {
-  name         = "em-icp-web-pubsub-primary-connection-string"
-  value        = azurerm_web_pubsub.ped_web_pubsub.primary_connection_string
-  key_vault_id = module.local_key_vault.key_vault_id
-}
+#resource "azurerm_web_pubsub" "ped_web_pubsub" {
+#  name                          = "${local.app_full_name}-webpubsub-${var.env}"
+#  location                      = var.location
+#  resource_group_name           = "${local.app_full_name}-${var.env}"
+#  sku                           = "Standard_S1"
+#  capacity                      = 1
+#  public_network_access_enabled = true
+#  live_trace {
+#    enabled                   = true
+#    messaging_logs_enabled    = true
+#    connectivity_logs_enabled = false
+#  }
+#  tags = var.common_tags
+#
+#  identity {
+#    type         = "UserAssigned"
+#    identity_ids = [data.azurerm_user_assigned_identity.em-shared-identity.id]
+#  }
+#}
+#
+#resource "azurerm_key_vault_secret" "em_icp_web_pubsub_primary_connection_string" {
+#  name         = "em-icp-web-pubsub-primary-connection-string"
+#  value        = azurerm_web_pubsub.ped_web_pubsub.primary_connection_string
+#  key_vault_id = module.local_key_vault.key_vault_id
+#}
 
