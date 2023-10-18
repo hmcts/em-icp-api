@@ -56,96 +56,96 @@ data "azurerm_key_vault_secret" "s2s_key" {
   name         = "microservicekey-em-icp"
   key_vault_id = data.azurerm_key_vault.s2s_vault.id
 }
-#
-#resource "azurerm_key_vault_secret" "local_s2s_key" {
-#  name         = "microservicekey-em-icp"
-#  value        = data.azurerm_key_vault_secret.s2s_key.value
-#  key_vault_id = module.local_key_vault.key_vault_id
-#}
-#
-## Load AppInsights key from rpa vault
-#data "azurerm_key_vault" "rpa_vault" {
-#  name                = "rpa-${local.local_env}"
-#  resource_group_name = "rpa-${local.local_env}"
-#}
-#
-#
-#data "azurerm_key_vault_secret" "app_insights_key" {
-#  name         = "EmAppInsightsInstrumentationKey"
-#  key_vault_id = data.azurerm_key_vault.rpa_vault.id
-#}
-#
-#resource "azurerm_key_vault_secret" "local_app_insights_key" {
-#  name         = "AppInsightsInstrumentationKey"
-#  value        = data.azurerm_key_vault_secret.app_insights_key.value
-#  key_vault_id = module.local_key_vault.key_vault_id
-#}
-#
-#
-#
-##Redis
-#data "azurerm_subnet" "core_infra_redis_subnet" {
-#  name                 = "core-infra-subnet-1-${var.env}"
-#  virtual_network_name = "core-infra-vnet-${var.env}"
-#  resource_group_name  = "core-infra-${var.env}"
-#}
-#
-#module "em-icp-redis-cache" {
-#  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
-#  product                       = "${var.product}-${var.component}-redis-cache"
-#  location                      = var.location
-#  env                           = var.env
-#  count                         = var.env == "aat" ? "1" : "0"
-#  redis_version                 = "6"
-#  subnetid                      = data.azurerm_subnet.core_infra_redis_subnet.id
-#  common_tags                   = var.common_tags
-#  private_endpoint_enabled      = true
-#  public_network_access_enabled = false
-#  business_area                 = "cft"
-#  sku_name                      = var.sku_name
-#  family                        = var.family
-#  capacity                      = var.capacity
-#}
-#
-#resource "azurerm_key_vault_secret" "local_redis_password" {
-#  count        = var.env == "aat" ? 1 : 0
-#  name         = "redis-password"
-#  value        = module.em-icp-redis-cache[0].access_key
-#  key_vault_id = module.local_key_vault.key_vault_id
-#}
-#
-## region API (gateway)
-#
-#module "em-icp-api" {
-#  source = "git@github.com:hmcts/cnp-module-api-mgmt-product?ref=master"
-#
-#  api_mgmt_name = "core-api-mgmt-${var.env}"
-#  api_mgmt_rg   = "core-infra-${var.env}"
-#  name          = "em-icp-api"
-#}
-#
-#
-#module "api" {
-#  source        = "git@github.com:hmcts/cnp-module-api-mgmt-api?ref=master"
-#  name          = "${var.product}-icp-api"
-#  api_mgmt_rg   = "core-infra-${var.env}"
-#  api_mgmt_name = "core-api-mgmt-${var.env}"
-#  display_name  = "${var.product}-icp"
-#  revision      = "1"
-#  product_id    = module.em-icp-api.product_id
-#  path          = local.api_base_path
-#  service_url   = "http://em-icp-${var.env}.service.core-compute-${var.env}.internal"
-#  swagger_url   = "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/specs/em-icp.json"
-#}
-#
-#module "policy" {
-#  source                 = "git@github.com:hmcts/cnp-module-api-mgmt-api-policy?ref=master"
-#  api_mgmt_name          = "core-api-mgmt-${var.env}"
-#  api_mgmt_rg            = "core-infra-${var.env}"
-#  api_name               = module.api.name
-#  api_policy_xml_content = local.api_policy
-#}
-#
+
+resource "azurerm_key_vault_secret" "local_s2s_key" {
+  name         = "microservicekey-em-icp"
+  value        = data.azurerm_key_vault_secret.s2s_key.value
+  key_vault_id = module.local_key_vault.key_vault_id
+}
+
+# Load AppInsights key from rpa vault
+data "azurerm_key_vault" "rpa_vault" {
+  name                = "rpa-${local.local_env}"
+  resource_group_name = "rpa-${local.local_env}"
+}
+
+
+data "azurerm_key_vault_secret" "app_insights_key" {
+  name         = "EmAppInsightsInstrumentationKey"
+  key_vault_id = data.azurerm_key_vault.rpa_vault.id
+}
+
+resource "azurerm_key_vault_secret" "local_app_insights_key" {
+  name         = "AppInsightsInstrumentationKey"
+  value        = data.azurerm_key_vault_secret.app_insights_key.value
+  key_vault_id = module.local_key_vault.key_vault_id
+}
+
+
+
+#Redis
+data "azurerm_subnet" "core_infra_redis_subnet" {
+  name                 = "core-infra-subnet-1-${var.env}"
+  virtual_network_name = "core-infra-vnet-${var.env}"
+  resource_group_name  = "core-infra-${var.env}"
+}
+
+module "em-icp-redis-cache" {
+  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  product                       = "${var.product}-${var.component}-redis-cache"
+  location                      = var.location
+  env                           = var.env
+  count                         = var.env == "aat" ? "1" : "0"
+  redis_version                 = "6"
+  subnetid                      = data.azurerm_subnet.core_infra_redis_subnet.id
+  common_tags                   = var.common_tags
+  private_endpoint_enabled      = true
+  public_network_access_enabled = false
+  business_area                 = "cft"
+  sku_name                      = var.sku_name
+  family                        = var.family
+  capacity                      = var.capacity
+}
+
+resource "azurerm_key_vault_secret" "local_redis_password" {
+  count        = var.env == "aat" ? 1 : 0
+  name         = "redis-password"
+  value        = module.em-icp-redis-cache[0].access_key
+  key_vault_id = module.local_key_vault.key_vault_id
+}
+
+# region API (gateway)
+
+module "em-icp-api" {
+  source = "git@github.com:hmcts/cnp-module-api-mgmt-product?ref=master"
+
+  api_mgmt_name = "core-api-mgmt-${var.env}"
+  api_mgmt_rg   = "core-infra-${var.env}"
+  name          = "em-icp-api"
+}
+
+
+module "api" {
+  source        = "git@github.com:hmcts/cnp-module-api-mgmt-api?ref=master"
+  name          = "${var.product}-icp-api"
+  api_mgmt_rg   = "core-infra-${var.env}"
+  api_mgmt_name = "core-api-mgmt-${var.env}"
+  display_name  = "${var.product}-icp"
+  revision      = "1"
+  product_id    = module.em-icp-api.product_id
+  path          = local.api_base_path
+  service_url   = "http://em-icp-${var.env}.service.core-compute-${var.env}.internal"
+  swagger_url   = "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/specs/em-icp.json"
+}
+
+module "policy" {
+  source                 = "git@github.com:hmcts/cnp-module-api-mgmt-api-policy?ref=master"
+  api_mgmt_name          = "core-api-mgmt-${var.env}"
+  api_mgmt_rg            = "core-infra-${var.env}"
+  api_name               = module.api.name
+  api_policy_xml_content = local.api_policy
+}
+
 resource "azurerm_web_pubsub" "ped_web_pubsub" {
   name                          = "${local.app_full_name}-webpubsub-${var.env}"
   location                      = var.location
