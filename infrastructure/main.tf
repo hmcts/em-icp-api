@@ -116,35 +116,35 @@ resource "azurerm_key_vault_secret" "local_redis_password" {
 
 # region API (gateway)
 
-module "em-icp-api" {
-  source = "git@github.com:hmcts/cnp-module-api-mgmt-product?ref=master"
+#module "em-icp-api" {
+#  source = "git@github.com:hmcts/cnp-module-api-mgmt-product?ref=master"
+#
+#  api_mgmt_name = "core-api-mgmt-${var.env}"
+#  api_mgmt_rg   = "core-infra-${var.env}"
+#  name          = "em-icp-api"
+#}
+#
+#
+#module "api" {
+#  source        = "git@github.com:hmcts/cnp-module-api-mgmt-api?ref=master"
+#  name          = "${var.product}-icp-api"
+#  api_mgmt_rg   = "core-infra-${var.env}"
+#  api_mgmt_name = "core-api-mgmt-${var.env}"
+#  display_name  = "${var.product}-icp"
+#  revision      = "1"
+#  product_id    = module.em-icp-api.product_id
+#  path          = local.api_base_path
+#  service_url   = "http://em-icp-${var.env}.service.core-compute-${var.env}.internal"
+#  swagger_url   = "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/specs/em-icp.json"
+#}
 
-  api_mgmt_name = "core-api-mgmt-${var.env}"
-  api_mgmt_rg   = "core-infra-${var.env}"
-  name          = "em-icp-api"
-}
-
-
-module "api" {
-  source        = "git@github.com:hmcts/cnp-module-api-mgmt-api?ref=master"
-  name          = "${var.product}-icp-api"
-  api_mgmt_rg   = "core-infra-${var.env}"
-  api_mgmt_name = "core-api-mgmt-${var.env}"
-  display_name  = "${var.product}-icp"
-  revision      = "1"
-  product_id    = module.em-icp-api.product_id
-  path          = local.api_base_path
-  service_url   = "http://em-icp-${var.env}.service.core-compute-${var.env}.internal"
-  swagger_url   = "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/specs/em-icp.json"
-}
-
-module "policy" {
-  source                 = "git@github.com:hmcts/cnp-module-api-mgmt-api-policy?ref=master"
-  api_mgmt_name          = "core-api-mgmt-${var.env}"
-  api_mgmt_rg            = "core-infra-${var.env}"
-  api_name               = module.api.name
-  api_policy_xml_content = local.api_policy
-}
+#module "policy" {
+#  source                 = "git@github.com:hmcts/cnp-module-api-mgmt-api-policy?ref=master"
+#  api_mgmt_name          = "core-api-mgmt-${var.env}"
+#  api_mgmt_rg            = "core-infra-${var.env}"
+#  api_name               = module.api.name
+#  api_policy_xml_content = local.api_policy
+#}
 
 #resource "azurerm_web_pubsub" "ped_web_pubsub" {
 #  name                          = "${local.app_full_name}-webpubsub-${var.env}"
