@@ -23,9 +23,9 @@ if (app.locals.ENV === "development") {
     logger.info(`Application started: https://localhost:${port}`);
   });
 } else {
-//   server = app.listen(port, () => {
-//     logger.info(`Application started: http://localhost:${port}`);
-//   });
+  server = app.listen(port, () => {
+    logger.info(`Application started: http://localhost:${port}`);
+  });
 }
 
 
