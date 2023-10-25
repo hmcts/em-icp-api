@@ -9,7 +9,7 @@ provider "azurerm" {
 locals {
   app_full_name = "${var.product}-${var.component}"
   local_env     = var.env == "preview" ? "aat" : var.env
-  s2s_key       = data.azurerm_key_vault_secret.s2s_key.value
+#  s2s_key       = data.azurerm_key_vault_secret.s2s_key.value
   # list of the thumbprints of the SSL certificates that should be accepted by the API (gateway)
   allowed_certificate_thumbprints = [
     # API tests
