@@ -57,11 +57,11 @@ data "azurerm_key_vault_secret" "s2s_key" {
   key_vault_id = data.azurerm_key_vault.s2s_vault.id
 }
 
-resource "azurerm_key_vault_secret" "local_s2s_key" {
-  name         = "microservicekey-em-icp"
-  value        = data.azurerm_key_vault_secret.s2s_key.value
-  key_vault_id = module.local_key_vault.key_vault_id
-}
+#resource "azurerm_key_vault_secret" "local_s2s_key" {
+#  name         = "microservicekey-em-icp"
+#  value        = data.azurerm_key_vault_secret.s2s_key.value
+#  key_vault_id = module.local_key_vault.key_vault_id
+#}
 
 # Load AppInsights key from rpa vault
 #data "azurerm_key_vault" "rpa_vault" {
