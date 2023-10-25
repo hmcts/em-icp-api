@@ -64,22 +64,22 @@ resource "azurerm_key_vault_secret" "local_s2s_key" {
 }
 
 # Load AppInsights key from rpa vault
-data "azurerm_key_vault" "rpa_vault" {
-  name                = "rpa-${local.local_env}"
-  resource_group_name = "rpa-${local.local_env}"
-}
-
-
-data "azurerm_key_vault_secret" "app_insights_key" {
-  name         = "EmAppInsightsInstrumentationKey"
-  key_vault_id = data.azurerm_key_vault.rpa_vault.id
-}
-
-resource "azurerm_key_vault_secret" "local_app_insights_key" {
-  name         = "AppInsightsInstrumentationKey"
-  value        = data.azurerm_key_vault_secret.app_insights_key.value
-  key_vault_id = module.local_key_vault.key_vault_id
-}
+#data "azurerm_key_vault" "rpa_vault" {
+#  name                = "rpa-${local.local_env}"
+#  resource_group_name = "rpa-${local.local_env}"
+#}
+#
+#
+#data "azurerm_key_vault_secret" "app_insights_key" {
+#  name         = "EmAppInsightsInstrumentationKey"
+#  key_vault_id = data.azurerm_key_vault.rpa_vault.id
+#}
+#
+#resource "azurerm_key_vault_secret" "local_app_insights_key" {
+#  name         = "AppInsightsInstrumentationKey"
+#  value        = data.azurerm_key_vault_secret.app_insights_key.value
+#  key_vault_id = module.local_key_vault.key_vault_id
+#}
 
 
 
