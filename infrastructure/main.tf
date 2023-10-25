@@ -84,35 +84,35 @@ resource "azurerm_key_vault_secret" "local_app_insights_key" {
 
 
 #Redis
-data "azurerm_subnet" "core_infra_redis_subnet" {
-  name                 = "core-infra-subnet-1-${var.env}"
-  virtual_network_name = "core-infra-vnet-${var.env}"
-  resource_group_name  = "core-infra-${var.env}"
-}
-
-module "em-icp-redis-cache" {
-  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product                       = "${var.product}-${var.component}-redis-cache"
-  location                      = var.location
-  env                           = var.env
-  count                         = var.env == "aat" ? "1" : "0"
-  redis_version                 = "6"
-  subnetid                      = data.azurerm_subnet.core_infra_redis_subnet.id
-  common_tags                   = var.common_tags
-  private_endpoint_enabled      = true
-  public_network_access_enabled = false
-  business_area                 = "cft"
-  sku_name                      = var.sku_name
-  family                        = var.family
-  capacity                      = var.capacity
-}
-
-resource "azurerm_key_vault_secret" "local_redis_password" {
-  count        = var.env == "aat" ? 1 : 0
-  name         = "redis-password"
-  value        = module.em-icp-redis-cache[0].access_key
-  key_vault_id = module.local_key_vault.key_vault_id
-}
+#data "azurerm_subnet" "core_infra_redis_subnet" {
+#  name                 = "core-infra-subnet-1-${var.env}"
+#  virtual_network_name = "core-infra-vnet-${var.env}"
+#  resource_group_name  = "core-infra-${var.env}"
+#}
+#
+#module "em-icp-redis-cache" {
+#  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
+#  product                       = "${var.product}-${var.component}-redis-cache"
+#  location                      = var.location
+#  env                           = var.env
+#  count                         = var.env == "aat" ? "1" : "0"
+#  redis_version                 = "6"
+#  subnetid                      = data.azurerm_subnet.core_infra_redis_subnet.id
+#  common_tags                   = var.common_tags
+#  private_endpoint_enabled      = true
+#  public_network_access_enabled = false
+#  business_area                 = "cft"
+#  sku_name                      = var.sku_name
+#  family                        = var.family
+#  capacity                      = var.capacity
+#}
+#
+#resource "azurerm_key_vault_secret" "local_redis_password" {
+#  count        = var.env == "aat" ? 1 : 0
+#  name         = "redis-password"
+#  value        = module.em-icp-redis-cache[0].access_key
+#  key_vault_id = module.local_key_vault.key_vault_id
+#}
 
 # region API (gateway)
 
