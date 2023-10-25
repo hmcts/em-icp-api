@@ -6,9 +6,9 @@ export const router = express.Router();
 
 const healthCheckConfig = {
   checks: {
-    redis: healthcheck.raw(() => {
-      return redis.status === "ready" ? healthcheck.up() : healthcheck.down();
-    }),
+//     redis: healthcheck.raw(() => {
+//       return redis.status === "ready" ? healthcheck.up() : healthcheck.down();
+//     }),
   },
 };
 
