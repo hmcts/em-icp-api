@@ -6,35 +6,35 @@ provider "azurerm" {
   }
 }
 
-#locals {
-#  app_full_name = "${var.product}-${var.component}"
-#  local_env     = var.env == "preview" ? "aat" : var.env
-#  s2s_key       = data.azurerm_key_vault_secret.s2s_key.value
-#  # list of the thumbprints of the SSL certificates that should be accepted by the API (gateway)
-#  allowed_certificate_thumbprints = [
-#    # API tests
-#    var.api_gateway_test_certificate_thumbprint,
-#    "29390B7A235C692DACD93FA0AB90081867177BEC"
-#  ]
-#  thumbprints_in_quotes     = formatlist("&quot;%s&quot;", local.allowed_certificate_thumbprints)
-#  thumbprints_in_quotes_str = join(",", local.thumbprints_in_quotes)
-#  api_policy                = replace(file("template/api-policy.xml"), "ALLOWED_CERTIFICATE_THUMBPRINTS", local.thumbprints_in_quotes_str)
-#  api_base_path             = "${var.product}-icp-api"
-#  api_mgmt_name             = "core-api-mgmt-${var.env}"
-#}
-#
-#resource "azurerm_resource_group" "rg" {
-#  name     = "${var.product}-${var.component}-${var.env}"
-#  location = var.location
-#
-#  tags = var.common_tags
-#}
-#
-#data "azurerm_user_assigned_identity" "em-shared-identity" {
-#  name                = "rpa-${var.env}-mi"
-#  resource_group_name = "managed-identities-${var.env}-rg"
-#}
-#
+locals {
+  app_full_name = "${var.product}-${var.component}"
+  local_env     = var.env == "preview" ? "aat" : var.env
+  s2s_key       = data.azurerm_key_vault_secret.s2s_key.value
+  # list of the thumbprints of the SSL certificates that should be accepted by the API (gateway)
+  allowed_certificate_thumbprints = [
+    # API tests
+    var.api_gateway_test_certificate_thumbprint,
+    "29390B7A235C692DACD93FA0AB90081867177BEC"
+  ]
+  thumbprints_in_quotes     = formatlist("&quot;%s&quot;", local.allowed_certificate_thumbprints)
+  thumbprints_in_quotes_str = join(",", local.thumbprints_in_quotes)
+  api_policy                = replace(file("template/api-policy.xml"), "ALLOWED_CERTIFICATE_THUMBPRINTS", local.thumbprints_in_quotes_str)
+  api_base_path             = "${var.product}-icp-api"
+  api_mgmt_name             = "core-api-mgmt-${var.env}"
+}
+
+resource "azurerm_resource_group" "rg" {
+  name     = "${var.product}-${var.component}-${var.env}"
+  location = var.location
+
+  tags = var.common_tags
+}
+
+data "azurerm_user_assigned_identity" "em-shared-identity" {
+  name                = "rpa-${var.env}-mi"
+  resource_group_name = "managed-identities-${var.env}-rg"
+}
+
 #module "local_key_vault" {
 #  source                      = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
 #  product                     = local.app_full_name
