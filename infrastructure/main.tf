@@ -9,7 +9,7 @@ provider "azurerm" {
 locals {
   app_full_name = "${var.product}-${var.component}"
   local_env     = var.env == "preview" ? "aat" : var.env
-  s2s_key       = data.azurerm_key_vault_secret.s2s_key.value
+#  s2s_key       = data.azurerm_key_vault_secret.s2s_key.value
   # list of the thumbprints of the SSL certificates that should be accepted by the API (gateway)
   allowed_certificate_thumbprints = [
     # API tests
@@ -47,21 +47,21 @@ module "local_key_vault" {
   managed_identity_object_ids = ["${data.azurerm_user_assigned_identity.em-shared-identity.principal_id}", "${var.managed_identity_object_id}"]
 }
 
-data "azurerm_key_vault" "s2s_vault" {
-  name                = "s2s-${local.local_env}"
-  resource_group_name = "rpe-service-auth-provider-${local.local_env}"
-}
-
-data "azurerm_key_vault_secret" "s2s_key" {
-  name         = "microservicekey-em-icp"
-  key_vault_id = data.azurerm_key_vault.s2s_vault.id
-}
-
-resource "azurerm_key_vault_secret" "local_s2s_key" {
-  name         = "microservicekey-em-icp"
-  value        = data.azurerm_key_vault_secret.s2s_key.value
-  key_vault_id = module.local_key_vault.key_vault_id
-}
+#data "azurerm_key_vault" "s2s_vault" {
+#  name                = "s2s-${local.local_env}"
+#  resource_group_name = "rpe-service-auth-provider-${local.local_env}"
+#}
+#
+#data "azurerm_key_vault_secret" "s2s_key" {
+#  name         = "microservicekey-em-icp"
+#  key_vault_id = data.azurerm_key_vault.s2s_vault.id
+#}
+#
+#resource "azurerm_key_vault_secret" "local_s2s_key" {
+#  name         = "microservicekey-em-icp"
+#  value        = data.azurerm_key_vault_secret.s2s_key.value
+#  key_vault_id = module.local_key_vault.key_vault_id
+#}
 
 # Load AppInsights key from rpa vault
 #data "azurerm_key_vault" "rpa_vault" {
