@@ -4033,7 +4033,7 @@ __metadata:
     cross-env: ^7.0.3
     csurf: ^1.11.0
     debug: ^4.1.1
-    engine.io: ^6.5.1
+    engine.io: ^6.5.4
     eslint: 8.44.0
     express: ^4.18.2
     express-rate-limit: ^6.7.0
@@ -4142,7 +4142,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"engine.io@npm:^6.5.1, engine.io@npm:~6.5.0":
+"engine.io-parser@npm:~5.2.1":
+  version: 5.2.1
+  resolution: "engine.io-parser@npm:5.2.1"
+  checksum: 55b0e8e18500f50c1573675c53597c5552554ead08d3f30ff19fde6409e48f882a8e01f84e9772cd155c18a1d653d06f6bf57b4e1f8b834c63c9eaf3b657b88e
+  languageName: node
+  linkType: hard
+
+"engine.io@npm:^6.5.4":
+  version: 6.5.4
+  resolution: "engine.io@npm:6.5.4"
+  dependencies:
+    "@types/cookie": ^0.4.1
+    "@types/cors": ^2.8.12
+    "@types/node": ">=10.0.0"
+    accepts: ~1.3.4
+    base64id: 2.0.0
+    cookie: ~0.4.1
+    cors: ~2.8.5
+    debug: ~4.3.1
+    engine.io-parser: ~5.2.1
+    ws: ~8.11.0
+  checksum: d5b55cbac718c5b1c10800314379923f8c7ef9e3a8a60c6827ed86303d1154b81d354a89fdecf4cbb773515c82c84a98d3c791ff88279393b53625dd67299d30
+  languageName: node
+  linkType: hard
+
+"engine.io@npm:~6.5.0":
   version: 6.5.1
   resolution: "engine.io@npm:6.5.1"
   dependencies:
