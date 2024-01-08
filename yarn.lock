@@ -4023,7 +4023,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.56.0
     ansi-regex: ^6.0.1
     applicationinsights: ^2.3.6
-    axios: ^1.4.0
+    axios: ^1.6.5
     babel-loader: ^9.1.0
     chai: ^4.3.7
     chai-as-promised: ^7.1.1
