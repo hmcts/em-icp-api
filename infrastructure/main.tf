@@ -169,3 +169,10 @@ resource "azurerm_key_vault_secret" "em_icp_web_pubsub_primary_connection_string
   value        = azurerm_web_pubsub.ped_web_pubsub.primary_connection_string
   key_vault_id = module.local_key_vault.key_vault_id
 }
+
+
+resource "azurerm_key_vault_secret" "em_icp_web_pubsub_primary_connection_string-1" {
+  name         = "em_icp_web_pubsub_primary_connection_string-1"
+  value        = azurerm_web_pubsub.ped_web_pubsub.primary_connection_string
+  key_vault_id = module.local_key_vault.key_vault_id
+}

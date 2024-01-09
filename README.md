@@ -1,4 +1,4 @@
-# Archieving this repo for time been to update the Delivery Report on grafana.
+# Archieving this repo for time been to update the Delivery Report on grafana
 
 # In Court Presentation API
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -31,7 +31,7 @@ To view our REST API go to {HOST}:{PORT}/swagger
 
 ## Tech
 
-The ICP API uses the following technologies: 
+The ICP API uses the following technologies:
 
 - Node (v12.0.0)
 - Redis
