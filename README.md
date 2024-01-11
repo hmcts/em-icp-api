@@ -33,7 +33,7 @@ To view our REST API go to {HOST}:{PORT}/swagger
 
 The ICP API uses the following technologies:
 
-- Node (v12.0.0)
+- Node (v18.17.0)
 - Redis
 - Express
 - Chai (For testing)
