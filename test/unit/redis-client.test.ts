@@ -64,7 +64,7 @@ describe("RedisClient", () => {
     sandbox.stub(client, "multi").throws(new Error("error"));
     sandbox.spy(redisClient.logger, "error");
 
-    redisClient.onJoin({} as any);
+    redisClient.onJoin({} as unknown);
     expect(redisClient.logger.error.calledOnce).to.be.true;
   });
 
@@ -81,14 +81,14 @@ describe("RedisClient", () => {
     sandbox.stub(client, "multi").throws(new Error("error"));
     sandbox.spy(redisClient.logger, "error");
 
-    await redisClient.updatePresenter({} as any);
+    await redisClient.updatePresenter({} as unknown);
     expect(redisClient.logger.error.calledOnce).to.be.true;
   });
 
   it("it should update participants", async () => {
     client.hmset("1234", { caseId: "1234", participants: ["participant1"] });
 
-    await redisClient.updateParticipants("1234", ["participant1","participant2"]);
+    await redisClient.updateParticipants("1234", ["participant1", "participant2"]);
     const session = await redisClient.getSession("1234");
 
     expect(session.participants).to.contain("participant2");
