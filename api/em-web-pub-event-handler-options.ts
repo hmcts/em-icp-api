@@ -1,7 +1,7 @@
 import { WebPubSubServiceClient } from "@azure/web-pubsub";
 import { ConnectedRequest, ConnectRequest, ConnectResponseHandler, DisconnectedRequest, UserEventRequest, UserEventResponseHandler, WebPubSubEventHandlerOptions } from "@azure/web-pubsub-express";
 import { Actions } from "./model/actions";
-import { PresenterUpdate, Session } from "model/interfaces";
+import { PresenterUpdate } from "model/interfaces";
 import { RedisClient } from "./redis-client";
 
 const redisClient = new RedisClient();
@@ -17,7 +17,6 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   handleConnect = async (connectRequest: ConnectRequest, connectResponse: ConnectResponseHandler) => {
     console.log("handleConnect");
     connectResponse.success();
-
   };
 
   handleUserEvent = async (userEventRequest: UserEventRequest, userEventResponse: UserEventResponseHandler) => {
@@ -38,10 +37,12 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     userEventResponse.success();
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onConnected = async (connectedRequest: ConnectedRequest) => {
     console.log("onConnected");
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onDisconnected = (disconnectedRequest: DisconnectedRequest) => {
     console.log("onDisconnected");
   };
