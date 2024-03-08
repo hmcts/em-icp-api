@@ -5,6 +5,7 @@ import { IdamClient } from "./api/security/idam-client";
 import { Logger } from "@hmcts/nodejs-logging";
 import { Actions } from "./api/model/actions";
 import { PresenterUpdate } from "./api/model/interfaces";
+import { ExtendedError } from "socket.io/dist/namespace";
 const socketio = require("socket.io");
 
 let io: Server, socket: Socket;
@@ -25,12 +26,12 @@ export class SocketIO {
     io.use(SocketIO.verifyIdamToken).on("connection", SocketIO.addEventListeners);
   }
 
-  static async verifyIdamToken(client: Socket, next: (err?: any) => void): Promise<void> {
+  static async verifyIdamToken(client: Socket, next: (err?: ExtendedError) => void): Promise<void> {
     try {
-      // await new IdamClient().verifyToken(client.request.headers["authorization"]);
+      await new IdamClient().verifyToken(client.request.headers["authorization"]);
       next();
     } catch (err) {
-      // client.disconnect();
+      client.disconnect();
       next(err);
     }
   }
