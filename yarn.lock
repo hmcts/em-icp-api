@@ -1966,7 +1966,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chai@npm:*, @types/chai@npm:4, @types/chai@npm:^4.3.4":
+"@types/chai@npm:*, @types/chai@npm:4, @types/chai@npm:^4.3.11":
   version: 4.3.12
   resolution: "@types/chai@npm:4.3.12"
   checksum: 64e9354181046bfc78f527bba006f2e58b49efb702a501bdd1faec51e21e4d2248e7fb49843fd3f2189e3bf3680480b94e8a1ab6d097e67183bdeacd6d024ed6
@@ -3080,7 +3080,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chai@npm:^4.3.7":
+"chai@npm:^4.3.10":
   version: 4.4.1
   resolution: "chai@npm:4.4.1"
   dependencies:
@@ -3788,7 +3788,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": ^1.8.0
     "@hmcts/nodejs-logging": ^4.0.0
     "@hmcts/properties-volume": 0.0.14
-    "@types/chai": ^4.3.4
+    "@types/chai": ^4.3.11
     "@types/chai-as-promised": ^7.1.1
     "@types/config": ^3.0.0
     "@types/cookie-parser": ^1.4.3
@@ -3808,7 +3808,7 @@ __metadata:
     applicationinsights: ^2.3.6
     axios: ^1.4.0
     babel-loader: ^9.1.0
-    chai: ^4.3.7
+    chai: ^4.3.10
     chai-as-promised: ^7.1.1
     chai-http: ^4.3.0
     config: ^3.3.9
