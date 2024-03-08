@@ -25,7 +25,7 @@ const env = process.env.NODE_ENV || "development";
 propertiesVolume.addTo(config);
 
 const APP_INSIGHTS_KEY = config.secrets ? config.secrets["em-icp"]["AppInsightsInstrumentationKey"] : undefined;
-// const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : undefined;
+const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : undefined;
 
 const logger = Logger.getLogger("app");
 
@@ -37,16 +37,16 @@ const limiter = rateLimit({
   max: config.rateLimit.max,
 });
 
-// const webPubSubOptions = new EmWebPubEventHandlerOptions(primaryConnectionstring);
-// const handler = new WebPubSubEventHandler("hub", {
-//   path: "/eventhandler",
-//   handleConnect: webPubSubOptions.handleConnect,
-//   handleUserEvent: webPubSubOptions.handleUserEvent,
-//   onConnected: webPubSubOptions.onConnected,
-//   onDisconnected: webPubSubOptions.onDisconnected,
-// });
+const webPubSubOptions = new EmWebPubEventHandlerOptions(primaryConnectionstring);
+const handler = new WebPubSubEventHandler("hub", {
+  path: "/eventhandler",
+  handleConnect: webPubSubOptions.handleConnect,
+  handleUserEvent: webPubSubOptions.handleUserEvent,
+  onConnected: webPubSubOptions.onConnected,
+  onDisconnected: webPubSubOptions.onDisconnected,
+});
 
-// app.use(handler.getMiddleware());
+app.use(handler.getMiddleware());
 app.use(limiter);
 app.use(Express.accessLogger());
 
