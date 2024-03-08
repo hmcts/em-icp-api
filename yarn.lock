@@ -2121,6 +2121,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/ioredis-mock@npm:^8.2.5":
+  version: 8.2.5
+  resolution: "@types/ioredis-mock@npm:8.2.5"
+  dependencies:
+    "@types/node": "*"
+    ioredis: ">=5"
+  checksum: c32a20e02f8c777780b8663ba83bc7be4a5098fe44c390dd28cb69c9b60fc6dcfa1cbc7e5f8dca3579e85b3be1a08b5b8201a5a2d6d1195e5e5840b13538caab
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.12, @types/json-schema@npm:^7.0.9":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
@@ -3986,6 +3996,7 @@ __metadata:
     "@types/es6-promisify": ^6.0.4
     "@types/express": ^4.17.17
     "@types/helmet": ^4.0.0
+    "@types/ioredis-mock": ^8.2.5
     "@types/mocha": ^10.0.1
     "@types/node": ^18.15.11
     "@types/require-directory": ^2.1.1
@@ -5395,7 +5406,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^5.3.2":
+"ioredis@npm:>=5, ioredis@npm:^5.3.2":
   version: 5.3.2
   resolution: "ioredis@npm:5.3.2"
   dependencies:
