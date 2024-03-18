@@ -2158,12 +2158,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.15.11":
-  version: 18.19.22
-  resolution: "@types/node@npm:18.19.22"
+"@types/node@npm:^20.11.29":
+  version: 20.11.29
+  resolution: "@types/node@npm:20.11.29"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 89ba0923b4bfe961135d98cac3c1a726f5b61f23e90c8dcea4c44bde566a0ed3fb192198e0f1a700f4a1175027b63eb62a894992fb29b97a4af88b8dbbdc2fa6
+  checksum: d6d37d4f72a372b033b8737ce615abb2ad8668c689ca4ef8c49b85249f8448fa9348ec8c67e96db3d11f64badd7e598c3da53c6804ea0fca8dd3bea585d93c29
   languageName: node
   linkType: hard
 
@@ -3986,7 +3986,7 @@ __metadata:
     "@types/express": ^4.17.17
     "@types/helmet": ^4.0.0
     "@types/mocha": ^10.0.1
-    "@types/node": ^18.15.11
+    "@types/node": ^20.11.29
     "@types/require-directory": ^2.1.1
     "@types/sinon": ^10.0.13
     "@types/uuid": ^9.0.7
