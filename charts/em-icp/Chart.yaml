@@ -9,7 +9,7 @@ dependencies:
     version: 3.0.3
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
   - name: redis
-    version: 17.11.7
+    version: 19.0.1
     repository: "https://charts.bitnami.com/bitnami"
     tags:
       - pr
