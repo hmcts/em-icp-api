@@ -58,7 +58,7 @@
     "nocache": "^4.0.0",
     "require-directory": "^2.1.1",
     "socket.io": "4.7.4",
-    "socket.io-client": "^4.5.4",
+    "socket.io-client": "^4.7.5",
     "superagent": "^8.0.0",
     "swagger-ui-dist": "^5.0.0",
     "swagger-ui-express": "^4.6.0",
