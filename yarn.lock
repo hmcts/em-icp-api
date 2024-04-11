@@ -8097,9 +8097,9 @@ __metadata:
   linkType: hard
 
 "swagger-ui-dist@npm:>=4.11.0, swagger-ui-dist@npm:^5.0.0":
-  version: 5.14.0
-  resolution: "swagger-ui-dist@npm:5.14.0"
-  checksum: 30e31e05d305d8d62e7b86a519b673aae13330a51aa1fe63dcf7cf7fbdd17caa7c571497dacede2952f5bb7997ae2301b94e2137fea0698f503afd2e793d111f
+  version: 5.15.1
+  resolution: "swagger-ui-dist@npm:5.15.1"
+  checksum: 3fda9cf68f6454d3d2d5bfc7e463864d409695401684b7733f25ef0868987b27d6975770f5437b940270c406bf602ca16c2b1d9d8359b852ff4c07c48365e2ed
   languageName: node
   linkType: hard
 
