@@ -2296,7 +2296,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:7.6.0":
+"@typescript-eslint/parser@npm:7.6.0, @typescript-eslint/parser@npm:^7.6.0":
   version: 7.6.0
   resolution: "@typescript-eslint/parser@npm:7.6.0"
   dependencies:
@@ -2311,23 +2311,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 96f8219765c7427d679c8a69180ddceafe595ed7fcd796ef00ce7bf5b289725191f0d26bd7009e092010085e7cb54446965b7cdc94e9b30adad80004c34fbbbe
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/parser@npm:^5.56.0":
-  version: 5.62.0
-  resolution: "@typescript-eslint/parser@npm:5.62.0"
-  dependencies:
-    "@typescript-eslint/scope-manager": 5.62.0
-    "@typescript-eslint/types": 5.62.0
-    "@typescript-eslint/typescript-estree": 5.62.0
-    debug: ^4.3.4
-  peerDependencies:
-    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: d168f4c7f21a7a63f47002e2d319bcbb6173597af5c60c1cf2de046b46c76b4930a093619e69faf2d30214c29ab27b54dcf1efc7046a6a6bd6f37f59a990e752
   languageName: node
   linkType: hard
 
@@ -4001,7 +3984,7 @@ __metadata:
     "@types/uuid": ^9.0.7
     "@typescript-eslint/eslint-plugin": ^7.1.1
     "@typescript-eslint/eslint-plugin-tslint": ^5.61.0
-    "@typescript-eslint/parser": ^5.56.0
+    "@typescript-eslint/parser": ^7.6.0
     ansi-regex: ^6.0.1
     applicationinsights: ^2.3.6
     axios: ^1.6.7
@@ -4027,7 +4010,7 @@ __metadata:
     jwt-decode: ^3.1.2
     lodash: 4.17.21
     mocha: ^10.0.0
-    nanoid: 4.0.2
+    nanoid: 5.0.7
     nocache: ^4.0.0
     nock: ^13.3.0
     nodemon: ^2.0.20
@@ -6495,12 +6478,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:4.0.2":
-  version: 4.0.2
-  resolution: "nanoid@npm:4.0.2"
+"nanoid@npm:5.0.7":
+  version: 5.0.7
+  resolution: "nanoid@npm:5.0.7"
   bin:
     nanoid: bin/nanoid.js
-  checksum: 747c399cea4664dd0be1d0ec498ffd1ef8f1f5221676fc8b577e3f46f66d9afcddb9595d63d19a2e78d0bc6cc33984f65e66bf1682c850b9e26288883d96b53f
+  checksum: 25ab0b0cf9082ae6747f0f55cec930e6c1cc5975103aa3a5fda44be5720eff57d9b25a8a9850274bfdde8def964b49bf03def71c6aa7ad1cba32787819b79f60
   languageName: node
   linkType: hard
 
@@ -8115,9 +8098,9 @@ __metadata:
   linkType: hard
 
 "swagger-ui-dist@npm:>=4.11.0, swagger-ui-dist@npm:^5.0.0":
-  version: 5.14.0
-  resolution: "swagger-ui-dist@npm:5.14.0"
-  checksum: 30e31e05d305d8d62e7b86a519b673aae13330a51aa1fe63dcf7cf7fbdd17caa7c571497dacede2952f5bb7997ae2301b94e2137fea0698f503afd2e793d111f
+  version: 5.15.1
+  resolution: "swagger-ui-dist@npm:5.15.1"
+  checksum: 3fda9cf68f6454d3d2d5bfc7e463864d409695401684b7733f25ef0868987b27d6975770f5437b940270c406bf602ca16c2b1d9d8359b852ff4c07c48365e2ed
   languageName: node
   linkType: hard
 
