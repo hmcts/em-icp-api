@@ -4035,7 +4035,7 @@ __metadata:
     socket.io: 4.7.5
     socket.io-client: ^4.5.4
     sonar-scanner: ^3.1.0
-    superagent: ^8.0.0
+    superagent: ^9.0.0
     swagger-ui-dist: ^5.17.0
     swagger-ui-express: ^4.6.0
     ts-loader: ^9.4.2
@@ -8025,7 +8025,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:9":
+"superagent@npm:9, superagent@npm:^9.0.0":
   version: 9.0.1
   resolution: "superagent@npm:9.0.1"
   dependencies:
@@ -8043,7 +8043,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:^8.0.0, superagent@npm:^8.0.9":
+"superagent@npm:^8.0.9":
   version: 8.1.2
   resolution: "superagent@npm:8.1.2"
   dependencies:
