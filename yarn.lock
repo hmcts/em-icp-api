@@ -8095,17 +8095,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swagger-ui-dist@npm:>=4.11.0":
-  version: 5.16.2
-  resolution: "swagger-ui-dist@npm:5.16.2"
-  checksum: 63cd817928c99e0bd12b893eca577f93521979bd7a7a886d3a808daa5773523a78cac2e34a2e5100106f844080d413996162efbaaf744e6337b6b1458c1184b7
-  languageName: node
-  linkType: hard
-
-"swagger-ui-dist@npm:^5.17.0":
-  version: 5.17.0
-  resolution: "swagger-ui-dist@npm:5.17.0"
-  checksum: 399cd6cf7067c74dca098931fa85361068e46862d1fecad0bb0b847d2b3087e0b392a9c825bfa243ae97b254342db17862fd1fd8ae9c2f38ab2bb99eef101226
+"swagger-ui-dist@npm:>=4.11.0, swagger-ui-dist@npm:^5.17.0":
+  version: 5.17.2
+  resolution: "swagger-ui-dist@npm:5.17.2"
+  checksum: cb56d9f3cb192bb437d957fd659c01db2511662915737edd38883635b9851bc9b59d9029eaf5a1e34dccba5f47a5095f7a9244420502315ea377484ec9a0d0d5
   languageName: node
   linkType: hard
 
