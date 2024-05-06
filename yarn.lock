@@ -4144,7 +4144,7 @@ __metadata:
     socket.io-client: ^4.5.4
     sonar-scanner: ^3.1.0
     superagent: ^9.0.0
-    swagger-ui-dist: ^5.17.0
+    swagger-ui-dist: ^5.17.5
     swagger-ui-express: ^4.6.0
     ts-loader: ^9.4.2
     ts-node: ^10.9.2
@@ -8202,10 +8202,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swagger-ui-dist@npm:>=4.11.0, swagger-ui-dist@npm:^5.17.0":
+"swagger-ui-dist@npm:>=4.11.0":
   version: 5.17.2
   resolution: "swagger-ui-dist@npm:5.17.2"
   checksum: cb56d9f3cb192bb437d957fd659c01db2511662915737edd38883635b9851bc9b59d9029eaf5a1e34dccba5f47a5095f7a9244420502315ea377484ec9a0d0d5
+  languageName: node
+  linkType: hard
+
+"swagger-ui-dist@npm:^5.17.5":
+  version: 5.17.5
+  resolution: "swagger-ui-dist@npm:5.17.5"
+  checksum: 5702aa23eb34d2579ede752e44255efdee89c8d02c347e6b645691f8af102864efe9274025929168ed401b652bd0f2a1ba4bd0e37572eee5bb8e4efdb1b1d803
   languageName: node
   linkType: hard
 
