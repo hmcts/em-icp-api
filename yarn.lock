@@ -2113,9 +2113,9 @@ __metadata:
   linkType: hard
 
 "@types/chai@npm:*, @types/chai@npm:4, @types/chai@npm:^4.3.11":
-  version: 4.3.15
-  resolution: "@types/chai@npm:4.3.15"
-  checksum: 54847d9fc1a83a43e266f35e8aa7240b4a358e1f85f357b805b1d9de25d63fb680953e7fb99a1205ad19ee17b03c862d1d92baff0169cdf0bb987cda9d0f4bb1
+  version: 4.3.16
+  resolution: "@types/chai@npm:4.3.16"
+  checksum: bb5f52d1b70534ed8b4bf74bd248add003ffe1156303802ea367331607c06b494da885ffbc2b674a66b4f90c9ee88759790a5f243879f6759f124f22328f5e95
   languageName: node
   linkType: hard
 
@@ -8198,9 +8198,9 @@ __metadata:
   linkType: hard
 
 "swagger-ui-dist@npm:>=4.11.0, swagger-ui-dist@npm:^5.17.0":
-  version: 5.17.7
-  resolution: "swagger-ui-dist@npm:5.17.7"
-  checksum: 74f18235c64c206d66cd3bfe5bad51fbd59ef1bb0628fb959ac8cc94fce6637412e0dde05b4eb6f24a3c4277c7b38b55b48e23a154b638697b0202302919c3f0
+  version: 5.17.9
+  resolution: "swagger-ui-dist@npm:5.17.9"
+  checksum: fd2dbe2f559f24ab61f2fcef28e4fe3a076ebefbdfb644d3550eba9abc0dfaad4da6bacb1416be81f1e84af39dbee252696eefa2c3e3ede784ea9f72152f5c3a
   languageName: node
   linkType: hard
 
