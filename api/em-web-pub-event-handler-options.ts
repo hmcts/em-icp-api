@@ -85,7 +85,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     groupClient.sendToAll({ eventName: Actions.NEW_PARTICIPANT_JOINED, data: null });
   }
 
-  private async checkIfConnectionExistAndRemove(participants: any) {
+  private async checkIfConnectionExistAndRemove(participants: unknown) {
     const participantsConnectionIds = Object.keys(participants);
 
     for (const connectionId of participantsConnectionIds) {
