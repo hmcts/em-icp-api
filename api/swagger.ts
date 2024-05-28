@@ -26,7 +26,7 @@ export const swaggerDocument = {
         },
       },
     },
-    "/icp/sessions/:caseId": {
+    "/icp/sessions/:caseId/:documentId": {
       get: {
         "parameters": [
           {
@@ -43,6 +43,13 @@ export const swaggerDocument = {
             "required": true,
             "type": "string",
           },
+          {
+            "name": "documentId",
+            "in": "path",
+            "description": "Document ID that ICP session relates to",
+            "required": true,
+            "type": "string",
+          }
         ],
         summary: "Check whether an In Court Presentation session exists for provided case id, if one does return it, else create one and return it",
         consumes: [
