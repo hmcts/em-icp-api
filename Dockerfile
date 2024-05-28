@@ -15,6 +15,6 @@ RUN yarn workspaces focus --all --production && rm -rf "$(yarn cache clean)"
 # ---- Runtime image ----
 FROM base as runtime
 COPY --from=build $WORKDIR/api ./api
-COPY --from=build $WORKDIR/socket.ts $WORKDIR/app.ts $WORKDIR/server.ts ./
+COPY --from=build $WORKDIR/app.ts $WORKDIR/server.ts ./
 
 EXPOSE 8080
