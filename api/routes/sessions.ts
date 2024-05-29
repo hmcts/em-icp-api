@@ -13,7 +13,7 @@ const idam = new IdamClient();
 const logger = Logger.getLogger("sessions");
 const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : undefined;
 
-router.get("/icp/sessions/:caseId", async (req, res) => {
+router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
   const token = req.header("Authorization");
   if (!token) {
     logger.error("No Authorization header found");
@@ -31,8 +31,9 @@ router.get("/icp/sessions/:caseId", async (req, res) => {
   const userInfo: UserInfo = await idam.getUserInfo(token);
   const username = userInfo.name;
   const caseId: string = req.params.caseId;
+  const documentId: string = req.params.documentId;
 
-  if (!caseId || caseId === "null" || caseId === "undefined") {
+  if (!caseId || caseId === "null" || caseId === "undefined" || !documentId || documentId === "null" || documentId === "undefined") {
     res.statusMessage = "Invalid case id";
     return res.status(400).send();
   }
@@ -41,26 +42,29 @@ router.get("/icp/sessions/:caseId", async (req, res) => {
     message: `primary connectionstring: ${primaryConnectionstring}`,
   });
   const service = new WebPubSubServiceClient(primaryConnectionstring, "Hub");
-  const accessToken = await service.getClientAccessToken({ userId: username, roles: [`webpubsub.joinLeaveGroup.${caseId}`, `webpubsub.sendToGroup.${caseId}`] });
+  const accessToken = await service.getClientAccessToken({ userId: username, roles: [`webpubsub.joinLeaveGroup.${caseId}--${documentId}`, `webpubsub.sendToGroup.${caseId}--${documentId}`] });
   const today = new Date().toDateString();
-
-  await redis.hgetall(caseId, (err, session: Session) => {
+  const sessionId = `${caseId}--${documentId}`;
+  await redis.hgetall(sessionId, (err, session: Session) => {
     if (err) {
       res.statusMessage = "Error accessing data from Redis";
       return res.status(500).send({ error: err });
     }
 
     if (!session || session.dateOfHearing !== today) {
+
       const newSession: Session = {
         sessionId: uuidv4(),
         caseId: caseId,
+        documentId: documentId,
         dateOfHearing: today,
         presenterId: "",
         presenterName: "",
         participants: "",
         connectionUrl: accessToken.url,
       };
-      redis.hmset(caseId, newSession);
+
+      redis.hmset(sessionId, newSession);
       return res.send({ username, session: newSession });
     } else if (session.dateOfHearing === today) {
       session.connectionUrl = accessToken.url;
