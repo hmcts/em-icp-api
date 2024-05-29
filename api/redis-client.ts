@@ -6,9 +6,9 @@ export class RedisClient {
 
   logger = Logger.getLogger("redis-client");
 
-  async getSession(caseId: string): Promise<Session> {
+  async getSession(sessionId: string): Promise<Session> {
     try {
-      const session = await client.hgetall(caseId);
+      const session = await client.hgetall(sessionId);
       if (!session) {
         throw Error("session not found");
       }
@@ -18,9 +18,9 @@ export class RedisClient {
     }
   }
 
-  async getLock(caseId: string): Promise<void> {
+  async getLock(sessionId: string): Promise<void> {
     try {
-      await client.watch(caseId);
+      await client.watch(sessionId);
     } catch (watchError) {
       this.logger.error("Error watching caseId: ", watchError);
       throw watchError;
@@ -30,33 +30,37 @@ export class RedisClient {
   async onJoin(session: Session, participants: unknown): Promise<void> {
     try {
       await client.multi()
-        .hset(session.caseId, "participants", JSON.stringify(participants))
-        .hset(session.caseId, "presenterId", session.presenterId)
-        .hset(session.caseId, "presenterName", session.presenterName)
+        .hset(this.getSessionId(session.caseId, session.documentId), "participants", JSON.stringify(participants))
+        .hset(this.getSessionId(session.caseId, session.documentId), "presenterId", session.presenterId)
+        .hset(this.getSessionId(session.caseId, session.documentId), "presenterName", session.presenterName)
         .exec();
     } catch (err) {
       this.logger.error("Error executing changes in Redis: ", err);
     }
   }
 
-  async updatePresenter(change: PresenterUpdate):Promise<void> {
+  async updatePresenter(change: PresenterUpdate): Promise<void> {
     try {
       await client.multi()
-        .hset(change.caseId, "presenterId", change.presenterId)
-        .hset(change.caseId, "presenterName", change.presenterName)
-        .exec();
-    } catch(err) {
-      this.logger.error("Error executing changes in Redis: ", err);
-    }
-  }
-
-  async updateParticipants(caseId: string, participants: unknown):Promise<void> {
-    try {
-      await client.multi()
-        .hset(caseId, "participants", JSON.stringify(participants))
+        .hset(this.getSessionId(change.caseId, change.documentId), "presenterId", change.presenterId)
+        .hset(this.getSessionId(change.caseId, change.documentId), "presenterName", change.presenterName)
         .exec();
     } catch (err) {
       this.logger.error("Error executing changes in Redis: ", err);
     }
+  }
+
+  async updateParticipants(sessionId: string, participants: unknown): Promise<void> {
+    try {
+      await client.multi()
+        .hset(sessionId, "participants", JSON.stringify(participants))
+        .exec();
+    } catch (err) {
+      this.logger.error("Error executing changes in Redis: ", err);
+    }
+  }
+
+  getSessionId(caseId: string, documentId: string): string {
+    return `${caseId}--${documentId}`;
   }
 }
