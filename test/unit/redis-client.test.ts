@@ -53,8 +53,8 @@ describe("RedisClient", () => {
   });
 
   it("it should set participants and presenter on join", async () => {
-    await redisClient.onJoin({ caseId: "1234", presenterId: "presenterId", presenterName: "presenter" }, []);
-    const session = await redisClient.getSession("1234");
+    await redisClient.onJoin({ caseId: "1234", presenterId: "presenterId", presenterName: "presenter", documentId: "documentId" }, []);
+    const session = await redisClient.getSession("1234--documentId");
 
     expect(session.presenterId).to.eq("presenterId");
     expect(session.presenterName).to.eq("presenter");
@@ -69,8 +69,8 @@ describe("RedisClient", () => {
   });
 
   it("it should update presenter", async () => {
-    await redisClient.updatePresenter({ sessionId: "id", caseId: "1234", presenterId: "id", presenterName: "name" });
-    const session = await redisClient.getSession("1234");
+    await redisClient.updatePresenter({ sessionId: "id", caseId: "1234", presenterId: "id", presenterName: "name", documentId: "documentId" });
+    const session = await redisClient.getSession("1234--documentId");
 
 
     expect(session.presenterId).to.eq("id");
