@@ -10,7 +10,6 @@ export interface UserInfo {
 export interface Session {
   sessionId: string;
   caseId: string;
-  documentId: string;
   dateOfHearing: string;
   presenterId: string;
   presenterName: string;
@@ -20,7 +19,6 @@ export interface Session {
 
 export interface PresenterUpdate {
   caseId: string;
-  documentId: string;
   sessionId: string;
   presenterId: string;
   presenterName: string;
