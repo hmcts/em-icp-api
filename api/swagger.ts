@@ -26,7 +26,7 @@ export const swaggerDocument = {
         },
       },
     },
-    "/icp/sessions/:caseId/:documentId": {
+    "/icp/sessions/:caseId": {
       get: {
         "parameters": [
           {
@@ -40,13 +40,6 @@ export const swaggerDocument = {
             "name": "caseId",
             "in": "path",
             "description": "Case ID that ICP session relates to",
-            "required": true,
-            "type": "string",
-          },
-          {
-            "name": "documentId",
-            "in": "path",
-            "description": "Document ID that ICP session relates to",
             "required": true,
             "type": "string",
           },
