@@ -22,7 +22,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   handleUserEvent = async (userEventRequest: UserEventRequest, userEventResponse: UserEventResponseHandler) => {
     console.log("handleUserEvent");
     if (userEventRequest.context.eventName === Actions.SESSION_JOIN) {
-      const data = userEventRequest.data as { caseId: string, sessionsId: string, username: string, documentId: string };
+      const data = userEventRequest.data as { caseId: string, sessionsId: string, username: string };
       await this.onJoin(data, userEventRequest.context.connectionId);
     }
     else if (userEventRequest.context.eventName === Actions.UPDATE_PRESENTER) {
@@ -30,16 +30,8 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
       await this.onUpdatePresenter(change);
     }
     else if (userEventRequest.context.eventName === Actions.UPDATE_SCREEN) {
-      const screen = userEventRequest.data as { caseId: string, body: unknown, documentId: string };
+      const screen = userEventRequest.data as { caseId: string, body: unknown };
       await this.onUpdateScreen(screen);
-    }
-    else if (userEventRequest.context.eventName === Actions.REMOVE_PARTICIPANT) {
-      const data = userEventRequest.data as { connectionId: string, caseId: string, documentId: string };
-      await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId);
-    }
-    else if (userEventRequest.context.eventName === Actions.SESSION_LEAVE) {
-      const data = userEventRequest.data as { connectionId: string, caseId: string, documentId: string };
-      await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId);
     }
 
     userEventResponse.success();
@@ -55,22 +47,22 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     console.log("onDisconnected");
   };
 
-  async onJoin(data: { caseId: string, sessionsId: string, username: string, documentId: string }, connectionId: string): Promise<void> {
-    const sessionId = redisClient.getSessionId(data.caseId, data.documentId);
-    const session = await redisClient.getSession(sessionId);
+  async onJoin(data: { caseId: string, sessionsId: string, username: string }, connectionId: string): Promise<void> {
+    const session = await redisClient.getSession(data.caseId);
 
-
-    const groupClient = this.client.group(sessionId);
-
+    const groupClient = this.client.group(data.caseId);
     await groupClient.addConnection(connectionId);
 
-    await redisClient.getLock(sessionId);
+    await redisClient.getLock(data.caseId);
+
+    if (this.client.groupExists(data.caseId)) {
+      session.presenterName = "";
+      session.presenterId = "";
+      session.participants = "";
+    }
 
     const participants = session.participants ? JSON.parse(session.participants) : {};
     participants[connectionId] = data.username;
-
-    await this.checkIfConnectionExistAndRemove(participants);
-
     await redisClient.onJoin(session, participants);
 
     await this.client.sendToConnection(connectionId, {
@@ -85,56 +77,18 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     groupClient.sendToAll({ eventName: Actions.NEW_PARTICIPANT_JOINED, data: null });
   }
 
-  private async checkIfConnectionExistAndRemove(participants: unknown) {
-    const participantsConnectionIds = Object.keys(participants);
-
-    for (const connectionId of participantsConnectionIds) {
-      const exists = await this.client.connectionExists(connectionId);
-      if (!exists) {
-        delete participants[connectionId];
-      }
-    }
-
-    return participants;
-  }
-
   async onUpdatePresenter(change: PresenterUpdate): Promise<void> {
-    const sessionId = redisClient.getSessionId(change.caseId, change.documentId);
-    await redisClient.getLock(sessionId);
+    await redisClient.getLock(change.caseId);
     await redisClient.updatePresenter(change);
-    const groupClient = this.client.group(sessionId);
+    const groupClient = this.client.group(change.caseId);
 
     await groupClient.sendToAll({
       eventName: Actions.PRESENTER_UPDATED, data: { id: change.presenterId, username: change.presenterName },
     });
   }
 
-  async onUpdateScreen(screen: { caseId: string, documentId: string, body: unknown }): Promise<void> {
-    const sessionId = redisClient.getSessionId(screen.caseId, screen.documentId);
-    const groupClient = this.client.group(sessionId);
+  async onUpdateScreen(screen: { caseId: string, body: unknown }): Promise<void> {
+    const groupClient = this.client.group(screen.caseId);
     groupClient.sendToAll({ eventName: Actions.SCREEN_UPDATED, data: screen.body });
-  }
-
-  async onRemoveParticant(connectionId: string, caseId: string, documentId: string): Promise<void> {
-    const sessionId = redisClient.getSessionId(caseId, documentId);
-    const groupClient = this.client.group(sessionId);
-
-    const session = await redisClient.getSession(sessionId);
-
-    await redisClient.getLock(sessionId);
-
-    const participants = session.participants ? JSON.parse(session.participants) : {};
-
-    this.checkIfConnectionExistAndRemove(participants);
-
-    if (Object.prototype.hasOwnProperty.call(participants, connectionId)) {
-      delete participants[connectionId];
-    }
-
-    await groupClient.removeConnection(connectionId);
-    this.client.removeConnectionFromAllGroups(connectionId);
-
-    await redisClient.updateParticipants(sessionId, participants);
-    groupClient.sendToAll({ eventName: Actions.PARTICIPANTS_UPDATED, data: participants });
   }
 }
