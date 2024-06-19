@@ -2997,7 +2997,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^7.12.0":
+"@typescript-eslint/eslint-plugin@npm:7.13.1, @typescript-eslint/eslint-plugin@npm:^7.12.0":
   version: 7.13.1
   resolution: "@typescript-eslint/eslint-plugin@npm:7.13.1"
   dependencies:
@@ -3020,7 +3020,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^7.12.0":
+"@typescript-eslint/parser@npm:7.13.1, @typescript-eslint/parser@npm:^7.12.0":
   version: 7.13.1
   resolution: "@typescript-eslint/parser@npm:7.13.1"
   dependencies:
@@ -4774,7 +4774,7 @@ __metadata:
     tsconfig-paths: ^4.0.0
     tslint: 5.20.1
     typescript: ^5.1.6
-    typescript-eslint: ^0.0.1-alpha.0
+    typescript-eslint: ^7.13.1
     uuid: ^10.0.0
     ws: ^8.13.0
     xmlhttprequest-ssl: ^2.1.0
@@ -9468,10 +9468,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:^0.0.1-alpha.0":
-  version: 0.0.1-alpha.0
-  resolution: "typescript-eslint@npm:0.0.1-alpha.0"
-  checksum: 2896a13f2c77f5193736016abfdb78139c4f781d10c1fa9d4a1b4dbaa6f8696db9e0060bb148d5e9c74eb76e797530b048dcf135b7d4ff303609b2f47a62b206
+"typescript-eslint@npm:^7.13.1":
+  version: 7.13.1
+  resolution: "typescript-eslint@npm:7.13.1"
+  dependencies:
+    "@typescript-eslint/eslint-plugin": 7.13.1
+    "@typescript-eslint/parser": 7.13.1
+    "@typescript-eslint/utils": 7.13.1
+  peerDependencies:
+    eslint: ^8.56.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 5a95b878e20d4cb9fb4e46a0453d6e1e7406ebc0e5d9c15170181d2f0a57727cdf3a45e7bf6d35a36ba7cc5cfcef722057d2f786930d7cad6b6adfca93bc08e0
   languageName: node
   linkType: hard
 
