@@ -49,7 +49,7 @@ env.IDAM_WEBSHOW_WHITELIST = 'https://em-show-aat.service.core-compute-aat.inter
 def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
-def branchesToSync = ['demo','ithc', 'perftest']
+def branchesToSync = ['demo','ithc','perftest']
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
