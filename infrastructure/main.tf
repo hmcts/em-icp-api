@@ -174,7 +174,7 @@ resource "azurerm_web_pubsub_hub" "icpHub" {
     system_events      = ["connect", "connected", "disconected"]
   }
   depends_on = [
-    aazurerm_web_pubsub.ped_web_pubsub
+    azurerm_web_pubsub.ped_web_pubsub
   ]
 }
 
