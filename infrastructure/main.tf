@@ -21,6 +21,7 @@ locals {
   api_policy                = replace(file("template/api-policy.xml"), "ALLOWED_CERTIFICATE_THUMBPRINTS", local.thumbprints_in_quotes_str)
   api_base_path             = "${var.product}-icp-api"
   api_mgmt_name             = "core-api-mgmt-${var.env}"
+  icp_event_handler_url     = "https://em-icp.${var.env}.platform.hmcts.net/eventhandler"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -163,6 +164,18 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
     identity_ids = [data.azurerm_user_assigned_identity.em-shared-identity.id]
   }
 }
+
+resource "azurerm_web_pubsub_hub" "example" {
+  name          = "tfex_wpsh"
+  web_pubsub_id = azurerm_web_pubsub.example.id
+  event_handler {
+    url_template       = local.icp_event_handler_url
+    user_event_pattern = "*"
+    system_events      = ["connect", "connected", "disconected"]
+  }
+}
+
+
 
 resource "azurerm_key_vault_secret" "em_icp_web_pubsub_primary_connection_string" {
   name         = "em-icp-web-pubsub-primary-connection-string"
