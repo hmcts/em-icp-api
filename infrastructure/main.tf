@@ -165,17 +165,18 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
   }
 }
 
-resource "azurerm_web_pubsub_hub" "example" {
-  name          = "tfex_wpsh"
-  web_pubsub_id = azurerm_web_pubsub.example.id
+resource "azurerm_web_pubsub_hub" "icpHub" {
+  name          = "icpHub"
+  web_pubsub_id = azurerm_web_pubsub.ped_web_pubsub.id
   event_handler {
     url_template       = local.icp_event_handler_url
     user_event_pattern = "*"
     system_events      = ["connect", "connected", "disconected"]
   }
+  depends_on = [
+    aazurerm_web_pubsub.ped_web_pubsub
+  ]
 }
-
-
 
 resource "azurerm_key_vault_secret" "em_icp_web_pubsub_primary_connection_string" {
   name         = "em-icp-web-pubsub-primary-connection-string"
