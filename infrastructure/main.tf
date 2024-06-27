@@ -173,6 +173,7 @@ resource "azurerm_web_pubsub_hub" "icpHub" {
     user_event_pattern = "*"
     system_events      = ["connect", "connected", "disconnected"]
   }
+  anonymous_connections_enabled = true
   depends_on = [
     azurerm_web_pubsub.ped_web_pubsub
   ]
