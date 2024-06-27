@@ -93,7 +93,7 @@ module "em-icp-redis-cache" {
   product                       = "${var.product}-${var.component}-redis-cache"
   location                      = var.location
   env                           = var.env
-  count                         = var.env == "aat" ? "1" : "0"
+  count                         = var.env == "aat" || var.env == "perftest" || var.env == "ithc" || var.env == "demo" ? "1" : "0"
   redis_version                 = "6"
   subnetid                      = data.azurerm_subnet.core_infra_redis_subnet.id
   common_tags                   = var.common_tags
@@ -106,7 +106,7 @@ module "em-icp-redis-cache" {
 }
 
 resource "azurerm_key_vault_secret" "local_redis_password" {
-  count        = var.env == "aat" ? 1 : 0
+  count        = var.env == "aat" || var.env == "perftest" || var.env == "ithc" || var.env == "demo" ? 1 : 0
   name         = "redis-password"
   value        = module.em-icp-redis-cache[0].access_key
   key_vault_id = module.local_key_vault.key_vault_id
