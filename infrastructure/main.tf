@@ -171,7 +171,7 @@ resource "azurerm_web_pubsub_hub" "icpHub" {
   event_handler {
     url_template       = local.icp_event_handler_url
     user_event_pattern = "*"
-    system_events      = ["connect", "connected", "disconected"]
+    system_events      = ["connect", "connected", "disconnected"]
   }
   depends_on = [
     azurerm_web_pubsub.ped_web_pubsub
