@@ -20,7 +20,6 @@ locals {
   thumbprints_in_quotes_str = join(",", local.thumbprints_in_quotes)
   api_policy                = replace(file("template/api-policy.xml"), "ALLOWED_CERTIFICATE_THUMBPRINTS", local.thumbprints_in_quotes_str)
   api_base_path             = "${var.product}-icp-api"
-  api_mgmt_name             = "core-api-mgmt-${var.env}"
   icp_event_handler_url     = "https://em-icp.${var.env}.platform.hmcts.net/eventhandler"
 }
 
@@ -111,38 +110,6 @@ resource "azurerm_key_vault_secret" "local_redis_password" {
   name         = "redis-password"
   value        = module.em-icp-redis-cache[0].access_key
   key_vault_id = module.local_key_vault.key_vault_id
-}
-
-# region API (gateway)
-
-module "em-icp-api" {
-  source = "git@github.com:hmcts/cnp-module-api-mgmt-product?ref=master"
-
-  api_mgmt_name = "core-api-mgmt-${var.env}"
-  api_mgmt_rg   = "core-infra-${var.env}"
-  name          = "em-icp-api"
-}
-
-
-module "api" {
-  source        = "git@github.com:hmcts/cnp-module-api-mgmt-api?ref=master"
-  name          = "${var.product}-icp-api"
-  api_mgmt_rg   = "core-infra-${var.env}"
-  api_mgmt_name = "core-api-mgmt-${var.env}"
-  display_name  = "${var.product}-icp"
-  revision      = "1"
-  product_id    = module.em-icp-api.product_id
-  path          = local.api_base_path
-  service_url   = "http://em-icp-${var.env}.service.core-compute-${var.env}.internal"
-  swagger_url   = "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/specs/em-icp.json"
-}
-
-module "policy" {
-  source                 = "git@github.com:hmcts/cnp-module-api-mgmt-api-policy?ref=master"
-  api_mgmt_name          = "core-api-mgmt-${var.env}"
-  api_mgmt_rg            = "core-infra-${var.env}"
-  api_name               = module.api.name
-  api_policy_xml_content = local.api_policy
 }
 
 resource "azurerm_web_pubsub" "ped_web_pubsub" {
