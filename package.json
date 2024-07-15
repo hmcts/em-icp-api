@@ -65,7 +65,7 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.0.0",
     "typescript": "^5.1.6",
-    "typescript-eslint": "^0.0.1-alpha.0",
+    "typescript-eslint": "^7.16.1",
     "uuid": "^10.0.0",
     "ws": "^8.13.0",
     "xmlhttprequest-ssl": "^2.1.0"
