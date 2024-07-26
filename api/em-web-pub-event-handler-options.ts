@@ -3,42 +3,49 @@ import { ConnectedRequest, ConnectRequest, ConnectResponseHandler, DisconnectedR
 import { Actions } from "./model/actions";
 import { PresenterUpdate } from "model/interfaces";
 import { RedisClient } from "./redis-client";
+import { TelemetryClient } from "applicationinsights";
 
 const redisClient = new RedisClient();
 
 export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions {
 
   private client: WebPubSubServiceClient;
+  private appInsightClient: TelemetryClient;
 
-  constructor(connectionString: string) {
+  constructor(connectionString: string, appInsightClient: TelemetryClient) {
     this.client = new WebPubSubServiceClient(connectionString, "Hub");
+    this.appInsightClient = appInsightClient;
   }
 
   handleConnect = async (connectRequest: ConnectRequest, connectResponse: ConnectResponseHandler) => {
-    console.log("handleConnect");
+    this.appInsightClient.trackTrace({ message: "handleConnect" });
     connectResponse.success();
   };
 
   handleUserEvent = async (userEventRequest: UserEventRequest, userEventResponse: UserEventResponseHandler) => {
-    console.log("handleUserEvent");
     if (userEventRequest.context.eventName === Actions.SESSION_JOIN) {
       const data = userEventRequest.data as { caseId: string, sessionsId: string, username: string, documentId: string };
+      this.appInsightClient.trackEvent({ name: Actions.SESSION_JOIN, properties: { customProperty: data } });
       await this.onJoin(data, userEventRequest.context.connectionId);
     }
     else if (userEventRequest.context.eventName === Actions.UPDATE_PRESENTER) {
       const change = userEventRequest.data as PresenterUpdate;
+      this.appInsightClient.trackEvent({ name: Actions.UPDATE_PRESENTER, properties: { customProperty: change } });
       await this.onUpdatePresenter(change);
     }
     else if (userEventRequest.context.eventName === Actions.UPDATE_SCREEN) {
       const screen = userEventRequest.data as { caseId: string, body: unknown, documentId: string };
+      this.appInsightClient.trackEvent({ name: Actions.UPDATE_SCREEN, properties: { customProperty: screen } });
       await this.onUpdateScreen(screen);
     }
     else if (userEventRequest.context.eventName === Actions.REMOVE_PARTICIPANT) {
       const data = userEventRequest.data as { connectionId: string, caseId: string, documentId: string };
+      this.appInsightClient.trackEvent({ name: Actions.REMOVE_PARTICIPANT, properties: { customProperty: data } });
       await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId);
     }
     else if (userEventRequest.context.eventName === Actions.SESSION_LEAVE) {
       const data = userEventRequest.data as { connectionId: string, caseId: string, documentId: string };
+      this.appInsightClient.trackEvent({ name: Actions.SESSION_LEAVE, properties: { customProperty: data } });
       await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId);
     }
 
@@ -47,12 +54,12 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onConnected = async (connectedRequest: ConnectedRequest) => {
-    console.log("onConnected");
+    this.appInsightClient.trackTrace({ message: "onConnected" });
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onDisconnected = (disconnectedRequest: DisconnectedRequest) => {
-    console.log("onDisconnected");
+    this.appInsightClient.trackTrace({ message: "onDisconnected" });
   };
 
   async onJoin(data: { caseId: string, sessionsId: string, username: string, documentId: string }, connectionId: string): Promise<void> {
