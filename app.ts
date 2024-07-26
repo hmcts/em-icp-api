@@ -37,7 +37,17 @@ const limiter = rateLimit({
   max: config.rateLimit.max,
 });
 
-const webPubSubOptions = new EmWebPubEventHandlerOptions(primaryConnectionstring);
+if (APP_INSIGHTS_KEY) {
+  appInsights.setup(APP_INSIGHTS_KEY)
+    .setAutoCollectConsole(true, true)
+    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
+    .setSendLiveMetrics(true)
+    .start();
+  appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = "em-icp";
+}
+
+const appInsightClient = appInsights.defaultClient;
+const webPubSubOptions = new EmWebPubEventHandlerOptions(primaryConnectionstring, appInsightClient);
 const handler = new WebPubSubEventHandler("hub", {
   path: "/eventhandler",
   handleConnect: webPubSubOptions.handleConnect,
@@ -50,14 +60,7 @@ app.use(handler.getMiddleware());
 app.use(limiter);
 app.use(Express.accessLogger());
 
-if (APP_INSIGHTS_KEY) {
-  appInsights.setup(APP_INSIGHTS_KEY)
-    .setAutoCollectConsole(true, true)
-    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
-    .setSendLiveMetrics(true)
-    .start();
-  appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = "em-icp";
-}
+
 
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
