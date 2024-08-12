@@ -21,7 +21,7 @@
     "cichecks": "yarn && yarn lint  && yarn test"
   },
   "dependencies": {
-    "@azure/web-pubsub": "^1.0.0",
+    "@azure/web-pubsub": "^1.1.3",
     "@azure/web-pubsub-express": "^1.0.3",
     "@hmcts/info-provider": "^1.1.0",
     "@hmcts/nodejs-healthcheck": "^1.8.0",
