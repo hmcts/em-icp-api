@@ -5148,7 +5148,7 @@ __metadata:
     "@typescript-eslint/parser": ^8.0.0
     ansi-regex: ^6.0.1
     applicationinsights: ^3.1.0
-    axios: ^1.6.7
+    axios: ^1.7.4
     babel-loader: ^9.1.0
     chai: ^4.3.10
     chai-as-promised: ^8.0.0
