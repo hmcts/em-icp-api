@@ -287,21 +287,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:14.14.0":
-  version: 14.14.0
-  resolution: "@azure/msal-common@npm:14.14.0"
-  checksum: c77f51bdddb34da008786d7517713232dc69b7de9deec438ef463098e535ebdb8241ac04e9ddaee859d788dee71d683bf7ef0acab47781457d5c4ea561a8addf
+"@azure/msal-common@npm:14.14.1":
+  version: 14.14.1
+  resolution: "@azure/msal-common@npm:14.14.1"
+  checksum: c731ca093087522b94980c71e6bd4569767b9bc8cdef86108ae4ab78160a82bea1fdab2a44e75f0b7e6f97cc46cb71e27af5da14bc154f43815b03298bea64fd
   languageName: node
   linkType: hard
 
 "@azure/msal-node@npm:^2.9.2":
-  version: 2.12.0
-  resolution: "@azure/msal-node@npm:2.12.0"
+  version: 2.13.0
+  resolution: "@azure/msal-node@npm:2.13.0"
   dependencies:
-    "@azure/msal-common": 14.14.0
+    "@azure/msal-common": 14.14.1
     jsonwebtoken: ^9.0.0
     uuid: ^8.3.0
-  checksum: ad02d84ff0510594165672f0a39ba78f962631046051daf4de16ad4f783e0ee4c8e372aa99d17ac461c9d52bcceb1215c0d527443d97d5028c5d738029c4e71c
+  checksum: 96d9dd47b49471ab6674a54ad2f4f552f20f6b6032ba61d873120627a29bad12537dfd1f795a660c50ebb3a5dfed1962297af522b810625006bc02bf19e4502a
   languageName: node
   linkType: hard
 
@@ -5102,9 +5102,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"elliptic@npm:^6.5.4":
-  version: 6.5.5
-  resolution: "elliptic@npm:6.5.5"
+"elliptic@npm:^6.5.7":
+  version: 6.5.7
+  resolution: "elliptic@npm:6.5.7"
   dependencies:
     bn.js: ^4.11.9
     brorand: ^1.1.0
@@ -5113,7 +5113,7 @@ __metadata:
     inherits: ^2.0.4
     minimalistic-assert: ^1.0.1
     minimalistic-crypto-utils: ^1.0.1
-  checksum: ec9105e4469eb3b32b0ee2579756c888ddf3f99d259aa0d65fccb906ee877768aaf8880caae73e3e669c9a4adeb3eb1945703aa974ec5000d2d33a239f4567eb
+  checksum: af0ffddffdbc2fea4eeec74388cd73e62ed5a0eac6711568fb28071566319785df529c968b0bf1250ba4bc628e074b2d64c54a633e034aa6f0c6b152ceb49ab8
   languageName: node
   linkType: hard
 
@@ -7079,13 +7079,13 @@ __metadata:
   linkType: hard
 
 "jwk-to-pem@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "jwk-to-pem@npm:2.0.5"
+  version: 2.0.6
+  resolution: "jwk-to-pem@npm:2.0.6"
   dependencies:
     asn1.js: ^5.3.0
-    elliptic: ^6.5.4
+    elliptic: ^6.5.7
     safe-buffer: ^5.0.1
-  checksum: 14a8f518e9f81876a0f45233288fd1b611777d4d0fc317b8cd4b4e19602c305e537dc45d44476263667d950664a7ddf3c7a218a39b6b1f5e53e4ad53a44822ef
+  checksum: d92287934644fdf48a149dc4f192b3e1c350769fc5bcd19f5874d5a29de32124d3aba10c420dd8b998b0a53382d8c9d63b5ec95dbd7efdedb44a54f1dda9b4dd
   languageName: node
   linkType: hard
 
