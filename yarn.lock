@@ -9449,8 +9449,8 @@ __metadata:
   linkType: hard
 
 "superagent@npm:^10.0.0":
-  version: 10.0.1
-  resolution: "superagent@npm:10.0.1"
+  version: 10.0.2
+  resolution: "superagent@npm:10.0.2"
   dependencies:
     component-emitter: ^1.3.0
     cookiejar: ^2.1.4
@@ -9461,7 +9461,7 @@ __metadata:
     methods: ^1.1.2
     mime: 2.6.0
     qs: ^6.11.0
-  checksum: 0b923ffeeda2d737420faa69b09e63b6642ea7253b15e94f9dde96a6a6a0ae68c8729918c0551de4ee0a736b35de8deb3d9da00c2d55bfbe84a905279b2bdd96
+  checksum: 0161239324fc96c29e9260bb58200a7d715701a478d38d4bd3161364c4ff6d29bdbce4ffe86e050fc607340429349b2e129a6546c3ab5c91a646a37b4c0bbf67
   languageName: node
   linkType: hard
 
