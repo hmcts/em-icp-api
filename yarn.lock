@@ -4711,7 +4711,7 @@ __metadata:
     socket.io: 4.7.5
     socket.io-client: ^4.5.4
     sonar-scanner: ^3.1.0
-    superagent: ^10.0.0
+    superagent: ^10.1.0
     swagger-ui-dist: ^5.17.0
     swagger-ui-express: ^5.0.1
     ts-loader: ^9.4.2
@@ -8936,9 +8936,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:^10.0.0":
-  version: 10.0.2
-  resolution: "superagent@npm:10.0.2"
+"superagent@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "superagent@npm:10.1.0"
   dependencies:
     component-emitter: ^1.3.0
     cookiejar: ^2.1.4
@@ -8949,7 +8949,7 @@ __metadata:
     methods: ^1.1.2
     mime: 2.6.0
     qs: ^6.11.0
-  checksum: 0161239324fc96c29e9260bb58200a7d715701a478d38d4bd3161364c4ff6d29bdbce4ffe86e050fc607340429349b2e129a6546c3ab5c91a646a37b4c0bbf67
+  checksum: 912a7625a43a076600c620486a8ca54f2af7f072ebf69ae044d78a7852993625b26b5f04895273330db5a28de13021b5b353c582fdefbeb1689b05685b62dbe1
   languageName: node
   linkType: hard
 
