@@ -38,7 +38,7 @@
     "@types/uuid": "^10.0.0",
     "ansi-regex": "^6.0.1",
     "applicationinsights": "^3.2.2",
-    "axios": "^1.7.4",
+    "axios": "^1.7.5",
     "chai-http": "^5.0.0",
     "config": "^3.3.9",
     "cookie-parser": "^1.4.4",
