@@ -3317,6 +3317,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ansi-regex@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "ansi-regex@npm:6.1.0"
+  checksum: 495834a53b0856c02acd40446f7130cb0f8284f4a39afdab20d5dc42b2e198b1196119fe887beed8f9055c4ff2055e3b2f6d4641d0be018cdfb64fedf6fc1aac
+  languageName: node
+  linkType: hard
+
 "ansi-styles@npm:^3.2.1":
   version: 3.2.1
   resolution: "ansi-styles@npm:3.2.1"
@@ -4673,7 +4680,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^7.12.0
     "@typescript-eslint/eslint-plugin-tslint": ^5.61.0
     "@typescript-eslint/parser": ^8.2.0
-    ansi-regex: ^6.0.1
+    ansi-regex: ^6.1.0
     applicationinsights: ^3.2.2
     axios: ^1.7.4
     babel-loader: ^9.1.0
