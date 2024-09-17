@@ -2690,12 +2690,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chai-as-promised@npm:^7.1.1":
-  version: 7.1.8
-  resolution: "@types/chai-as-promised@npm:7.1.8"
+"@types/chai-as-promised@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@types/chai-as-promised@npm:8.0.0"
   dependencies:
     "@types/chai": "*"
-  checksum: f0e5eab451b91bc1e289ed89519faf6591932e8a28d2ec9bbe95826eb73d28fe43713633e0c18706f3baa560a7d97e7c7c20dc53ce639e5d75bac46b2a50bf21
+  checksum: 9d837b314c7ad7d8d67676905d20b9f293295aa58e3250b5fc7fe9e5598b547b9bbc40396744c2db0bd943ee6eb67dcdbf953baed9e2dc1904438208334fab2a
   languageName: node
   linkType: hard
 
@@ -2818,9 +2818,9 @@ __metadata:
   linkType: hard
 
 "@types/mocha@npm:^10.0.1":
-  version: 10.0.7
-  resolution: "@types/mocha@npm:10.0.7"
-  checksum: 5e411ed8aa19228e322b2fb0075c4d822322fb157d1adfc8620a798748035d430dc16421bdc7d7f84f118481b8c8c63ec86b95757a8acc926ddc3d737fbffc3a
+  version: 10.0.8
+  resolution: "@types/mocha@npm:10.0.8"
+  checksum: d64faa9f1ed249441944a6ae3f01d72c756b54d8bcf8e2edccb09c0d084cec6d8a0cd8b717df517812f045ade20b4b8768e06aa8633bd2485a41ec37f06be710
   languageName: node
   linkType: hard
 
@@ -4760,7 +4760,7 @@ __metadata:
     "@hmcts/nodejs-logging": ^4.0.0
     "@hmcts/properties-volume": 1.2.0
     "@types/chai": ^4.3.11
-    "@types/chai-as-promised": ^7.1.1
+    "@types/chai-as-promised": ^8.0.0
     "@types/config": ^3.0.0
     "@types/cookie-parser": ^1.4.3
     "@types/csurf": ^1.11.0
