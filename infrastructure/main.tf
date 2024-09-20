@@ -128,7 +128,7 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
 }
 
 resource "azurerm_web_pubsub_hub" "icpHub" {
-  name          = "icpHub"
+  name          = "hub"
   web_pubsub_id = azurerm_web_pubsub.ped_web_pubsub.id
   event_handler {
     url_template       = local.icp_event_handler_url
