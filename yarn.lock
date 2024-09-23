@@ -4836,7 +4836,7 @@ __metadata:
     sinon: ^19.0.2
     sinon-chai: ^4.0.0
     socket.io: 4.7.5
-    socket.io-client: ^4.5.4
+    socket.io-client: ^4.8.0
     sonar-scanner: ^3.1.0
     superagent: ^10.0.0
     swagger-ui-dist: ^5.17.0
@@ -4899,16 +4899,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"engine.io-client@npm:~6.5.2":
-  version: 6.5.4
-  resolution: "engine.io-client@npm:6.5.4"
+"engine.io-client@npm:~6.6.1":
+  version: 6.6.1
+  resolution: "engine.io-client@npm:6.6.1"
   dependencies:
     "@socket.io/component-emitter": ~3.1.0
     debug: ~4.3.1
     engine.io-parser: ~5.2.1
     ws: ~8.17.1
-    xmlhttprequest-ssl: ~2.0.0
-  checksum: 32955326f7d81bbc8fd40aaf14972ec46956c0a6b08752e1ceb2de37bfb7fc2e4e8decbefad1a8092fad0ef29379fa0e95531ae2e10cb61facb2ef1200ef8752
+    xmlhttprequest-ssl: ~2.1.1
+  checksum: 9c79559e8ea072d7ee57fe9af9742043818af9180a1e9da06225435400f6577556f60f4c0bb397c53c951a7cf02c7dba003d7bdb00ac752fd67a1c58cf8433e8
   languageName: node
   linkType: hard
 
@@ -8758,15 +8758,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"socket.io-client@npm:^4.5.4":
-  version: 4.7.5
-  resolution: "socket.io-client@npm:4.7.5"
+"socket.io-client@npm:^4.8.0":
+  version: 4.8.0
+  resolution: "socket.io-client@npm:4.8.0"
   dependencies:
     "@socket.io/component-emitter": ~3.1.0
     debug: ~4.3.2
-    engine.io-client: ~6.5.2
+    engine.io-client: ~6.6.1
     socket.io-parser: ~4.2.4
-  checksum: a6994b93a753d14292682ee97ba3c925c54b63e6fcb2ed5e0aa1d7c1d6164ed4a30d993f7eaaa3017ddf868ad0a1ab996badc8310129070136d84668789ee6c9
+  checksum: fab8b231f08755eae1792e29b505df5eeed827fbef6df3af840806938b0f0a57262cd814126eebb818f2ab7a823961c59d6a0864b7e11f9cfb216363d634ab48
   languageName: node
   linkType: hard
 
