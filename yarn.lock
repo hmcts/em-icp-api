@@ -1708,12 +1708,12 @@ __metadata:
   linkType: hard
 
 "@hmcts/info-provider@npm:^1.1.0":
-  version: 1.2.1
-  resolution: "@hmcts/info-provider@npm:1.2.1"
+  version: 1.2.2
+  resolution: "@hmcts/info-provider@npm:1.2.2"
   dependencies:
     express: ^4.19.2
     js-yaml: ^4.1.0
-  checksum: ec2f55f05691f4501846a584c8fe55a614f5213692e5e350e09537a75a4876dd78d684cb229ea0304bdb8298eeacbd0a89e1c6701491e4771a95b71fd42c980a
+  checksum: 2d9dc7bb58ff4c078307c3267ce5ac6ca7b174b97667bcb3a841cbca64d35fe39ec821b1a11f4e4d7bd42d802af112df979528d5ec17aa49810ce15c8a0a797e
   languageName: node
   linkType: hard
 
@@ -7462,8 +7462,8 @@ __metadata:
   linkType: hard
 
 "nodemon@npm:^3.1.1":
-  version: 3.1.5
-  resolution: "nodemon@npm:3.1.5"
+  version: 3.1.7
+  resolution: "nodemon@npm:3.1.7"
   dependencies:
     chokidar: ^3.5.2
     debug: ^4
@@ -7477,7 +7477,7 @@ __metadata:
     undefsafe: ^2.0.5
   bin:
     nodemon: bin/nodemon.js
-  checksum: 56a41473b4990efebe8341f1da360af49d3b9e62c164d76ef6ec7f81efeca56c990dd4f275f03ddd1afde83d27c1ed3abe9c73d712fbebe08406c459b9f030ab
+  checksum: c500ac2feb278ddb187049ac8ede6423c1fb074cc3dabf74882568d5e93401293c10039e184a9d1bfc617c983ddb432437d396b421926914d04ebba671a7d8b8
   languageName: node
   linkType: hard
 
