@@ -140,7 +140,7 @@ resource "azurerm_private_endpoint" "ped_web_pubsub_private_endpoint" {
   name                = "${local.app_full_name}-${var.env}-privateendpoint"
   resource_group_name = "${local.app_full_name}-${var.env}"
   location            = var.location
-  subnet_id           = data.azurerm_subnet.cft_infra_web_pub_sub_subnet[0].id
+  subnet_id           = data.azurerm_subnet.cft_infra_web_pub_sub_subnet[count.index].id
 
   private_service_connection {
     name                           = "${local.app_full_name}-${var.env}-service-connection"
