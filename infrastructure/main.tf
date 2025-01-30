@@ -158,7 +158,7 @@ resource "azurerm_web_pubsub_network_acl" "ped_web_pubsub_network_acl" {
   }
 
   private_endpoint {
-    id = azurerm_private_endpoint.ped_web_pubsub_private_endpoint.id
+    id = azurerm_private_endpoint.ped_web_pubsub_private_endpoint[count.index].id
   }
 
   depends_on = [
