@@ -97,7 +97,7 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 #webpubsub
 data "azurerm_subnet" "cft_infra_web_pub_sub_subnet" {
   count                = var.env == "demo" ? "1" : "0"
-  name                 = "infra-appgws"
+  name                 = "private-endpoints"
   virtual_network_name = "cft-${var.env}-vnet"
   resource_group_name  = "cft-${var.env}-network-rg"
   provider             = azurerm.webpubsub_vnet_provider
@@ -153,6 +153,7 @@ resource "azurerm_private_endpoint" "ped_web_pubsub_private_endpoint" {
   resource_group_name = "${local.app_full_name}-${var.env}"
   location            = var.location
   subnet_id           = data.azurerm_subnet.cft_infra_web_pub_sub_subnet[count.index].id
+  provider            = azurerm.webpubsub_vnet_provider
 
   private_service_connection {
     name                           = "${local.app_full_name}-${var.env}-service-connection"
