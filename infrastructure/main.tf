@@ -150,7 +150,7 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
 resource "azurerm_private_endpoint" "ped_web_pubsub_private_endpoint" {
   count               = var.env == "demo" ? "1" : "0"
   name                = "${local.app_full_name}-${var.env}-privateendpoint"
-  resource_group_name = "${local.app_full_name}-${var.env}"
+  resource_group_name = "cft-${var.env}-network-rg"
   location            = var.location
   subnet_id           = data.azurerm_subnet.cft_infra_web_pub_sub_subnet[count.index].id
   provider            = azurerm.webpubsub_vnet_provider
