@@ -85,7 +85,7 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 
 #webpubsub
 data "azurerm_subnet" "cft_infra_web_pub_sub_subnet" {
-  count = var.env == "demo" ? "1" : "0"
+  count                = var.env == "demo" ? "1" : "0"
   name                 = "infra-appgws"
   virtual_network_name = "cft-${var.env}-vnet"
   resource_group_name  = "cft-${var.env}-network-rg"
@@ -136,11 +136,11 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
 }
 
 resource "azurerm_private_endpoint" "ped_web_pubsub_private_endpoint" {
-  count = var.env == "demo" ? "1" : "0"
+  count               = var.env == "demo" ? "1" : "0"
   name                = "${local.app_full_name}-${var.env}-privateendpoint"
   resource_group_name = "${local.app_full_name}-${var.env}"
   location            = var.location
-  subnet_id           = data.azurerm_subnet.cft_infra_web_pub_sub_subnet.id
+  subnet_id           = data.azurerm_subnet.cft_infra_web_pub_sub_subnet[0].id
 
   private_service_connection {
     name                           = "${local.app_full_name}-${var.env}-service-connection"
@@ -151,13 +151,14 @@ resource "azurerm_private_endpoint" "ped_web_pubsub_private_endpoint" {
 }
 
 resource "azurerm_web_pubsub_network_acl" "ped_web_pubsub_network_acl" {
+  count          = var.env == "demo" ? "1" : "0"
   web_pubsub_id  = azurerm_web_pubsub.ped_web_pubsub.id
   default_action = "Allow"
   public_network {
   }
 
   private_endpoint {
-    id                   = azurerm_private_endpoint.ped_web_pubsub_private_endpoint.id
+    id = azurerm_private_endpoint.ped_web_pubsub_private_endpoint.id
   }
 
   depends_on = [
