@@ -83,6 +83,14 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
   resource_group_name  = "core-infra-${var.env}"
 }
 
+#webpubsub
+data "azurerm_subnet" "cft_infra_web_pub_sub_subnet" {
+  count                = var.env == "demo" ? "1" : "0"
+  name                 = "infra-appgws"
+  virtual_network_name = "cft-${var.env}-vnet"
+  resource_group_name  = "cft-${var.env}-network-rg"
+}
+
 module "em-icp-redis-cache" {
   source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product                       = "${var.product}-${var.component}-redis-cache"
@@ -125,6 +133,37 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
     type         = "UserAssigned"
     identity_ids = [data.azurerm_user_assigned_identity.em-shared-identity.id]
   }
+}
+
+resource "azurerm_private_endpoint" "ped_web_pubsub_private_endpoint" {
+  count               = var.env == "demo" ? "1" : "0"
+  name                = "${local.app_full_name}-${var.env}-privateendpoint"
+  resource_group_name = "${local.app_full_name}-${var.env}"
+  location            = var.location
+  subnet_id           = data.azurerm_subnet.cft_infra_web_pub_sub_subnet[count.index].id
+
+  private_service_connection {
+    name                           = "${local.app_full_name}-${var.env}-service-connection"
+    is_manual_connection           = false
+    private_connection_resource_id = azurerm_web_pubsub.ped_web_pubsub.id
+    subresource_names              = ["webpubsub"]
+  }
+}
+
+resource "azurerm_web_pubsub_network_acl" "ped_web_pubsub_network_acl" {
+  count          = var.env == "demo" ? "1" : "0"
+  web_pubsub_id  = azurerm_web_pubsub.ped_web_pubsub.id
+  default_action = "Allow"
+  public_network {
+  }
+
+  private_endpoint {
+    id = azurerm_private_endpoint.ped_web_pubsub_private_endpoint[count.index].id
+  }
+
+  depends_on = [
+    azurerm_private_endpoint.ped_web_pubsub_private_endpoint
+  ]
 }
 
 resource "azurerm_web_pubsub_hub" "icpHub" {
