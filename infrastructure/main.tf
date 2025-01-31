@@ -133,7 +133,7 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
   resource_group_name           = "${local.app_full_name}-${var.env}"
   sku                           = "Standard_S1"
   capacity                      = 1
-  public_network_access_enabled = true
+  public_network_access_enabled = false
   live_trace {
     enabled                   = true
     messaging_logs_enabled    = true
