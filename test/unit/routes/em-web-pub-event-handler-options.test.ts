@@ -5,6 +5,7 @@ import { EmWebPubEventHandlerOptions } from "../../../api/em-web-pub-event-handl
 import { Actions } from "../../../api/model/actions";
 import { RedisClient } from "../../../api/redis-client";
 import { Session } from "../../../api/model/interfaces";
+import { TelemetryClient } from "applicationinsights";
 
 
 describe("EmWebPubEventHandlerOptions", () => {
@@ -15,7 +16,7 @@ describe("EmWebPubEventHandlerOptions", () => {
   beforeEach(() => {
     redisClientStub = sinon.createStubInstance(RedisClient);
     webPubSubServiceClientStub = sinon.createStubInstance(WebPubSubServiceClient);
-    emWebPubEventHandlerOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClientStub, {} as any, redisClientStub);
+    emWebPubEventHandlerOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClientStub, {} as unknown as TelemetryClient, redisClientStub);
   });
 
   afterEach(() => {
@@ -98,7 +99,7 @@ describe("EmWebPubEventHandlerOptions", () => {
   });
 
   it("should update presenter when connection is presenter", async () => {
-    const session = { presenterId: "conn1", presenterName: "presenter", caseId: "caseId", documentId: "documentId" } as any;
+    const session = { presenterId: "conn1", presenterName: "presenter", caseId: "caseId", documentId: "documentId" } as Session;
     const connectionId = "conn1";
 
     const updatePresenterStub = sinon.stub(emWebPubEventHandlerOptions, "onUpdatePresenter").resolves();
