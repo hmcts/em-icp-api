@@ -13,6 +13,8 @@ import * as swaggerUi from "swagger-ui-express";
 import { Express, Logger } from "@hmcts/nodejs-logging";
 import { EmWebPubEventHandlerOptions } from "./api/em-web-pub-event-handler-options";
 import { WebPubSubEventHandler } from "@azure/web-pubsub-express";
+import { RedisClient } from "redis-client";
+import { WebPubSubServiceClient } from "@azure/web-pubsub";
 
 const healthcheck = require("./api/routes/health");
 const helmet = require("helmet");
@@ -46,8 +48,24 @@ if (APP_INSIGHTS_KEY) {
   appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = "em-icp";
 }
 
-const appInsightClient = appInsights.defaultClient;
-const webPubSubOptions = new EmWebPubEventHandlerOptions(primaryConnectionstring, appInsightClient);
+let appInsightClient;
+if(APP_INSIGHTS_KEY) {
+  appInsightClient  = appInsights.defaultClient;
+}
+else {
+  appInsightClient = {
+    trackTrace: (message: string) => {
+      logger.info(message);
+    },
+    trackEvent: (event: { name: string, properties: { customProperty: unknown } }) => {
+      logger.info(event);
+    },
+  };
+}
+
+const redisClient = new RedisClient();
+const webPubSubServiceClient = new WebPubSubServiceClient(primaryConnectionstring, "Hub");
+const webPubSubOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClient, appInsightClient,redisClient);
 const handler = new WebPubSubEventHandler("hub", {
   path: "/eventhandler",
   handleConnect: webPubSubOptions.handleConnect,
