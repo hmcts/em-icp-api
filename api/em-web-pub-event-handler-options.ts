@@ -1,20 +1,21 @@
 import { WebPubSubServiceClient } from "@azure/web-pubsub";
-import { ConnectedRequest, ConnectRequest, ConnectResponseHandler, DisconnectedRequest, UserEventRequest, UserEventResponseHandler, WebPubSubEventHandlerOptions } from "@azure/web-pubsub-express";
+import { ConnectedRequest, ConnectionContext, ConnectRequest, ConnectResponseHandler, DisconnectedRequest, UserEventRequest, UserEventResponseHandler, WebPubSubEventHandlerOptions } from "@azure/web-pubsub-express";
 import { Actions } from "./model/actions";
-import { PresenterUpdate } from "model/interfaces";
+import { PresenterUpdate, Session } from "model/interfaces";
 import { RedisClient } from "./redis-client";
 import { TelemetryClient } from "applicationinsights";
 
-const redisClient = new RedisClient();
 
 export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions {
 
   private client: WebPubSubServiceClient;
   private appInsightClient: TelemetryClient;
+  private redisClient: RedisClient;
 
-  constructor(connectionString: string, appInsightClient: TelemetryClient) {
-    this.client = new WebPubSubServiceClient(connectionString, "Hub");
+  constructor(webPubSubServiceClient: WebPubSubServiceClient, appInsightClient: TelemetryClient, redisClient: RedisClient) {
+    this.client = webPubSubServiceClient;
     this.appInsightClient = appInsightClient;
+    this.redisClient = redisClient;
   }
 
   handleConnect = async (connectRequest: ConnectRequest, connectResponse: ConnectResponseHandler) => {
@@ -25,6 +26,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   handleUserEvent = async (userEventRequest: UserEventRequest, userEventResponse: UserEventResponseHandler) => {
     if (userEventRequest.context.eventName === Actions.SESSION_JOIN) {
       const data = userEventRequest.data as { caseId: string, sessionsId: string, username: string, documentId: string };
+      this.setState(userEventResponse, data);
       this.appInsightClient.trackEvent({ name: Actions.SESSION_JOIN, properties: { customProperty: data } });
       await this.onJoin(data, userEventRequest.context.connectionId);
     }
@@ -48,7 +50,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
       this.appInsightClient.trackEvent({ name: Actions.SESSION_LEAVE, properties: { customProperty: data } });
       await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId);
     }
-
+   
     userEventResponse.success();
   };
 
@@ -58,27 +60,33 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onDisconnected = (disconnectedRequest: DisconnectedRequest) => {
-    this.appInsightClient.trackTrace({ message: "onDisconnected" });
+  onDisconnected = async(disconnectedRequest: DisconnectedRequest) => {
+    const caseId = this.getCaseIdFromState(disconnectedRequest.context);
+    const documentId = this.getDocumentIdFromState(disconnectedRequest.context);
+    const username = this.getUsernameFromState(disconnectedRequest.context);
+    if(caseId && documentId) {
+      await this.onRemoveParticant(disconnectedRequest.context.connectionId, caseId, documentId);
+    }
+    this.appInsightClient.trackTrace({ message: `onDisconnected user:${username}` });
   };
 
   async onJoin(data: { caseId: string, sessionsId: string, username: string, documentId: string }, connectionId: string): Promise<void> {
-    const sessionId = redisClient.getSessionId(data.caseId, data.documentId);
-    const session = await redisClient.getSession(sessionId);
+    const sessionId = this.redisClient.getSessionId(data.caseId, data.documentId);
+    const session = await this.redisClient.getSession(sessionId);
 
 
     const groupClient = this.client.group(sessionId);
 
     await groupClient.addConnection(connectionId);
 
-    await redisClient.getLock(sessionId);
+    await this.redisClient.getLock(sessionId);
 
     const participants = session.participants ? JSON.parse(session.participants) : {};
     participants[connectionId] = data.username;
 
     await this.checkIfConnectionExistAndRemove(participants);
 
-    await redisClient.onJoin(session, participants);
+    await this.redisClient.onJoin(session, participants);
 
     await this.client.sendToConnection(connectionId, {
       eventName: Actions.CLIENT_JOINED, data: {
@@ -92,7 +100,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     groupClient.sendToAll({ eventName: Actions.NEW_PARTICIPANT_JOINED, data: null });
   }
 
-  private async checkIfConnectionExistAndRemove(participants: unknown) {
+  async checkIfConnectionExistAndRemove(participants: unknown) {
     const participantsConnectionIds = Object.keys(participants);
 
     for (const connectionId of participantsConnectionIds) {
@@ -106,9 +114,9 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   }
 
   async onUpdatePresenter(change: PresenterUpdate): Promise<void> {
-    const sessionId = redisClient.getSessionId(change.caseId, change.documentId);
-    await redisClient.getLock(sessionId);
-    await redisClient.updatePresenter(change);
+    const sessionId = this.redisClient.getSessionId(change.caseId, change.documentId);
+    await this.redisClient.getLock(sessionId);
+    await this.redisClient.updatePresenter(change);
     const groupClient = this.client.group(sessionId);
 
     await groupClient.sendToAll({
@@ -117,22 +125,23 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   }
 
   async onUpdateScreen(screen: { caseId: string, documentId: string, body: unknown }): Promise<void> {
-    const sessionId = redisClient.getSessionId(screen.caseId, screen.documentId);
+    const sessionId = this.redisClient.getSessionId(screen.caseId, screen.documentId);
     const groupClient = this.client.group(sessionId);
     groupClient.sendToAll({ eventName: Actions.SCREEN_UPDATED, data: screen.body });
   }
 
   async onRemoveParticant(connectionId: string, caseId: string, documentId: string): Promise<void> {
-    const sessionId = redisClient.getSessionId(caseId, documentId);
+    const sessionId = this.redisClient.getSessionId(caseId, documentId);
     const groupClient = this.client.group(sessionId);
 
-    const session = await redisClient.getSession(sessionId);
+    const session = await this.redisClient.getSession(sessionId);
 
-    await redisClient.getLock(sessionId);
+    await this.redisClient.getLock(sessionId);
 
     const participants = session.participants ? JSON.parse(session.participants) : {};
 
     this.checkIfConnectionExistAndRemove(participants);
+    this.checkIfConnectionIsPrenseterAndRemove(connectionId, session);
 
     if (Object.prototype.hasOwnProperty.call(participants, connectionId)) {
       delete participants[connectionId];
@@ -141,7 +150,33 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     await groupClient.removeConnection(connectionId);
     this.client.removeConnectionFromAllGroups(connectionId);
 
-    await redisClient.updateParticipants(sessionId, participants);
-    groupClient.sendToAll({ eventName: Actions.PARTICIPANTS_UPDATED, data: participants });
+    await this.redisClient.updateParticipants(sessionId, participants);
+    groupClient.sendToAll({ eventName: Actions.REMOVE_PARTICIPANT, data: participants });
   }
-}
+
+  checkIfConnectionIsPrenseterAndRemove(connectionId: string, session: Session) {
+    if (connectionId === session.presenterId) {
+      session.presenterId = "";
+      session.presenterName = "";
+      this.onUpdatePresenter({ caseId: session.caseId, documentId: session.documentId, presenterId: "", presenterName: "" } as PresenterUpdate);
+    }
+  }
+  
+  setState(userEventResponseHandler: UserEventResponseHandler, data: { caseId: string, sessionsId: string, username: string, documentId: string }) {
+    userEventResponseHandler.setState("caseId", data.caseId);
+    userEventResponseHandler.setState("documentId", data.documentId);
+    userEventResponseHandler.setState("username", data.username);
+  }
+
+  getCaseIdFromState(context: ConnectionContext): string {
+    return context.states["caseId"];
+  }
+
+  getDocumentIdFromState(context: ConnectionContext): string {
+    return context.states["documentId"];
+  }
+
+  getUsernameFromState(context: ConnectionContext): string {
+    return context.states["username"];
+  }
+} 
