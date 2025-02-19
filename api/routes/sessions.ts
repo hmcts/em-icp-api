@@ -52,8 +52,9 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
       return res.status(500).send({ error: err });
     }
 
+    const connectionUrl = `wss://em-icp-webpubsub.demo.platform.hmcts.net/client/hubs/Hub?access_token=${accessToken.token}`;
     if (!session || session.dateOfHearing !== today) {
-      const connectionUrl = `wss://em-icp-webpubsub.${env}.platform.hmcts.net/client/hubs/Hub?access_token=${accessToken.token}`;
+      
       const newSession: Session = {
         sessionId: uuidv4(),
         caseId: caseId,
@@ -68,7 +69,7 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
       redis.hmset(sessionId, newSession);
       return res.send({ username, session: newSession });
     } else if (session.dateOfHearing === today) {
-      session.connectionUrl = accessToken.url;
+      session.connectionUrl = connectionUrl;
       return res.send({ username, session });
     }
   });
