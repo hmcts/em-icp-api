@@ -113,7 +113,7 @@ module "em-icp-redis-cache" {
   subnetid                      = data.azurerm_subnet.core_infra_redis_subnet.id
   common_tags                   = var.common_tags
   private_endpoint_enabled      = true
-  public_network_access_enabled = false
+  public_network_access_enabled = true
   business_area                 = "cft"
   sku_name                      = var.sku_name
   family                        = var.family
