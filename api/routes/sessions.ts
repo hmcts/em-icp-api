@@ -11,6 +11,7 @@ const config = require("config");
 const router = express.Router();
 const idam = new IdamClient();
 const logger = Logger.getLogger("sessions");
+const env = process.env.NODE_ENV || undefined;
 const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : undefined;
 
 router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
@@ -52,7 +53,7 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
     }
 
     if (!session || session.dateOfHearing !== today) {
-
+      const connectionUrl = `wss://em-icp-webpubsub.${env}.platform.hmcts.net/client/hubs/Hub?access_token=${accessToken.token}`;
       const newSession: Session = {
         sessionId: uuidv4(),
         caseId: caseId,
@@ -61,7 +62,7 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
         presenterId: "",
         presenterName: "",
         participants: "",
-        connectionUrl: accessToken.url,
+        connectionUrl: connectionUrl,
       };
 
       redis.hmset(sessionId, newSession);
