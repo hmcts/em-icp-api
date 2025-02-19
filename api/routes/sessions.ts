@@ -12,6 +12,7 @@ const router = express.Router();
 const idam = new IdamClient();
 const logger = Logger.getLogger("sessions");
 const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : undefined;
+const env  = config.secrets ? config.secrets["em-icp"]["environment"] : undefined;
 
 router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
   const token = req.header("Authorization");
@@ -51,7 +52,7 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
       return res.status(500).send({ error: err });
     }
 
-    const connectionUrl = `wss://em-icp-webpubsub.demo.platform.hmcts.net/client/hubs/Hub?access_token=${accessToken.token}`;
+    const connectionUrl = `wss://em-icp-webpubsub.${env}.platform.hmcts.net/client/hubs/Hub?access_token=${accessToken.token}`;
     if (!session || session.dateOfHearing !== today) {
       
       const newSession: Session = {
