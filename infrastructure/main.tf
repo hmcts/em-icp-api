@@ -128,7 +128,7 @@ resource "azurerm_key_vault_secret" "local_redis_password" {
 }
 
 resource "azurerm_web_pubsub" "ped_web_pubsub" {
-  name                          = "${local.app_full_name}-webpubsub-${var.env}"
+  name                          = "${local.app_full_name}.${var.env}"
   location                      = var.location
   resource_group_name           = "${local.app_full_name}-${var.env}"
   sku                           = "Standard_S1"
