@@ -150,7 +150,7 @@ resource "azurerm_private_endpoint" "ped_web_pubsub_private_endpoint" {
   name                = "${local.app_full_name}-${var.env}-privateendpoint"
   resource_group_name = "cft-${var.env}-network-rg"
   location            = var.location
-  subnet_id           = data.azurerm_subnet.cft_infra_web_pub_sub_subnet[count.index].id
+  subnet_id           = data.azurerm_subnet.cft_infra_web_pub_sub_subnet.id
   provider            = azurerm.webpubsub_vnet_provider
 
   private_service_connection {
@@ -168,7 +168,7 @@ resource "azurerm_web_pubsub_network_acl" "ped_web_pubsub_network_acl" {
   }
 
   private_endpoint {
-    id = azurerm_private_endpoint.ped_web_pubsub_private_endpoint[count.index].id
+    id = azurerm_private_endpoint.ped_web_pubsub_private_endpoint.id
   }
 
   depends_on = [
