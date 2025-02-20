@@ -20,3 +20,6 @@ s2s:
 rateLimit:
   time: RATE_LIMIT_TIME
   max: RATE_LIMITE_MAX
+
+icp:
+  wsUrl: ICP_WS_URL
