@@ -4,3 +4,4 @@ api_gateway_test_certificate_thumbprint = "8A13CF9CC991EDE7A2A227E4153A54F6E3157
 sku_name                                = "Premium"
 family                                  = "P"
 capacity                                = "1"
+private_endpoint_subscription_id        = "8cbc6f36-7c56-4963-9d36-739db5d00b27"

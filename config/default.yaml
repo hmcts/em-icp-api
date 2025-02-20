@@ -38,6 +38,4 @@ s2s:
 
 tokenRefreshTime: 3600000 # (60 mins)
 
-secrets:
-  em-icp:
-    em-icp-web-pubsub-primary-connection-string: "dummy_connection_string"
+

@@ -8,7 +8,7 @@ provider "azurerm" {
 
 # only for demo environment
 provider "azurerm" {
-  subscription_id = "d025fece-ce99-4df2-b7a9-b649d3ff2060"
+  subscription_id = var.private_endpoint_subscription_id
   features {
     resource_group {
       prevent_deletion_if_contains_resources = false
@@ -96,7 +96,6 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 
 #webpubsub
 data "azurerm_subnet" "cft_infra_web_pub_sub_subnet" {
-  count                = var.env == "demo" ? "1" : "0"
   name                 = "private-endpoints"
   virtual_network_name = "cft-${var.env}-vnet"
   resource_group_name  = "cft-${var.env}-network-rg"
@@ -148,7 +147,6 @@ resource "azurerm_web_pubsub" "ped_web_pubsub" {
 }
 
 resource "azurerm_private_endpoint" "ped_web_pubsub_private_endpoint" {
-  count               = var.env == "demo" ? "1" : "0"
   name                = "${local.app_full_name}-${var.env}-privateendpoint"
   resource_group_name = "cft-${var.env}-network-rg"
   location            = var.location
@@ -164,7 +162,6 @@ resource "azurerm_private_endpoint" "ped_web_pubsub_private_endpoint" {
 }
 
 resource "azurerm_web_pubsub_network_acl" "ped_web_pubsub_network_acl" {
-  count          = var.env == "demo" ? "1" : "0"
   web_pubsub_id  = azurerm_web_pubsub.ped_web_pubsub.id
   default_action = "Allow"
   public_network {
