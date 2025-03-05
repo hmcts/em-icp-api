@@ -131,27 +131,31 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   }
 
   async onRemoveParticant(connectionId: string, caseId: string, documentId: string): Promise<void> {
-    const sessionId = this.redisClient.getSessionId(caseId, documentId);
-    const groupClient = this.client.group(sessionId);
-
-    const session = await this.redisClient.getSession(sessionId);
-
-    await this.redisClient.getLock(sessionId);
-
-    const participants = session.participants ? JSON.parse(session.participants) : {};
-
-    this.checkIfConnectionExistAndRemove(participants);
-    this.checkIfConnectionIsPrenseterAndRemove(connectionId, session);
-
-    if (Object.prototype.hasOwnProperty.call(participants, connectionId)) {
-      delete participants[connectionId];
+    try {
+      const sessionId = this.redisClient.getSessionId(caseId, documentId);
+      const groupClient = this.client.group(sessionId);
+  
+      const session = await this.redisClient.getSession(sessionId);
+  
+      await this.redisClient.getLock(sessionId);
+  
+      let participants = session.participants ? JSON.parse(session.participants) : {};
+  
+      participants = await this.checkIfConnectionExistAndRemove(participants);
+      this.checkIfConnectionIsPrenseterAndRemove(connectionId, session);
+  
+      if (Object.prototype.hasOwnProperty.call(participants, connectionId)) {
+        delete participants[connectionId];
+      }
+  
+      await groupClient.removeConnection(connectionId);
+      await this.client.removeConnectionFromAllGroups(connectionId);
+  
+      await this.redisClient.updateParticipants(sessionId, participants);
+      await groupClient.sendToAll({ eventName: Actions.REMOVE_PARTICIPANT, data: participants });
+    } catch (error) {
+      this.appInsightClient.trackException({ exception: error });
     }
-
-    await groupClient.removeConnection(connectionId);
-    this.client.removeConnectionFromAllGroups(connectionId);
-
-    await this.redisClient.updateParticipants(sessionId, participants);
-    groupClient.sendToAll({ eventName: Actions.REMOVE_PARTICIPANT, data: participants });
   }
 
   checkIfConnectionIsPrenseterAndRemove(connectionId: string, session: Session) {
