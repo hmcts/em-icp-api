@@ -152,7 +152,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
       await this.client.removeConnectionFromAllGroups(connectionId);
   
       await this.redisClient.updateParticipants(sessionId, participants);
-      await groupClient.sendToAll({ eventName: Actions.REMOVE_PARTICIPANT, data: participants });
+      await groupClient.sendToAll({ eventName: Actions.PARTICIPANTS_UPDATED, data: participants });
     } catch (error) {
       this.appInsightClient.trackException({ exception: error });
     }

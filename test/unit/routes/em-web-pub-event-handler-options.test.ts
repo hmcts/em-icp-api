@@ -85,7 +85,7 @@ describe("EmWebPubEventHandlerOptions", () => {
     await emWebPubEventHandlerOptions.onRemoveParticant(connectionId, caseId, documentId);
 
     expect(groupClientStub.sendToAll.calledOnce).to.be.true;
-    expect(groupClientStub.sendToAll.calledWith({ eventName: Actions.REMOVE_PARTICIPANT, data: {} })).to.be.true;
+    expect(groupClientStub.sendToAll.calledWith({ eventName: Actions.PARTICIPANTS_UPDATED, data: {} })).to.be.true;
   });
 
   it("should handle connection existence check and remove non-existing connections", async () => {
