@@ -31,7 +31,7 @@ locals {
   thumbprints_in_quotes_str = join(",", local.thumbprints_in_quotes)
   api_policy                = replace(file("template/api-policy.xml"), "ALLOWED_CERTIFICATE_THUMBPRINTS", local.thumbprints_in_quotes_str)
   api_base_path             = "${var.product}-icp-api"
-  icp_event_handler_url     = "https://em-icp.${var.env}.platform.hmcts.net/eventhandler"
+  icp_event_handler_url     = var.env == "prod" ? "https://em-icp.platform.hmcts.net/eventhandler" : "https://em-icp.${var.env}.platform.hmcts.net/eventhandler"
 }
 
 resource "azurerm_resource_group" "rg" {
