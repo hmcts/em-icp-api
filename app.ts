@@ -85,11 +85,16 @@ app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(noCache());
 app.use(helmet());
 app.use(helmet.xssFilter({ setOnOldIE: true }));
+app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.setHeader(
     "Cache-Control",
     "no-cache, max-age=0, must-revalidate, no-store",
