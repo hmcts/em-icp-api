@@ -85,7 +85,6 @@ app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(noCache());
 app.use(helmet());
 app.use(helmet.xssFilter({ setOnOldIE: true }));
-app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
