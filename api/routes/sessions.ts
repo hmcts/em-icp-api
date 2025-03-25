@@ -51,7 +51,7 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
       return res.status(500).send({ error: err });
     }
 
-    const connectionUrl = `${accessToken.baseUrl}`;
+    const connectionUrl = config.icp.wsUrl;
     if (!session || session.dateOfHearing !== today) {
       
       const newSession: Session = {
