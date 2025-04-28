@@ -4,6 +4,8 @@ import { Actions } from "./model/actions";
 import { PresenterUpdate, Session } from "model/interfaces";
 import { RedisClient } from "./redis-client";
 import { TelemetryClient } from "applicationinsights";
+import { WEB_PUBSUB_ROLES } from "../api/constants/role-suffix";
+
 
 
 export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions {
@@ -194,7 +196,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   hasRolesOnConnection(context: ConnectRequest, sessionId: string): boolean { 
     const roles = context.claims["role"];
     if (roles) {
-      return roles.some((role: string) => role.endsWith(`${sessionId}`));
+      return roles.some((role: string) => role === `${WEB_PUBSUB_ROLES.SEND_TO_GROUP}${sessionId}`);
     }
     return false;
 

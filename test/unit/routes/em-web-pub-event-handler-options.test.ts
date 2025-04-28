@@ -7,6 +7,8 @@ import { RedisClient } from "../../../api/redis-client";
 import { Session } from "../../../api/model/interfaces";
 import { TelemetryClient } from "applicationinsights";
 import { ConnectRequest, ConnectResponseHandler } from "@azure/web-pubsub-express";
+import { WEB_PUBSUB_ROLES } from "../../../api/constants/role-suffix";
+
 
 
 describe("EmWebPubEventHandlerOptions", () => {
@@ -124,7 +126,7 @@ describe("EmWebPubEventHandlerOptions", () => {
         "sessionId": ["session123"],
       },
       claims: {
-        "role": ["user-role-differentSession"],
+        "role": [`${WEB_PUBSUB_ROLES.SEND_TO_GROUP}-differentSession`],
       },
     } as unknown as ConnectRequest;
     
@@ -153,7 +155,7 @@ describe("EmWebPubEventHandlerOptions", () => {
         "sessionId": [sessionId],
       },
       claims: {
-        "role": ["some-role", `user-role-${sessionId}`],
+        "role": ["some-role", `${WEB_PUBSUB_ROLES.SEND_TO_GROUP}${sessionId}`],
       },
     } as unknown as ConnectRequest;
     
