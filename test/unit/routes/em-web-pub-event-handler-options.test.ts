@@ -6,17 +6,25 @@ import { Actions } from "../../../api/model/actions";
 import { RedisClient } from "../../../api/redis-client";
 import { Session } from "../../../api/model/interfaces";
 import { TelemetryClient } from "applicationinsights";
+import { ConnectRequest, ConnectResponseHandler } from "@azure/web-pubsub-express";
 
 
 describe("EmWebPubEventHandlerOptions", () => {
   let redisClientStub: sinon.SinonStubbedInstance<RedisClient>;
   let webPubSubServiceClientStub: sinon.SinonStubbedInstance<WebPubSubServiceClient>;
   let emWebPubEventHandlerOptions: EmWebPubEventHandlerOptions;
+  let telemetryClientStub: sinon.SinonStubbedInstance<TelemetryClient>;
 
   beforeEach(() => {
     redisClientStub = sinon.createStubInstance(RedisClient);
+    telemetryClientStub = {
+      trackTrace: sinon.stub(),
+      trackEvent: sinon.stub(),
+      trackException: sinon.stub(),
+    } as unknown as sinon.SinonStubbedInstance<TelemetryClient>;
+    
     webPubSubServiceClientStub = sinon.createStubInstance(WebPubSubServiceClient);
-    emWebPubEventHandlerOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClientStub, {} as unknown as TelemetryClient, redisClientStub);
+    emWebPubEventHandlerOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClientStub, telemetryClientStub, redisClientStub);
   });
 
   afterEach(() => {
@@ -108,5 +116,59 @@ describe("EmWebPubEventHandlerOptions", () => {
 
     expect(updatePresenterStub.calledOnce).to.be.true;
     expect(updatePresenterStub.calledWith({ caseId: "caseId", documentId: "documentId", presenterId: "", presenterName: "" })).to.be.true;
+  });
+
+  it("should reject connection when sessionId does not match roles", async () => {
+    const connectRequest = {
+      queries: {
+        "sessionId": ["session123"],
+      },
+      claims: {
+        "role": ["user-role-differentSession"],
+      },
+    } as unknown as ConnectRequest;
+    
+    // Create response handler with success and fail spies
+    const successSpy = sinon.spy();
+    const failSpy = sinon.spy();
+    const connectResponse = {
+      success: successSpy,
+      fail: failSpy,
+    } as unknown as ConnectResponseHandler;
+
+    await emWebPubEventHandlerOptions.handleConnect(connectRequest, connectResponse);
+    
+    expect(failSpy.calledOnce).to.be.true;
+    expect(failSpy.calledWith(401, "User not authorized to access sessionId session123")).to.be.true;
+    
+    expect(successSpy.called).to.be.false;
+    
+    expect(telemetryClientStub.trackTrace.calledWith({ message: "handleConnect failed" })).to.be.true;
+  });
+
+  it("should accept connection when sessionId matches roles", async () => {
+    const sessionId = "validSession123";
+    const connectRequest = {
+      queries: {
+        "sessionId": [sessionId],
+      },
+      claims: {
+        "role": ["some-role", `user-role-${sessionId}`],
+      },
+    } as unknown as ConnectRequest;
+    
+    const successSpy = sinon.spy();
+    const failSpy = sinon.spy();
+    const connectResponse = {
+      success: successSpy,
+      fail: failSpy,
+    } as unknown as ConnectResponseHandler;
+    
+    await emWebPubEventHandlerOptions.handleConnect(connectRequest, connectResponse);
+    
+    expect(successSpy.calledOnce).to.be.true;
+    expect(failSpy.called).to.be.false;
+    
+    expect(telemetryClientStub.trackTrace.calledWith({ message: "handleConnect" })).to.be.true;
   });
 });
