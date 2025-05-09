@@ -4824,7 +4824,7 @@ __metadata:
     express: ^5.0.0
     express-rate-limit: ^7.3.0
     follow-redirects: ^1.15.5
-    helmet: ^7.0.0
+    helmet: ^8.0.0
     ioredis: ^5.4.1
     ioredis-mock: ^8.9.0
     jsonwebtoken: ^8.5.1
@@ -5988,10 +5988,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"helmet@npm:*, helmet@npm:^7.0.0":
+"helmet@npm:*":
   version: 7.1.0
   resolution: "helmet@npm:7.1.0"
   checksum: 16aaa0df997eaa18821e71389bc9ceffeeaa935df98427ede2bb006065f7e02bb1941caabea16d5a93a791cb3fe7d8a760266bc57b3b9ca5dd7da17ea84244b8
+  languageName: node
+  linkType: hard
+
+"helmet@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "helmet@npm:8.0.0"
+  checksum: 1a7ef94d35d8e4adae8697f65f9f85d75b3711e4c8b5db5bc7c0480de31e16cf28c92dabe8204eb98aac43db82c69951c771f685a9cd011b15415ffba6fe293b
   languageName: node
   linkType: hard
 
