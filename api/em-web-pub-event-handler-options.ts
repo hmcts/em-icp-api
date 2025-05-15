@@ -43,12 +43,12 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     else if (userEventRequest.context.eventName === Actions.REMOVE_PARTICIPANT) {
       const data = userEventRequest.data as { connectionId: string, caseId: string, documentId: string };
       this.appInsightClient.trackEvent({ name: Actions.REMOVE_PARTICIPANT, properties: { customProperty: data } });
-      await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId,Actions.REMOVE_PARTICIPANT);
+      await this.onRemoveParticipant(userEventRequest.context.connectionId, data.caseId, data.documentId,Actions.REMOVE_PARTICIPANT);
     }
     else if (userEventRequest.context.eventName === Actions.SESSION_LEAVE) {
       const data = userEventRequest.data as { connectionId: string, caseId: string, documentId: string };
       this.appInsightClient.trackEvent({ name: Actions.SESSION_LEAVE, properties: { customProperty: data } });
-      await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId, Actions.SESSION_LEAVE);
+      await this.onRemoveParticipant(userEventRequest.context.connectionId, data.caseId, data.documentId, Actions.SESSION_LEAVE);
     }
    
     userEventResponse.success();
@@ -65,7 +65,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     const documentId = this.getDocumentIdFromState(disconnectedRequest.context);
     const username = this.getUsernameFromState(disconnectedRequest.context);
     if(caseId && documentId) {
-      await this.onRemoveParticant(disconnectedRequest.context.connectionId, caseId, documentId, Actions.REMOVE_PARTICIPANT);
+      await this.onRemoveParticipant(disconnectedRequest.context.connectionId, caseId, documentId, Actions.REMOVE_PARTICIPANT);
     }
     this.appInsightClient.trackTrace({ message: `onDisconnected user:${username}` });
   };
@@ -130,7 +130,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     groupClient.sendToAll({ eventName: Actions.SCREEN_UPDATED, data: screen.body });
   }
 
-  async onRemoveParticant(connectionId: string, caseId: string, documentId: string, action: string): Promise<void> {
+  async onRemoveParticipant(connectionId: string, caseId: string, documentId: string, action: string): Promise<void> {
     try {
       const sessionId = this.redisClient.getSessionId(caseId, documentId);
       const groupClient = this.client.group(sessionId);
