@@ -43,12 +43,12 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     else if (userEventRequest.context.eventName === Actions.REMOVE_PARTICIPANT) {
       const data = userEventRequest.data as { connectionId: string, caseId: string, documentId: string };
       this.appInsightClient.trackEvent({ name: Actions.REMOVE_PARTICIPANT, properties: { customProperty: data } });
-      await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId);
+      await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId,Actions.REMOVE_PARTICIPANT);
     }
     else if (userEventRequest.context.eventName === Actions.SESSION_LEAVE) {
       const data = userEventRequest.data as { connectionId: string, caseId: string, documentId: string };
       this.appInsightClient.trackEvent({ name: Actions.SESSION_LEAVE, properties: { customProperty: data } });
-      await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId);
+      await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId, Actions.SESSION_LEAVE);
     }
    
     userEventResponse.success();
@@ -65,7 +65,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     const documentId = this.getDocumentIdFromState(disconnectedRequest.context);
     const username = this.getUsernameFromState(disconnectedRequest.context);
     if(caseId && documentId) {
-      await this.onRemoveParticant(disconnectedRequest.context.connectionId, caseId, documentId);
+      await this.onRemoveParticant(disconnectedRequest.context.connectionId, caseId, documentId, Actions.REMOVE_PARTICIPANT);
     }
     this.appInsightClient.trackTrace({ message: `onDisconnected user:${username}` });
   };
@@ -130,7 +130,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     groupClient.sendToAll({ eventName: Actions.SCREEN_UPDATED, data: screen.body });
   }
 
-  async onRemoveParticant(connectionId: string, caseId: string, documentId: string): Promise<void> {
+  async onRemoveParticant(connectionId: string, caseId: string, documentId: string, action: string): Promise<void> {
     try {
       const sessionId = this.redisClient.getSessionId(caseId, documentId);
       const groupClient = this.client.group(sessionId);
@@ -152,7 +152,8 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
       await this.client.removeConnectionFromAllGroups(connectionId);
   
       await this.redisClient.updateParticipants(sessionId, participants);
-      await groupClient.sendToAll({ eventName: Actions.PARTICIPANTS_UPDATED, data: participants });
+      const actionValue = this.onCompleteActionValue(action);
+      await groupClient.sendToAll({ eventName: actionValue, data: participants });
     } catch (error) {
       this.appInsightClient.trackException({ exception: error });
     }
@@ -182,5 +183,14 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
 
   getUsernameFromState(context: ConnectionContext): string {
     return context.states["username"];
+  }
+
+  onCompleteActionValue(action: string): string {
+    if (action === Actions.REMOVE_PARTICIPANT) {
+      return Actions.PARTICIPANTS_UPDATED;
+    }
+    if (action === Actions.SESSION_LEAVE) {
+      return Actions.PARTICIPANT_LEFT_SESSION;
+    }
   }
 } 
