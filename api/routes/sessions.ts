@@ -51,7 +51,7 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
       return res.status(500).send({ error: err });
     }
 
-    const connectionUrl = `${config.icp.wsUrl}?access_token=${accessToken.token}`;
+    const connectionUrl = config.icp.wsUrl;
     if (!session || session.dateOfHearing !== today) {
       
       const newSession: Session = {
@@ -66,9 +66,11 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
       };
 
       redis.hmset(sessionId, newSession);
+      res.header("X-Access-Token", accessToken.token);
       return res.send({ username, session: newSession });
     } else if (session.dateOfHearing === today) {
       session.connectionUrl = connectionUrl;
+      res.header("X-Access-Token", accessToken.token);
       return res.send({ username, session });
     }
   });
