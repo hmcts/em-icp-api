@@ -5,6 +5,7 @@ import { client as redis } from "../redis";
 import { IdamClient } from "../security/idam-client";
 import { WebPubSubServiceClient } from "@azure/web-pubsub";
 import { Logger } from "@hmcts/nodejs-logging";
+import { WEB_PUBSUB_ROLES } from "constants/role-suffix";
 
 
 const config = require("config");
@@ -12,6 +13,7 @@ const router = express.Router();
 const idam = new IdamClient();
 const logger = Logger.getLogger("sessions");
 const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : undefined;
+
 
 router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
   const token = req.header("Authorization");
@@ -42,7 +44,7 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
     message: `primary connectionstring: ${primaryConnectionstring}`,
   });
   const service = new WebPubSubServiceClient(primaryConnectionstring, "Hub");
-  const accessToken = await service.getClientAccessToken({ userId: username, roles: [`webpubsub.joinLeaveGroup.${caseId}--${documentId}`, `webpubsub.sendToGroup.${caseId}--${documentId}`] });
+  const accessToken = await service.getClientAccessToken({ userId: username, roles: [`${WEB_PUBSUB_ROLES.JOIN_LEAVE_GROUP}${caseId}--${documentId}`, `${WEB_PUBSUB_ROLES.SEND_TO_GROUP}${caseId}--${documentId}`] });
   const today = new Date().toDateString();
   const sessionId = `${caseId}--${documentId}`;
   await redis.hgetall(sessionId, (err, session: Session) => {

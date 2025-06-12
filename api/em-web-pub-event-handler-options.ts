@@ -4,6 +4,8 @@ import { Actions } from "./model/actions";
 import { PresenterUpdate, Session } from "model/interfaces";
 import { RedisClient } from "./redis-client";
 import { TelemetryClient } from "applicationinsights";
+import { WEB_PUBSUB_ROLES } from "../api/constants/role-suffix";
+
 
 
 export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions {
@@ -19,8 +21,15 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   }
 
   handleConnect = async (connectRequest: ConnectRequest, connectResponse: ConnectResponseHandler) => {
-    this.appInsightClient.trackTrace({ message: "handleConnect" });
-    connectResponse.success();
+    const sessionId = connectRequest.queries["sessionId"][0];
+    if(this.hasRolesOnConnection(connectRequest, sessionId)) {
+      this.appInsightClient.trackTrace({ message: "handleConnect" });
+      connectResponse.success();
+    }
+    else {
+      this.appInsightClient.trackTrace({ message: "handleConnect failed" });
+      connectResponse.fail(401, `User not authorized to access sessionId ${sessionId}`);
+    }
   };
 
   handleUserEvent = async (userEventRequest: UserEventRequest, userEventResponse: UserEventResponseHandler) => {
@@ -182,5 +191,14 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
 
   getUsernameFromState(context: ConnectionContext): string {
     return context.states["username"];
+  }
+
+  hasRolesOnConnection(context: ConnectRequest, sessionId: string): boolean { 
+    const roles = context.claims["role"];
+    if (roles) {
+      return roles.some((role: string) => role === `${WEB_PUBSUB_ROLES.SEND_TO_GROUP}${sessionId}`);
+    }
+    return false;
+
   }
 } 
