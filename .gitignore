@@ -20,6 +20,8 @@ npm-debug.log.*
 dist/
 public/
 
+/config/local*.*
+
 # nyc test coverage
 .nyc_output
 
