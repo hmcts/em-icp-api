@@ -10,4 +10,5 @@ export enum Actions {
   NEW_PARTICIPANT_JOINED = "IcpNewParticipantJoinedSession",
   SESSION_JOIN = "IcpClientJoinSession",
   SESSION_LEAVE = "IcpClientLeaveSession",
+  PARTICIPANT_LEFT_SESSION = "IcpParticipantLeftSession",
 }
