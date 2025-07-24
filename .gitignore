@@ -33,3 +33,4 @@ public/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.vscode/launch.json
