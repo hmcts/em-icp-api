@@ -22,13 +22,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
       const roles = this.extractRolesFromConnectRequest(connectRequest);
       const caseId: string = connectRequest.queries.caseId[0];
       const documentId: string = connectRequest.queries.documentId[0];
-      let hasAccess = true;
-      //compare roles from connectRequest with caseId and documentId from session
-      roles.forEach(element => {
-        if (element.caseId !== caseId && element.documentId !== documentId) {
-          hasAccess = false;
-        }
-      });
+      const hasAccess = roles.some(element => element.caseId == caseId && element.documentId == documentId);
       if (hasAccess) {
         this.appInsightClient.trackTrace({ message: "handleConnect" });
         connectResponse.success();
