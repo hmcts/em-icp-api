@@ -73,7 +73,6 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     else if (userEventRequest.context.eventName === Actions.SESSION_LEAVE) {
       const data = userEventRequest.data as { connectionId: string, caseId: string, documentId: string };
       this.appInsightClient.trackEvent({ name: Actions.SESSION_LEAVE, properties: { customProperty: data } });
-      await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId);
     }
    
     userEventResponse.success();
