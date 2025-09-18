@@ -33,3 +33,7 @@ public/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# local dev SSL certs/keys
+api/resources/localhost-ssl/localhost.key
+api/resources/localhost-ssl/localhost.crt
