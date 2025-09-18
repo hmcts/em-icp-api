@@ -130,5 +130,5 @@
     ],
     "reporter": "lcov"
   },
-  "packageManager": "yarn@3.8.5"
+  "packageManager": "yarn@3.8.7"
 }
