@@ -38,7 +38,7 @@ describe("EmWebPubEventHandlerOptions", () => {
       sendToAll: sinon.stub().resolves(),
     } as unknown as WebPubSubGroup);
 
-    await emWebPubEventHandlerOptions.onRemoveParticant(connectionId, caseId, documentId);
+    await emWebPubEventHandlerOptions.onRemoveParticipant(connectionId, caseId, documentId, Actions.REMOVE_PARTICIPANT);
 
     expect(redisClientStub.updateParticipants.calledOnce).to.be.true;
     expect(redisClientStub.updateParticipants.calledWith(sessionId, {})).to.be.true;
@@ -60,7 +60,7 @@ describe("EmWebPubEventHandlerOptions", () => {
     };
     webPubSubServiceClientStub.group.returns(groupClientStub as unknown as WebPubSubGroup);
 
-    await emWebPubEventHandlerOptions.onRemoveParticant(connectionId, caseId, documentId);
+    await emWebPubEventHandlerOptions.onRemoveParticipant(connectionId, caseId, documentId, Actions.REMOVE_PARTICIPANT);
 
     expect(groupClientStub.removeConnection.calledOnce).to.be.true;
     expect(groupClientStub.removeConnection.calledWith(connectionId)).to.be.true;
@@ -82,7 +82,7 @@ describe("EmWebPubEventHandlerOptions", () => {
     };
     webPubSubServiceClientStub.group.returns(groupClientStub as unknown as WebPubSubGroup);
 
-    await emWebPubEventHandlerOptions.onRemoveParticant(connectionId, caseId, documentId);
+    await emWebPubEventHandlerOptions.onRemoveParticipant(connectionId, caseId, documentId, Actions.REMOVE_PARTICIPANT);
 
     expect(groupClientStub.sendToAll.calledOnce).to.be.true;
     expect(groupClientStub.sendToAll.calledWith({ eventName: Actions.PARTICIPANTS_UPDATED, data: {} })).to.be.true;
