@@ -79,6 +79,9 @@
     "axios": "^1.12.1",
     "follow-redirects": "^1.15.6",
     "express": "^4.19.2",
+    "qs": "^6.14.1",
+    "jws": "^4.0.1",
+    "tmp": ">=0.2.4",
     "@grpc/grpc-js": "^1.10.9",
     "@azure/msal-node": "^2.9.2",
     "@azure/identity": "^4.2.1",
@@ -88,10 +91,7 @@
     "micromatch": "^4.0.8",
     "path-to-regexp": "^0.1.12",
     "formidable": "^3.5.3",
-    "form-data": "^4.0.4",
-    "brace-expansion": "^2.0.2",
-    "tmp": "^0.2.4",
-    "js-yaml": "^3.14.2"
+    "form-data": "^4.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
