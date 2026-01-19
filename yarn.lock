@@ -5949,10 +5949,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"helmet@npm:*, helmet@npm:^7.0.0":
-  version: 7.1.0
-  resolution: "helmet@npm:7.1.0"
-  checksum: 16aaa0df997eaa18821e71389bc9ceffeeaa935df98427ede2bb006065f7e02bb1941caabea16d5a93a791cb3fe7d8a760266bc57b3b9ca5dd7da17ea84244b8
+"helmet@npm:*":
+  version: 8.1.0
+  resolution: "helmet@npm:8.1.0"
+  checksum: 58febddc95becb457a7dd5d062500b9e68437d4991b7a9d9455af63f35740962c258d2656cbed367fbd5704da5758408b674b2a6013e589a4a6b02be0a8d5f4e
+  languageName: node
+  linkType: hard
+
+"helmet@npm:^7.0.0":
+  version: 7.2.0
+  resolution: "helmet@npm:7.2.0"
+  checksum: d09247a28e7a6a7be22445e777412eabbb482375cc2ac936f153e15c1a150ec880442db0b47e9b2a4e0dc14bb4afd13362b58a32f4c94b9dae58ee47d0cf63f9
   languageName: node
   linkType: hard
 
