@@ -201,5 +201,5 @@ resource "azurerm_role_assignment" "web_pubsub_service_owner" {
   scope                = azurerm_web_pubsub.ped_web_pubsub.id
   role_definition_name = "Web PubSub Service Owner"
   # group = dcd_group_expertui_v2
-  principal_id         = "7a7c6518-2381-408b-940c-7b9bd0256d9a"
+  principal_id = "7a7c6518-2381-408b-940c-7b9bd0256d9a"
 }
