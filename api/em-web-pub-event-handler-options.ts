@@ -5,7 +5,6 @@ import { PresenterUpdate, Session } from "model/interfaces";
 import { RedisClient } from "./redis-client";
 import { TelemetryClient } from "applicationinsights";
 
-
 export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions {
 
   private client: WebPubSubServiceClient;
@@ -19,13 +18,39 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   }
 
   handleConnect = async (connectRequest: ConnectRequest, connectResponse: ConnectResponseHandler) => {
-    this.appInsightClient.trackTrace({ message: "handleConnect" });
-    connectResponse.success();
+    if (connectRequest.claims.role) {
+      const roles = this.extractRolesFromConnectRequest(connectRequest);
+      const caseId: string = connectRequest.queries.caseId[0];
+      const documentId: string = connectRequest.queries.documentId[0];
+      const hasAccess = roles.some(element => element.caseId == caseId && element.documentId == documentId);
+      if (hasAccess) {
+        this.appInsightClient.trackTrace({ message: "handleConnect" });
+        connectResponse.success();
+        return;
+      } else {
+        connectResponse.fail(401, "User not authorized to access session");
+        return;
+      }
+    }
+    connectResponse.fail(401, "User not authorized to access session");
   };
+
+  extractRolesFromConnectRequest(connectionRequest: ConnectRequest): {
+    caseId: string;
+    documentId: string;
+  }[] {
+    return connectionRequest.claims.role.map(role => {
+      const parts = role.split(".");
+      if (parts.length < 3) return null;
+      const [prefix, action, group] = parts;
+      const [caseId, documentId] = group.split("--");
+      return { prefix, action, caseId, documentId };
+    }).filter(Boolean);
+  }
 
   handleUserEvent = async (userEventRequest: UserEventRequest, userEventResponse: UserEventResponseHandler) => {
     if (userEventRequest.context.eventName === Actions.SESSION_JOIN) {
-      const data = userEventRequest.data as { caseId: string, sessionsId: string, username: string, documentId: string };
+      const data = userEventRequest.data as { caseId: string, sessionId: string, username: string, documentId: string };
       this.setState(userEventResponse, data);
       this.appInsightClient.trackEvent({ name: Actions.SESSION_JOIN, properties: { customProperty: data } });
       await this.onJoin(data, userEventRequest.context.connectionId);
@@ -48,7 +73,6 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     else if (userEventRequest.context.eventName === Actions.SESSION_LEAVE) {
       const data = userEventRequest.data as { connectionId: string, caseId: string, documentId: string };
       this.appInsightClient.trackEvent({ name: Actions.SESSION_LEAVE, properties: { customProperty: data } });
-      await this.onRemoveParticant(userEventRequest.context.connectionId, data.caseId, data.documentId);
     }
    
     userEventResponse.success();
@@ -70,10 +94,12 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     this.appInsightClient.trackTrace({ message: `onDisconnected user:${username}` });
   };
 
-  async onJoin(data: { caseId: string, sessionsId: string, username: string, documentId: string }, connectionId: string): Promise<void> {
+  async onJoin(data: { caseId: string, sessionId: string, username: string, documentId: string }, connectionId: string): Promise<void> {
     const sessionId = this.redisClient.getSessionId(data.caseId, data.documentId);
     const session = await this.redisClient.getSession(sessionId);
-
+    if (session.sessionId !== data.sessionId) {
+      return;
+    }
 
     const groupClient = this.client.group(sessionId);
 
@@ -166,7 +192,7 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     }
   }
   
-  setState(userEventResponseHandler: UserEventResponseHandler, data: { caseId: string, sessionsId: string, username: string, documentId: string }) {
+  setState(userEventResponseHandler: UserEventResponseHandler, data: { caseId: string, sessionId: string, username: string, documentId: string }) {
     userEventResponseHandler.setState("caseId", data.caseId);
     userEventResponseHandler.setState("documentId", data.documentId);
     userEventResponseHandler.setState("username", data.username);
