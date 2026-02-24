@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { UserInfo, Session } from "../model/interfaces";
 import { client as redis } from "../redis";
 import { IdamClient } from "../security/idam-client";
+import { CaseDataClient } from "../security/case-data-client";
 import { WebPubSubServiceClient } from "@azure/web-pubsub";
 import { Logger } from "@hmcts/nodejs-logging";
 
@@ -10,6 +11,7 @@ import { Logger } from "@hmcts/nodejs-logging";
 const config = require("config");
 const router = express.Router();
 const idam = new IdamClient();
+const caseDataClient = new CaseDataClient();
 const logger = Logger.getLogger("sessions");
 const primaryConnectionstring = config.secrets ? config.secrets["em-icp"]["em-icp-web-pubsub-primary-connection-string"] : undefined;
 
@@ -36,6 +38,18 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
   if (!caseId || caseId === "null" || caseId === "undefined" || !documentId || documentId === "null" || documentId === "undefined") {
     res.statusMessage = "Invalid case id";
     return res.status(400).send();
+  }
+
+  try {
+    const hasAccess = await caseDataClient.hasCaseAccess(token, caseId);
+    if (!hasAccess) {
+      logger.warn(`User ${username} does not have access to case ${caseId}`);
+      return res.status(403).send({ error: "Forbidden" });
+    }
+  } catch (e) {
+    logger.error("Error when attempting to verify case access");
+    logger.error(e);
+    return res.status(500).send({ error: "Error verifying case access" });
   }
 
   logger.info({
