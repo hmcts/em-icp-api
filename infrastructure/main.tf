@@ -196,10 +196,19 @@ resource "azurerm_key_vault_secret" "em_icp_web_pubsub_primary_connection_string
   key_vault_id = module.local_key_vault.key_vault_id
 }
 
+variable "user_ids" {
+    type = list(string)
+    default = [
+      "3689a22e-1785-4944-bd9e-113355bfb070",
+      "192df417-f2be-4bd9-8e3e-c08b6e4cb0b8"
+    ]
+    description = "List of user IDs to grant the Web PubSub Service Owner role to."
+}
+
 resource "azurerm_role_assignment" "web_pubsub_service_owner" {
-  count                = local.local_env != "prod" ? 1 : 0
+  for_each = local.local_env != "prod" ? toset(var.user_ids) : {}
+
   scope                = azurerm_web_pubsub.ped_web_pubsub.id
   role_definition_name = "Web PubSub Service Owner"
-  # group = dcd_group_expertui_v2
-  principal_id = "7a7c6518-2381-408b-940c-7b9bd0256d9a"
+  principal_id         = each.value
 }
