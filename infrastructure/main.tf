@@ -209,6 +209,6 @@ resource "azurerm_role_assignment" "web_pubsub_service_owner" {
   for_each = local.local_env != "prod" ? toset(var.user_ids) : []
 
   scope                = azurerm_web_pubsub.ped_web_pubsub.id
-  role_definition_name = "Web PubSub Service Owner"
+  role_definition_name = "Contributor"
   principal_id         = each.value
 }
