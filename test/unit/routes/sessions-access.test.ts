@@ -3,7 +3,7 @@ import express from "express";
 import request from "supertest";
 import { IdamClient } from "../../../api/security/idam-client";
 import { CaseDataClient } from "../../../api/security/case-data-client";
-import { WebPubSubServiceClient } from "@azure/web-pubsub";
+import { ClientTokenResponse, WebPubSubServiceClient } from "@azure/web-pubsub";
 import { client as redis } from "../../../api/redis";
 
 describe("GET /icp/sessions/:caseId/:documentId access control", () => {
@@ -28,11 +28,19 @@ describe("GET /icp/sessions/:caseId/:documentId access control", () => {
       family_name: "User",
     });
     sandbox.stub(CaseDataClient.prototype, "hasCaseAccess").resolves(false);
-    sandbox.stub(WebPubSubServiceClient.prototype, "getClientAccessToken").resolves({ token: "token" } as any);
-    sandbox.stub(redis as any, "hgetall").callsFake((key: string, cb: any) => {
-      cb(null, null);
-      return null;
-    });
+    const clientTokenResponse: ClientTokenResponse = {
+      token: "token",
+      baseUrl: "https://example.test",
+      url: "https://example.test?access_token=token",
+    };
+    sandbox.stub(WebPubSubServiceClient.prototype, "getClientAccessToken").resolves(clientTokenResponse);
+    type RedisHGetAllCallback = (err: Error | null, result: Record<string, string> | null) => void;
+    sandbox
+      .stub(redis as unknown as { hgetall: (key: string, cb: RedisHGetAllCallback) => unknown }, "hgetall")
+      .callsFake((key: string, cb: RedisHGetAllCallback) => {
+        cb(null, null);
+        return null;
+      });
 
     const app = express();
     // eslint-disable-next-line @typescript-eslint/no-var-requires

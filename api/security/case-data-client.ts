@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance } from "axios";
+import Axios, { AxiosError, AxiosInstance } from "axios";
 import { S2SClient } from "./s2s-client";
 
 const config = require("config");
@@ -29,14 +29,14 @@ export class CaseDataClient {
     try {
       await this.http.get(`/cases/${caseId}`, { headers });
       return true;
-    } catch (e: any) {
-      const status = e?.response?.status;
+    } catch (error) {
+      const status = Axios.isAxiosError(error) ? error.response?.status : undefined;
       if (status === 403 || status === 404) {
         return false;
       }
       this.logger.error("Case Data Client: Error encountered when verifying case access");
-      this.logger.error(e);
-      throw e;
+      this.logger.error(error as AxiosError);
+      throw error;
     }
   }
 }
