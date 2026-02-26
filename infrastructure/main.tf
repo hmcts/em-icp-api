@@ -197,12 +197,12 @@ resource "azurerm_key_vault_secret" "em_icp_web_pubsub_primary_connection_string
 }
 
 variable "user_ids" {
-    type = list(string)
-    default = [
-      "3689a22e-1785-4944-bd9e-113355bfb070",
-      "192df417-f2be-4bd9-8e3e-c08b6e4cb0b8"
-    ]
-    description = "List of user IDs to grant the Web PubSub Service Owner role to."
+  type = list(string)
+  default = [
+    "3689a22e-1785-4944-bd9e-113355bfb070",
+    "192df417-f2be-4bd9-8e3e-c08b6e4cb0b8"
+  ]
+  description = "List of user IDs to grant the Web PubSub Service Owner role to."
 }
 
 resource "azurerm_role_assignment" "web_pubsub_service_owner" {
