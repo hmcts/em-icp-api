@@ -19,6 +19,9 @@ health:
 idam:
   url: "http://localhost:5000"
 
+ccd:
+  url: "http://localhost:4452"
+
 rateLimit:
   time: 15000
   max: 10
@@ -37,5 +40,4 @@ s2s:
   secret: "AAAAAAAAAAAAAAAA"
 
 tokenRefreshTime: 3600000 # (60 mins)
-
 

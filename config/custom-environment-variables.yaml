@@ -13,6 +13,9 @@ appInsights:
 idam:
   url: IDAM_API_BASE_URL
 
+ccd:
+  url: SERVICES_CCD_DATA_STORE_API
+
 s2s:
   url: IDAM_S2S_URL
   secret: S2S_KEY
