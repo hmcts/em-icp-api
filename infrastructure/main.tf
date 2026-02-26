@@ -206,7 +206,7 @@ variable "user_ids" {
 }
 
 resource "azurerm_role_assignment" "web_pubsub_service_owner" {
-  for_each = local.local_env != "prod" ? toset(var.user_ids) : {}
+  for_each = local.local_env != "prod" ? toset(var.user_ids) : []
 
   scope                = azurerm_web_pubsub.ped_web_pubsub.id
   role_definition_name = "Web PubSub Service Owner"
