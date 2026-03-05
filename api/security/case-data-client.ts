@@ -20,17 +20,22 @@ export class CaseDataClient {
   }
 
   public async hasCaseAccess(userToken: string, caseId: string): Promise<boolean> {
-    const serviceToken = await this.s2sClient.getServiceToken();
     const headers = {
       "Authorization": userToken,
-      "ServiceAuthorization": serviceToken,
     };
 
     try {
-      await this.http.get(`/cases/${caseId}`, { headers });
+      await this.http.get(`/data/internal/cases/${caseId}`, { headers });
       return true;
     } catch (error) {
       const status = Axios.isAxiosError(error) ? error.response?.status : undefined;
+      if (status === 401) {
+        this.logger.error({
+          message: "Case Data Client: Unauthorized when verifying case access",
+          url: Axios.isAxiosError(error) ? error.config?.url : undefined,
+          status,
+        });
+      }
       if (status === 403 || status === 404) {
         return false;
       }
