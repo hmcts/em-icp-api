@@ -3,7 +3,6 @@ nodejs:
     REDIS_HOST: ${SERVICE_NAME}-redis-master
     REDIS_PORT: 6379
     REDIS_USE_TLS: false
-    SERVICES_CCD_COMPONENT_API: ${SERVICES_CCD_COMPONENT_API}
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
