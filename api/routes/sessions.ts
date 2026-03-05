@@ -66,7 +66,7 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
   logger.info({
     message: `primary connectionstring: ${primaryConnectionstring}`,
   });
-  const service = new WebPubSubServiceClient(primaryConnectionstring, "Hub");
+  const service = new WebPubSubServiceClient(primaryConnectionstring, "localhub");
   const accessToken = await service.getClientAccessToken({ userId: username, roles: [`webpubsub.joinLeaveGroup.${caseId}--${documentId}`, `webpubsub.sendToGroup.${caseId}--${documentId}`] });
   const today = new Date().toDateString();
   const sessionId = `${caseId}--${documentId}`;
