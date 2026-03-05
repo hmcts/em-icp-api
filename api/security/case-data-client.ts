@@ -20,8 +20,13 @@ export class CaseDataClient {
   }
 
   public async hasCaseAccess(userToken: string, caseId: string): Promise<boolean> {
+    const serviceToken = await this.s2sClient.getServiceToken();
     const headers = {
       "Authorization": userToken,
+      "ServiceAuthorization": serviceToken,
+      "Accept": "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json",
+      "Content-Type": "application/json",
+      "experimental": "true",
     };
 
     try {

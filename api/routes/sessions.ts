@@ -1,4 +1,5 @@
 import * as express from "express";
+import Axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { UserInfo, Session } from "../model/interfaces";
 import { client as redis } from "../redis";
@@ -49,13 +50,23 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
   } catch (e) {
     logger.error("Error when attempting to verify case access");
     logger.error(e);
+    const status = Axios.isAxiosError(e) ? e.response?.status : undefined;
+    if (status === 401) {
+      return res.status(401).send({ error: "Unauthorized user" });
+    }
+    if (status === 403) {
+      return res.status(403).send({ error: "Forbidden" });
+    }
+    if (status === 404) {
+      return res.status(404).send({ error: "Not Found" });
+    }
     return res.status(500).send({ error: "Error verifying case access" });
   }
 
   logger.info({
     message: `primary connectionstring: ${primaryConnectionstring}`,
   });
-  const service = new WebPubSubServiceClient(primaryConnectionstring, "Hub");
+  const service = new WebPubSubServiceClient(primaryConnectionstring, "localhub");
   const accessToken = await service.getClientAccessToken({ userId: username, roles: [`webpubsub.joinLeaveGroup.${caseId}--${documentId}`, `webpubsub.sendToGroup.${caseId}--${documentId}`] });
   const today = new Date().toDateString();
   const sessionId = `${caseId}--${documentId}`;
