@@ -19,7 +19,6 @@ export class CaseDataClient {
   public async hasCaseAccess(userToken: string, caseId: string): Promise<boolean> {
     const headers = {
       "Authorization": userToken,
-      "Accept": "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json",
       "Content-Type": "application/json",
       "experimental": "true",
     };
