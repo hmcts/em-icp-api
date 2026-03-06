@@ -1,5 +1,4 @@
 import Axios, { AxiosError, AxiosInstance } from "axios";
-import { S2SClient } from "./s2s-client";
 
 const config = require("config");
 const { Logger } = require("@hmcts/nodejs-logging");
@@ -9,14 +8,12 @@ const { Logger } = require("@hmcts/nodejs-logging");
  */
 export class CaseDataClient {
   private readonly http: AxiosInstance;
-  private readonly s2sClient: S2SClient;
   private readonly logger = Logger.getLogger("case-data-client");
 
   constructor() {
     this.http = Axios.create({
       baseURL: config.ccd.url,
     });
-    this.s2sClient = new S2SClient();
   }
 
   public async hasCaseAccess(userToken: string, caseId: string): Promise<boolean> {
