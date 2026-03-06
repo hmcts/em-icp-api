@@ -14,7 +14,7 @@ idam:
   url: IDAM_API_BASE_URL
 
 ccd:
-  componentApi: SERVICES_CCD_COMPONENT_API
+  url: SERVICES_CCD_COMPONENT_API
 
 s2s:
   url: IDAM_S2S_URL
