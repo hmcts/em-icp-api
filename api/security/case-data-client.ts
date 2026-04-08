@@ -56,10 +56,10 @@ export class CaseDataClient {
     }
 
     const accessProcess = metadataFields.find(
-      (metadataField) => metadataField.id === CaseDataClient.METADATA_FIELD_ACCESS_PROCESS_ID
+      (metadataField) => metadataField.id === CaseDataClient.METADATA_FIELD_ACCESS_PROCESS_ID,
     );
     const accessGranted = metadataFields.find(
-      (metadataField) => metadataField.id === CaseDataClient.METADATA_FIELD_ACCESS_GRANTED_ID
+      (metadataField) => metadataField.id === CaseDataClient.METADATA_FIELD_ACCESS_GRANTED_ID,
     );
 
     const accessGrantedValue = accessGranted?.value;
