@@ -74,7 +74,7 @@ const handler = new WebPubSubEventHandler("hub", {
   onDisconnected: webPubSubOptions.onDisconnected,
 });
 
-app.use(handler.getMiddleware());
+app.use("/", handler.getMiddleware());
 app.use(limiter);
 app.use(Express.accessLogger());
 
@@ -118,7 +118,7 @@ app.use((err: HttpError, req: express.Request, res: express.Response) => {
 });
 
 if (config.app.useCSRFProtection === "true") {
-  app.use(csrf(), (req, res, next) => {
+  app.use("/", csrf(), (req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
     next();
   });
