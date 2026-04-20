@@ -2,7 +2,7 @@ version: '2'
 
 services:
   em-icp-api:
-    image: hmctspublic.azurecr.io/em/icp:aat-a808eaa1
+    image: hmctsprod.azurecr.io/em/icp:aat-a808eaa1
     build:
       context: .
       args:

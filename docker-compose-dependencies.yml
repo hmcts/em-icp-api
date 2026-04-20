@@ -8,7 +8,7 @@ services:
       - "6379:6379"
 
   service-auth-provider-api:
-    image: hmctspublic.azurecr.io/rpe/service-auth-provider:latest
+    image: hmctsprod.azurecr.io/rpe/service-auth-provider:latest
     container_name: icp-service-auth
     environment:
       - jwtKey=wThK0f0/lh3FlxFcL4xUWDMI5C1J9KyQBgXV4wseh1e5J1uYJIjvTvArHxQDrYoHJ23xFxjHkOnvNbR5dXRoxA==
@@ -29,7 +29,7 @@ services:
       - 4502:8489
 
   idam-api:
-    image: hmctspublic.azurecr.io/idam/api:stable
+    image: hmctsprod.azurecr.io/idam/api:stable
     container_name: icp-idam-api
     healthcheck:
       interval: 10s
