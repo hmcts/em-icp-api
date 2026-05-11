@@ -64,18 +64,23 @@ else {
 }
 
 const redisClient = new RedisClient();
-const webPubSubServiceClient = new WebPubSubServiceClient(primaryConnectionstring, "Hub");
-const webPubSubOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClient, appInsightClient,redisClient);
-const handler = new WebPubSubEventHandler("hub", {
-  path: "/eventhandler",
-  handleConnect: webPubSubOptions.handleConnect,
-  handleUserEvent: webPubSubOptions.handleUserEvent,
-  onConnected: webPubSubOptions.onConnected,
-  onDisconnected: webPubSubOptions.onDisconnected,
-});
+if (primaryConnectionstring) {
+  const webPubSubServiceClient = new WebPubSubServiceClient(primaryConnectionstring, "Hub");
+  const webPubSubOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClient, appInsightClient, redisClient);
+  const handler = new WebPubSubEventHandler("hub", {
+    path: "/eventhandler",
+    handleConnect: webPubSubOptions.handleConnect,
+    handleUserEvent: webPubSubOptions.handleUserEvent,
+    onConnected: webPubSubOptions.onConnected,
+    onDisconnected: webPubSubOptions.onDisconnected,
+  });
 
-app.use(handler.getMiddleware());
-app.use(limiter);
+  app.use(handler.getMiddleware());
+} else {
+  logger.warn("Web PubSub connection string not configured; /eventhandler middleware not enabled");
+}
+app.use("/health", healthcheck);
+app.use("/icp/sessions", limiter);
 app.use(Express.accessLogger());
 
 
@@ -123,5 +128,3 @@ if (config.app.useCSRFProtection === "true") {
     next();
   });
 }
-
-app.use("/health", healthcheck);
