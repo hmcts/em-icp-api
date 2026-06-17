@@ -4,7 +4,7 @@ import express from "express";
 import * as path from "path";
 import { RouterFinder } from "./api/router/routerFinder";
 import { HttpError } from "./api/model/httpError";
-import csrf from "csurf";
+import csrf from "@dr.pogodin/csurf";
 import * as propertiesVolume from "@hmcts/properties-volume";
 import { swaggerDocument } from "./api/swagger";
 
