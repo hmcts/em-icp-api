@@ -748,7 +748,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ioredis/commands@npm:^1.1.1, @ioredis/commands@npm:^1.2.0":
+"@ioredis/commands@npm:1.10.0":
+  version: 1.10.0
+  resolution: "@ioredis/commands@npm:1.10.0"
+  checksum: 6c4dcafeb94e3a07bfa458e01d8098cd71b7bbee8e089bd03a766e80a0055c34aa56910a25392642ebfcf9002e2537152cad15f5ad36b0b4e995caf929d676b4
+  languageName: node
+  linkType: hard
+
+"@ioredis/commands@npm:^1.2.0":
   version: 1.2.0
   resolution: "@ioredis/commands@npm:1.2.0"
   checksum: 9b20225ba36ef3e5caf69b3c0720597c3016cc9b1e157f519ea388f621dd9037177f84cfe7e25c4c32dad7dd90c70ff9123cd411f747e053cf292193c9c461e2
@@ -2643,10 +2650,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cluster-key-slot@npm:^1.1.0":
-  version: 1.1.2
-  resolution: "cluster-key-slot@npm:1.1.2"
-  checksum: be0ad2d262502adc998597e83f9ded1b80f827f0452127c5a37b22dfca36bab8edf393f7b25bb626006fb9fb2436106939ede6d2d6ecf4229b96a47f27edd681
+"cluster-key-slot@npm:1.1.1":
+  version: 1.1.1
+  resolution: "cluster-key-slot@npm:1.1.1"
+  checksum: 2fb7390e7950075acb09fc8aad3dc939abb64b139ba1b5f6341efdd0beda8cdc8b508e5f30d943370cf30ea0c13741c579e0846efd007b328bdc1a5a712264da
   languageName: node
   linkType: hard
 
@@ -2884,6 +2891,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:4.4.3":
+  version: 4.4.3
+  resolution: "debug@npm:4.4.3"
+  dependencies:
+    ms: ^2.1.3
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 4805abd570e601acdca85b6aa3757186084a45cff9b2fa6eee1f3b173caa776b45f478b2a71a572d616d2010cea9211d0ac4a02a610e4c18ac4324bde3760834
+  languageName: node
+  linkType: hard
+
 "decamelize@npm:^1.2.0":
   version: 1.2.0
   resolution: "decamelize@npm:1.2.0"
@@ -2937,7 +2956,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"denque@npm:^2.1.0":
+"denque@npm:2.1.0":
   version: 2.1.0
   resolution: "denque@npm:2.1.0"
   checksum: 1d4ae1d05e59ac3a3481e7b478293f4b4c813819342273f3d5b826c7ffa9753c520919ba264f377e09108d24ec6cf0ec0ac729a5686cbb8f32d797126c5dae74
@@ -3106,9 +3125,9 @@ __metadata:
     csurf: ^1.11.0
     eslint: 8.57.1
     express: ^5.0.0
-    express-rate-limit: ^7.3.0
+    express-rate-limit: ^8.5.2
     helmet: ^7.0.0
-    ioredis: ^5.4.1
+    ioredis: ^5.10.1
     ioredis-mock: ^8.9.0
     mocha: ^10.7.0
     nocache: ^4.0.0
@@ -3120,7 +3139,7 @@ __metadata:
     swagger-ui-express: ^5.0.1
     ts-node: ^10.9.2
     tsconfig-paths: ^4.2.0
-    typescript: ^5.1.6
+    typescript: ^6.0.3
     uuid: ^10.0.0
   languageName: unknown
   linkType: soft
@@ -3409,12 +3428,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-rate-limit@npm:^7.3.0":
-  version: 7.4.0
-  resolution: "express-rate-limit@npm:7.4.0"
+"express-rate-limit@npm:^8.5.2":
+  version: 8.5.2
+  resolution: "express-rate-limit@npm:8.5.2"
+  dependencies:
+    ip-address: ^10.2.0
   peerDependencies:
-    express: 4 || 5 || ^5.0.0-beta.1
-  checksum: 81ddba751b401ff7f04207155dd0559938b5614754f73950d86acc1463dd7ea6a458a5ba941bcf108e8913b786bca6cde94c19ba504cf61f864edf92cc1bdbae
+    express: ">= 4.11"
+  checksum: 2a8d508aca4489597b41fb63accd6aac8f10506edb2567180c8375c4170d48651f7bf417079c45421bdefba3c0422a7d06615ba99cd88ca67cbbdf977e71f405
   languageName: node
   linkType: hard
 
@@ -4200,20 +4221,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^5.4.1":
-  version: 5.4.1
-  resolution: "ioredis@npm:5.4.1"
+"ioredis@npm:^5.10.1":
+  version: 5.11.1
+  resolution: "ioredis@npm:5.11.1"
   dependencies:
-    "@ioredis/commands": ^1.1.1
-    cluster-key-slot: ^1.1.0
-    debug: ^4.3.4
-    denque: ^2.1.0
-    lodash.defaults: ^4.2.0
-    lodash.isarguments: ^3.1.0
-    redis-errors: ^1.2.0
-    redis-parser: ^3.0.0
-    standard-as-callback: ^2.1.0
-  checksum: 92210294f75800febe7544c27b07e4892480172363b11971aa575be5b68f023bfed4bc858abc9792230c153aa80409047a358f174062c14d17536aa4499fe10b
+    "@ioredis/commands": 1.10.0
+    cluster-key-slot: 1.1.1
+    debug: 4.4.3
+    denque: 2.1.0
+    redis-errors: 1.2.0
+    redis-parser: 3.0.0
+    standard-as-callback: 2.1.0
+  checksum: 5bd57289d83b32fd4e2f9f48ed34ac9518963c0937de649751d4dd874234a2ca0924a45ce60c83e2a3fffb707f3b2b0e683666187a5b12e397ee9f0a2189f342
+  languageName: node
+  linkType: hard
+
+"ip-address@npm:^10.2.0":
+  version: 10.2.0
+  resolution: "ip-address@npm:10.2.0"
+  checksum: 3ffba04dc4cdaf81ed2ed6edc47eee1494bb97550ef73f1918ca28405d175c03efa416b8337e868123b08c2cc677e3a07c5ce03eda3b1aeb2741c149bd37ddf9
   languageName: node
   linkType: hard
 
@@ -4663,13 +4689,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.defaults@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "lodash.defaults@npm:4.2.0"
-  checksum: 84923258235592c8886e29de5491946ff8c2ae5c82a7ac5cddd2e3cb697e6fbdfbbb6efcca015795c86eec2bb953a5a2ee4016e3735a3f02720428a40efbb8f1
-  languageName: node
-  linkType: hard
-
 "lodash.flattendeep@npm:^4.4.0":
   version: 4.4.0
   resolution: "lodash.flattendeep@npm:4.4.0"
@@ -4688,13 +4707,6 @@ __metadata:
   version: 4.3.0
   resolution: "lodash.includes@npm:4.3.0"
   checksum: 71092c130515a67ab3bd928f57f6018434797c94def7f46aafa417771e455ce3a4834889f4267b17887d7f75297dfabd96231bf704fd2b8c5096dc4a913568b6
-  languageName: node
-  linkType: hard
-
-"lodash.isarguments@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "lodash.isarguments@npm:3.1.0"
-  checksum: ae1526f3eb5c61c77944b101b1f655f846ecbedcb9e6b073526eba6890dc0f13f09f72e11ffbf6540b602caee319af9ac363d6cdd6be41f4ee453436f04f13b5
   languageName: node
   linkType: hard
 
@@ -5778,14 +5790,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redis-errors@npm:^1.0.0, redis-errors@npm:^1.2.0":
+"redis-errors@npm:1.2.0, redis-errors@npm:^1.0.0":
   version: 1.2.0
   resolution: "redis-errors@npm:1.2.0"
   checksum: f28ac2692113f6f9c222670735aa58aeae413464fd58ccf3fce3f700cae7262606300840c802c64f2b53f19f65993da24dc918afc277e9e33ac1ff09edb394f4
   languageName: node
   linkType: hard
 
-"redis-parser@npm:^3.0.0":
+"redis-parser@npm:3.0.0":
   version: 3.0.0
   resolution: "redis-parser@npm:3.0.0"
   dependencies:
@@ -6214,7 +6226,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"standard-as-callback@npm:^2.1.0":
+"standard-as-callback@npm:2.1.0":
   version: 2.1.0
   resolution: "standard-as-callback@npm:2.1.0"
   checksum: 88bec83ee220687c72d94fd86a98d5272c91d37ec64b66d830dbc0d79b62bfa6e47f53b71646011835fc9ce7fae62739545d13124262b53be4fbb3e2ebad551c
@@ -6608,23 +6620,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.1.6":
-  version: 5.6.2
-  resolution: "typescript@npm:5.6.2"
+"typescript@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "typescript@npm:6.0.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 48777e1dabd9044519f56cd012b0296e3b72bafe12b7e8e34222751d45c67e0eba5387ecdaa6c14a53871a29361127798df6dc8d1d35643a0a47cb0b1c65a33a
+  checksum: c1182dfadf8a8cb22a4e32442715afef1af1b950ae635b1c52c27e0d7fb7a5e2607ed7c7c4079bba4163579250e02445fd8d46b09cbceda71ff72a5b7d69db61
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^5.1.6#~builtin<compat/typescript>":
-  version: 5.6.2
-  resolution: "typescript@patch:typescript@npm%3A5.6.2#~builtin<compat/typescript>::version=5.6.2&hash=8c6c40"
+"typescript@patch:typescript@^6.0.3#~builtin<compat/typescript>":
+  version: 6.0.3
+  resolution: "typescript@patch:typescript@npm%3A6.0.3#~builtin<compat/typescript>::version=6.0.3&hash=8c6c40"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: be6138b734b2d5f6aa9844b760d6a9e853d395e55ec4570ff1026cca195e5968849e38907c18f9c5b35f6a38e4e18ec29937f1c2ae03c6405e9874ad45d810b1
+  checksum: 8ed159a81ab4901a620c19fda539632cee610f8ec34dde57a3acc6b6df72894ad0b50bdd1946b763313d9b73dedb019d2e81c03eff06c0f2c785cde30a537d15
   languageName: node
   linkType: hard
 
