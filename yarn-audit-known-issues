@@ -1,8 +1,7 @@
-[31m[1mInternal Error[22m[39m: express-rate-limit@npm:^7.3.0: This package doesn't seem to be present in your lockfile; run "yarn install" to update the lockfile
-    at z0.getCandidates (/Users/kasi/.cache/node/corepack/yarn/3.8.5/yarn.js:436:5149)
-    at Df.getCandidates (/Users/kasi/.cache/node/corepack/yarn/3.8.5/yarn.js:392:1264)
-    at /Users/kasi/.cache/node/corepack/yarn/3.8.5/yarn.js:440:8033
-    at df (/Users/kasi/.cache/node/corepack/yarn/3.8.5/yarn.js:391:11214)
-    at ue (/Users/kasi/.cache/node/corepack/yarn/3.8.5/yarn.js:440:8013)
-    at async Promise.allSettled (index 28)
-    at async ro (/Users/kasi/.cache/node/corepack/yarn/3.8.5/yarn.js:391:10542)
+➤ YN0035: Bad Request
+➤ YN0035:   Response Code: 400 (Bad Request)
+➤ YN0035:   Request Method: POST
+➤ YN0035:   Request URL: https://registry.yarnpkg.com/-/npm/v1/security/audits/quick
+
+➤ Errors happened when preparing the environment required to run this command.
+➤ This might be caused by packages being missing from the lockfile, in which case running "yarn install" might help.
