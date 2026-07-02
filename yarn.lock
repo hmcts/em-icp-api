@@ -83,21 +83,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/core-client@npm:^1.0.0":
-  version: 1.10.2
-  resolution: "@azure/core-client@npm:1.10.2"
-  dependencies:
-    "@azure/abort-controller": ^2.1.2
-    "@azure/core-auth": ^1.10.0
-    "@azure/core-rest-pipeline": ^1.22.0
-    "@azure/core-tracing": ^1.3.0
-    "@azure/core-util": ^1.13.0
-    "@azure/logger": ^1.3.0
-    tslib: ^2.6.2
-  checksum: 878d6fb7c172e545bd8dc328c5845db5ad83be8b6140c02d6a6de7aabb6939c1e19d24ee22a4f2a9a7beb0bc8825aab0e8cb397f625831fc50c2c57e936d2fe3
-  languageName: node
-  linkType: hard
-
 "@azure/core-client@npm:^1.5.0, @azure/core-client@npm:^1.9.2":
   version: 1.9.2
   resolution: "@azure/core-client@npm:1.9.2"
@@ -3218,7 +3203,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.4.3":
+"debug@npm:4.4.3, debug@npm:^4.4.3":
   version: 4.4.3
   resolution: "debug@npm:4.4.3"
   dependencies:
@@ -3755,14 +3740,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-rate-limit@npm:^8.5.2":
-  version: 8.5.2
-  resolution: "express-rate-limit@npm:8.5.2"
-  dependencies:
-    ip-address: ^10.2.0
+"express-rate-limit@npm:^7.3.0":
+  version: 7.5.1
+  resolution: "express-rate-limit@npm:7.5.1"
   peerDependencies:
     express: ">= 4.11"
-  checksum: 2a8d508aca4489597b41fb63accd6aac8f10506edb2567180c8375c4170d48651f7bf417079c45421bdefba3c0422a7d06615ba99cd88ca67cbbdf977e71f405
+  checksum: 544fdd576a846a7d3ed0203a011cec6d65ad8e5eab58dbe045a0bdefd119060c140c38b327e32713b56342cc901a3ca5c99f13cce4ceee08408e775ec4742c16
   languageName: node
   linkType: hard
 
@@ -4574,7 +4557,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^5.10.1":
+"ioredis@npm:^5.4.1":
   version: 5.11.1
   resolution: "ioredis@npm:5.11.1"
   dependencies:
@@ -4586,13 +4569,6 @@ __metadata:
     redis-parser: 3.0.0
     standard-as-callback: 2.1.0
   checksum: 5bd57289d83b32fd4e2f9f48ed34ac9518963c0937de649751d4dd874234a2ca0924a45ce60c83e2a3fffb707f3b2b0e683666187a5b12e397ee9f0a2189f342
-  languageName: node
-  linkType: hard
-
-"ip-address@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "ip-address@npm:10.2.0"
-  checksum: 3ffba04dc4cdaf81ed2ed6edc47eee1494bb97550ef73f1918ca28405d175c03efa416b8337e868123b08c2cc677e3a07c5ce03eda3b1aeb2741c149bd37ddf9
   languageName: node
   linkType: hard
 
