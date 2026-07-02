@@ -369,28 +369,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/web-pubsub-express@npm:^1.0.3":
-  version: 1.0.5
-  resolution: "@azure/web-pubsub-express@npm:1.0.5"
+"@azure/web-pubsub-express@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@azure/web-pubsub-express@npm:1.0.6"
   dependencies:
-    "@azure/logger": ^1.0.0
-    tslib: ^2.2.0
-  checksum: 4d32a4e8bfdc6f14d738d22d606887c82cabb1dfcebec58451789f7b39861356969e4342a6a0323c00adc8eb13c3d04bee66bad3eb7febb8f9d9e73b0127bf0c
+    "@azure/logger": ^1.1.4
+    tslib: ^2.8.1
+  checksum: 4951f6602565278267b8bc616a65a7b97672a3f7cdd08e07f2a1dab1dfa0a00b33fae7e6c4620757fca56f15ea0238944423d2782bcad467e2ed179b5fccbd0f
   languageName: node
   linkType: hard
 
-"@azure/web-pubsub@npm:^1.0.0":
-  version: 1.1.3
-  resolution: "@azure/web-pubsub@npm:1.1.3"
+"@azure/web-pubsub@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@azure/web-pubsub@npm:1.2.0"
   dependencies:
-    "@azure/core-auth": ^1.3.0
-    "@azure/core-client": ^1.0.0
-    "@azure/core-rest-pipeline": ^1.1.0
-    "@azure/core-tracing": ^1.0.0
-    "@azure/logger": ^1.0.0
-    jsonwebtoken: ^9.0.0
-    tslib: ^2.2.0
-  checksum: 72a2ec00844d4f54adc2034a9a3f5405e994479017f892ffe4414d3b6c3bb72fb6978fac17eb94e9df881edbac18c28744538dc267fc79da9f50fa49d76f0c65
+    "@azure/core-auth": ^1.9.0
+    "@azure/core-client": ^1.9.2
+    "@azure/core-paging": ^1.6.2
+    "@azure/core-rest-pipeline": ^1.19.0
+    "@azure/core-tracing": ^1.2.0
+    "@azure/logger": ^1.1.4
+    jsonwebtoken: ^9.0.2
+    tslib: ^2.8.1
+  checksum: 320499bf23df3a7c1c983b244967bf8fd99a74576b2d2be5711ec7323ec8d718229627548f78167e8b9e720e2e69ca1fdd9ae3ee6e198f64d57b9d6b84a8b1f9
   languageName: node
   linkType: hard
 
@@ -3095,8 +3096,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "em-icp-api@workspace:."
   dependencies:
-    "@azure/web-pubsub": ^1.0.0
-    "@azure/web-pubsub-express": ^1.0.3
+    "@azure/web-pubsub": ^1.2.0
+    "@azure/web-pubsub-express": ^1.0.6
     "@babel/core": ^7.20.5
     "@babel/eslint-parser": ^7.19.1
     "@hmcts/nodejs-healthcheck": ^1.8.0
@@ -3137,7 +3138,7 @@ __metadata:
     sonar-scanner: ^3.1.0
     swagger-ui-express: ^5.0.1
     ts-node: ^10.9.2
-    tsconfig-paths: ^4.0.0
+    tsconfig-paths: ^4.2.0
     typescript: ^6.0.3
     uuid: ^10.0.0
   languageName: unknown
@@ -4577,6 +4578,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsonwebtoken@npm:^9.0.2":
+  version: 9.0.3
+  resolution: "jsonwebtoken@npm:9.0.3"
+  dependencies:
+    jws: ^4.0.1
+    lodash.includes: ^4.3.0
+    lodash.isboolean: ^3.0.3
+    lodash.isinteger: ^4.0.4
+    lodash.isnumber: ^3.0.3
+    lodash.isplainobject: ^4.0.6
+    lodash.isstring: ^4.0.1
+    lodash.once: ^4.0.0
+    ms: ^2.1.1
+    semver: ^7.5.4
+  checksum: 22d306335aeba0a0a1a4f7abbc4ee36b4bed3b98c67cdf078f0854845bf5646732e08f1cf1fae802a71c4efb1daef72aa1055d36bce6806caad7b1308b14bcd8
+  languageName: node
+  linkType: hard
+
 "just-extend@npm:^6.2.0":
   version: 6.2.0
   resolution: "just-extend@npm:6.2.0"
@@ -4616,7 +4635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jws@npm:^4.0.0":
+"jws@npm:^4.0.0, jws@npm:^4.0.1":
   version: 4.0.1
   resolution: "jws@npm:4.0.1"
   dependencies:
@@ -6513,7 +6532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsconfig-paths@npm:^4.0.0":
+"tsconfig-paths@npm:^4.2.0":
   version: 4.2.0
   resolution: "tsconfig-paths@npm:4.2.0"
   dependencies:
