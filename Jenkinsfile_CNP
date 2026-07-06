@@ -11,7 +11,7 @@ properties([
   ])
 ])
 
-@Library("Infrastructure")
+@Library("Infrastructure2.4.0")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
 
