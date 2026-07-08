@@ -5,6 +5,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "es6",
+    "strict": false,
+    "ignoreDeprecations": "6.0",
     "moduleResolution": "node",
     "noUnusedLocals": false,
     "experimentalDecorators": true,
@@ -25,6 +27,10 @@
     },
     "typeRoots": [
       "./node_modules/@types"
+    ],
+    "types": [
+      "node",
+      "mocha"
     ]
   }
 }
