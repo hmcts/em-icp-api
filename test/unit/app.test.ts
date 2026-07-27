@@ -1,7 +1,10 @@
 import axios from "axios";
 import { expect } from "chai";
 import { Server } from "http";
+import { createRequire } from "module";
 import sinon from "sinon";
+
+const commonJsRequire = createRequire(`${process.cwd()}/test/unit/app.test.ts`);
 
 describe("App rate limiting", function () {
   let server: Server;
@@ -13,10 +16,10 @@ describe("App rate limiting", function () {
 
     process.env.NODE_ENV = "test";
     process.env.NODE_PATH = ".";
-    require("module").Module._initPaths();
-    require("tsconfig-paths/register");
+    commonJsRequire("module").Module._initPaths();
+    commonJsRequire("tsconfig-paths/register");
 
-    const config = require("config");
+    const config = commonJsRequire("config");
     config.secrets = {
       "em-icp": {
         "em-icp-web-pubsub-primary-connection-string": "Endpoint=https://example.webpubsub.azure.com;AccessKey=test-key;Version=1.0;",
@@ -26,7 +29,7 @@ describe("App rate limiting", function () {
     config.rateLimit.max = 1;
     config.icp = { wsUrl: "wss://test.example" };
 
-    const { app } = require("../../app");
+    const { app } = commonJsRequire("../../app");
     server = app.listen(0);
 
     await new Promise<void>((resolve) => server.once("listening", resolve));
@@ -40,8 +43,8 @@ describe("App rate limiting", function () {
 
   beforeEach(() => {
     sandbox = sinon.createSandbox();
-    const { IdamClient } = require("../../api/security/idam-client");
-    const { WebPubSubServiceClient } = require("@azure/web-pubsub");
+    const { IdamClient } = commonJsRequire("../../api/security/idam-client");
+    const { WebPubSubServiceClient } = commonJsRequire("@azure/web-pubsub");
 
     sandbox.stub(IdamClient.prototype, "verifyToken").resolves();
     sandbox.stub(IdamClient.prototype, "getUserInfo").resolves({ name: "Test User" });
@@ -65,7 +68,7 @@ describe("App rate limiting", function () {
           reject(error);
           return;
         }
-        resolve();
+        resolve(undefined);
       });
     });
   });
