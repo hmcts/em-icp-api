@@ -139,7 +139,7 @@ resource "azurerm_key_vault_secret" "local_redis_password" {
 module "managed_redis" {
   for_each = local.managed_redis_environments
 
-  source = "git@github.com:hmcts/terraform-module-azure-managed-redis?ref=2c1b7ad134fa1a3e69984ff31efc4b8cf7dab1ff"
+  source = "git@github.com:hmcts/terraform-module-azure-managed-redis?ref=main"
 
   product     = var.product
   component   = var.component
