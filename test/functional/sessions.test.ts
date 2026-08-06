@@ -5,8 +5,6 @@
 // const frontendURL = process.env.TEST_URL || "http://localhost:8080";
 // const caseId = "1234";
 //
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-//
 // describe("/GET sessions", () => {
 //   let token;
 //   let headers;
