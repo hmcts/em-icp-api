@@ -3,7 +3,7 @@
 properties([
   [
     $class       : 'GithubProjectProperty',
-    displayName  : 'XUI ICP API',
+    displayName  : 'Presenting Evidence Digitally Backend API',
     projectUrlStr: 'https://github.com/hmcts/rpx-xui-icp-api'
   ],
   pipelineTriggers([
