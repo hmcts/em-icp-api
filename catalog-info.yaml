@@ -1,18 +1,18 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: "em-icp"
+  name: "xui-icp-api"
   annotations:
     # This must match folder-name/job-name in Jenkins.
-    jenkins.io/job-full-name: cft:HMCTS_d_to_i/em-icp-api
-    github.com/project-slug: hmcts/em-icp-api
+    jenkins.io/job-full-name: cft:HMCTS_j_to_z/rpx-xui-icp-api
+    github.com/project-slug: hmcts/rpx-xui-icp-api
   tags:
     - nodejs
   links:
-    - url: https://hmcts-reform.slack.com/app_redirect?channel=em-dev-chat
-      title: "#em-dev-chat on Slack"
+    - url: https://hmcts-reform.slack.com/app_redirect?channel=xui-pipeline
+      title: "#xui-pipeline on Slack"
       icon: chat
 spec:
   type: service
   lifecycle: production
-  owner: dcd_em
+  owner: dcd_group_expertui_v2
