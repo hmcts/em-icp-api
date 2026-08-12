@@ -11,8 +11,6 @@ const password = "***REMOVED***";
 
 propertiesVolume.addTo(config);
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
 export class TestUtil {
 
   static async createIcpSession(token: string, caseId: string): Promise<{ username: string, session: Session }> {
