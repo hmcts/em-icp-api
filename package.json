@@ -25,7 +25,7 @@
     "@azure/web-pubsub": "^1.2.0",
     "@azure/web-pubsub-express": "^1.0.6",
     "@dr.pogodin/csurf": "^1.17.1",
-    "@hmcts/nodejs-healthcheck": "^1.8.0",
+    "@hmcts/nodejs-healthcheck": "^1.8.6",
     "@hmcts/nodejs-logging": "^4.0.0",
     "@hmcts/properties-volume": "^1.4.0",
     "applicationinsights": "^3.15.1",
