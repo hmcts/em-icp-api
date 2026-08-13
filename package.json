@@ -28,7 +28,7 @@
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.0",
     "@hmcts/properties-volume": "^1.4.0",
-    "applicationinsights": "^3.14.0",
+    "applicationinsights": "^3.15.1",
     "axios": "^1.18.1",
     "config": "^3.3.9",
     "cookie-parser": "^1.4.4",
@@ -48,7 +48,7 @@
     "xmlhttprequest-ssl": "^2.0.0",
     "lodash": "^4.17.23",
     "y18n": "^5.0.5",
-    "ws": "^8.17.1",
+    "ws": "^8.21.1",
     "follow-redirects": "^1.15.6",
     "express": "^4.19.2",
     "qs": "^6.15.3",
@@ -62,7 +62,9 @@
     "micromatch": "^4.0.8",
     "path-to-regexp": "^0.1.13",
     "formidable": "^3.5.3",
-    "form-data": "^4.0.4"
+    "form-data": "^4.0.4",
+    "@opentelemetry/core": "^2.8.0",
+    "@azure/monitor-opentelemetry": "^1.19.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
