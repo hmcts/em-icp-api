@@ -4,7 +4,8 @@ updates:
   directory: "/"
   schedule:
     interval: weekly
-  open-pull-requests-limit: 10
+  # EXUI-5084: temporarily pause version-update PRs during the ICP migration.
+  open-pull-requests-limit: 0
   ignore:
   - dependency-name: "@typescript-eslint/eslint-plugin-tslint"
     versions:
