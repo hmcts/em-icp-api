@@ -15,9 +15,9 @@ properties([
 pipelineTriggers([cron('H 8 * * 1-5')])])
 
 def type = "nodejs"
-// Stage A retains the existing runtime coordinates while repository ownership moves to XUI.
-def product = "em"
-def component = "icp"
+// Prepare the XUI pipeline identity behind the temporary deployment hold above.
+def product = "xui"
+def component = "icp-api"
 def channel = '#xui-pipeline'
 
 env.TEST_URL= "http://em-icp-aat.service.core-compute-aat.internal"
