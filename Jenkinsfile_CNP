@@ -1,5 +1,14 @@
 #!groovy
 
+@Library("Infrastructure@2.4.4")
+
+import uk.gov.hmcts.contino.AppPipelineConfig
+
+// Temporary Stage A safety hold: allow PR preview/plan evidence; block master, environment and unknown branches.
+if (!(env.BRANCH_NAME ==~ /^PR-\d+$/)) {
+  error('EXUI-5084 Stage A hold: destination deployment is disabled until authority transfers from em-icp-api.')
+}
+
 properties([
   [
     $class       : 'GithubProjectProperty',
@@ -10,15 +19,6 @@ properties([
     [$class: 'GitHubPushTrigger']
   ])
 ])
-
-@Library("Infrastructure@2.4.4")
-
-import uk.gov.hmcts.contino.AppPipelineConfig
-
-// Temporary Stage A safety hold: allow PR evidence but prevent every deploy-capable branch.
-if (!(env.BRANCH_NAME ==~ /^PR-\d+$/)) {
-  error('EXUI-5084 Stage A hold: destination deployment is disabled until authority transfers from em-icp-api.')
-}
 
 def type = "nodejs"
 // Stage A retains the existing runtime coordinates while repository ownership moves to XUI.
