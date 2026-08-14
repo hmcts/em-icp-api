@@ -1,5 +1,10 @@
 #!groovy
 
+@Library("Infrastructure@2.4.4") _
+
+// Temporary Stage A safety hold: nightly cannot run until deployment authority has transferred.
+error('EXUI-5084 Stage A hold: destination nightly is disabled until authority transfers from em-icp-api.')
+
 properties([
 [
   $class       : 'GithubProjectProperty',
@@ -8,11 +13,6 @@ properties([
 ],
 // H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
 pipelineTriggers([cron('H 8 * * 1-5')])])
-
-@Library("Infrastructure@2.4.4")
-
-// Temporary Stage A safety hold: nightly cannot run until deployment authority has transferred.
-error('EXUI-5084 Stage A hold: destination nightly is disabled until authority transfers from em-icp-api.')
 
 def type = "nodejs"
 // Stage A retains the existing runtime coordinates while repository ownership moves to XUI.
