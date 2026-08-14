@@ -15,9 +15,15 @@ properties([
 
 import uk.gov.hmcts.contino.AppPipelineConfig
 
+// Temporary Stage A safety hold: allow PR evidence but prevent every deploy-capable branch.
+if (!(env.BRANCH_NAME ==~ /^PR-\d+$/)) {
+  error('EXUI-5084 Stage A hold: destination deployment is disabled until authority transfers from em-icp-api.')
+}
+
 def type = "nodejs"
-def product = "xui"
-def component = "icp-api"
+// Stage A retains the existing runtime coordinates while repository ownership moves to XUI.
+def product = "em"
+def component = "icp"
 def channel = '#xui-pipeline'
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {

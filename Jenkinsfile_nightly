@@ -3,7 +3,7 @@
 properties([
 [
   $class       : 'GithubProjectProperty',
-  displayName  : 'XUI ICP API',
+  displayName  : 'Presenting Evidence Digitally Backend API',
   projectUrlStr: 'https://github.com/hmcts/rpx-xui-icp-api'
 ],
 // H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
@@ -11,9 +11,13 @@ pipelineTriggers([cron('H 8 * * 1-5')])])
 
 @Library("Infrastructure@2.4.4")
 
+// Temporary Stage A safety hold: nightly cannot run until deployment authority has transferred.
+error('EXUI-5084 Stage A hold: destination nightly is disabled until authority transfers from em-icp-api.')
+
 def type = "nodejs"
-def product = "xui"
-def component = "icp-api"
+// Stage A retains the existing runtime coordinates while repository ownership moves to XUI.
+def product = "em"
+def component = "icp"
 def channel = '#xui-pipeline'
 
 env.TEST_URL= "http://em-icp-aat.service.core-compute-aat.internal"
