@@ -1,12 +1,15 @@
 #!groovy
 
-@Library("Infrastructure@2.4.4")
+@Library("Infrastructure@2.4.4") _
 
-import uk.gov.hmcts.contino.AppPipelineConfig
+import uk.gov.hmcts.pipeline.TeamConfig
 
-// Temporary Stage A safety hold: allow PR preview/plan evidence; block master, environment and unknown branches.
-if (!(env.BRANCH_NAME ==~ /^PR-\d+$/)) {
-  error('EXUI-5084 Stage A hold: destination deployment is disabled until authority transfers from em-icp-api.')
+def product = 'xui'
+def component = 'icp-api'
+
+// Stage A validates the destination repository without publishing or deploying it.
+if (!(env.BRANCH_NAME == 'master' || env.BRANCH_NAME ==~ /^PR-\d+$/)) {
+  error('EXUI-5084 Stage A: only master and pull requests may run the build-only pipeline.')
 }
 
 properties([
@@ -20,50 +23,31 @@ properties([
   ])
 ])
 
-def type = "nodejs"
-// Prepare the XUI pipeline identity behind the temporary deployment hold above.
-def product = "xui"
-def component = "icp-api"
-def channel = '#xui-pipeline'
+new TeamConfig(this).setTeamConfigEnv(product)
 
-static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
-  [$class     : 'AzureKeyVaultSecret',
-   secretType : 'Secret',
-   name       : secretName,
-   envVariable: envVar
-  ]
-}
+node(env.BUILD_AGENT_TYPE) {
+  timeout(time: 30, unit: 'MINUTES') {
+    try {
+      dockerAgentSetup()
+      env.PATH = "$env.PATH:/usr/local/bin"
 
-def secrets = [
-  's2s-${env}': [
-    secret('microservicekey-em-gw', 'FUNCTIONAL_TEST_CLIENT_S2S_TOKEN')
-  ],
-  'rpa-${env}': [
-    secret('show-oauth2-token', 'FUNCTIONAL_TEST_CLIENT_OAUTH_SECRET')
-  ],
-  'em-icp-${env}': [
-    secret('em-icp-web-pubsub-primary-connection-string', 'WEB_PUBSUB_PRIMARY_CONN_STRING')
-  ]
-]
+      stage('Checkout') {
+        checkout scm
+      }
 
-
-// Vars for Kubernetes
-env.IDAM_API_BASE_URL = 'https://idam-api.aat.platform.hmcts.net'
-env.IDAM_WEBSHOW_WHITELIST = 'https://em-show-aat.service.core-compute-aat.internal/oauth2/callback'
-
-//def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
-
-def pipelineConf = new AppPipelineConfig()
-pipelineConf.vaultSecrets = secrets
-
-def branchesToSync = ['demo','ithc','perftest']
-
-withPipeline(type, product, component) {
-  loadVaultSecrets(secrets)
-  enableSlackNotifications(channel)
-  disableLegacyDeployment()
-//  after('build') {
-//    yarnBuilder.yarn('build')
-//  }
-  syncBranchesWithMaster(branchesToSync)
+      stage("Build and test ${product}/${component}") {
+        sh '''
+          mkdir -p "$HOME/.local/bin"
+          corepack enable --install-directory "$HOME/.local/bin"
+          export PATH="$HOME/.local/bin:$PATH"
+          yarn --version
+          yarn install --check-cache
+          yarn lint
+          yarn test
+        '''
+      }
+    } finally {
+      deleteDir()
+    }
+  }
 }
