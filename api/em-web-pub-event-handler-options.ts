@@ -12,13 +12,13 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   private client: WebPubSubServiceClient;
   private appInsightClient: TelemetryClient;
   private redisClient: RedisClient;
-  private allowedOrigins: string[];
+  private allowedOrigin?: string;
 
-  constructor(webPubSubServiceClient: WebPubSubServiceClient, appInsightClient: TelemetryClient, redisClient: RedisClient) {
+  constructor(webPubSubServiceClient: WebPubSubServiceClient, appInsightClient: TelemetryClient, redisClient: RedisClient, allowedOrigin?: string) {
     this.client = webPubSubServiceClient;
     this.appInsightClient = appInsightClient;
     this.redisClient = redisClient;
-    this.allowedOrigins = this.getAllowedOrigins();
+    this.allowedOrigin = allowedOrigin === undefined ? this.getAllowedOrigin() : allowedOrigin.trim();
   }
 
   handleConnect = async (connectRequest: ConnectRequest, connectResponse: ConnectResponseHandler) => {
@@ -45,24 +45,15 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   };
 
   isOriginAllowed(origin: string | undefined): boolean {
-    return !!origin && this.allowedOrigins.includes(origin);
+    return !!origin && !!this.allowedOrigin && origin === this.allowedOrigin;
   }
 
   private getOriginHeader(connectRequest: ConnectRequest): string | undefined {
     return connectRequest.headers?.origin?.[0] || connectRequest.headers?.Origin?.[0];
   }
 
-  private getAllowedOrigins(): string[] {
-    const configuredOrigins = config.has("icp.allowedOrigins")
-      ? config.get("icp.allowedOrigins")
-      : "https://manage-case.platform.hmcts.net";
-    const origins = Array.isArray(configuredOrigins)
-      ? configuredOrigins
-      : `${configuredOrigins}`.split(",");
-
-    return origins
-      .map((origin: string) => origin.trim())
-      .filter(Boolean);
+  private getAllowedOrigin(): string | undefined {
+    return config.has("icp.allowedOrigin") ? `${config.get("icp.allowedOrigin")}`.trim() : undefined;
   }
 
   extractRolesFromConnectRequest(connectionRequest: ConnectRequest): {

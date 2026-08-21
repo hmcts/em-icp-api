@@ -8,13 +8,12 @@ import { RedisClient } from "../../../api/redis-client";
 import { Session } from "../../../api/model/interfaces";
 import { TelemetryClient } from "applicationinsights";
 
-const config = require("config");
-
 describe("EmWebPubEventHandlerOptions", () => {
   let redisClientStub: sinon.SinonStubbedInstance<RedisClient>;
   let webPubSubServiceClientStub: sinon.SinonStubbedInstance<WebPubSubServiceClient>;
   let emWebPubEventHandlerOptions: EmWebPubEventHandlerOptions;
   let appInsightsStub: { trackTrace: sinon.SinonStub };
+  const allowedOrigin = "https://manage-case.demo.platform.hmcts.net";
 
   const createConnectRequest = (origin: string, roleGroup = "caseId--documentId"): ConnectRequest => ({
     context: {
@@ -48,18 +47,11 @@ describe("EmWebPubEventHandlerOptions", () => {
     failWith: sinon.stub(),
   });
 
-  const configuredAllowedOrigin = (): string => {
-    const allowedOrigins = config.has("icp.allowedOrigins")
-      ? config.get("icp.allowedOrigins")
-      : "https://manage-case.platform.hmcts.net";
-    return (Array.isArray(allowedOrigins) ? allowedOrigins[0] : `${allowedOrigins}`.split(",")[0]).trim();
-  };
-
   beforeEach(() => {
     redisClientStub = sinon.createStubInstance(RedisClient);
     webPubSubServiceClientStub = sinon.createStubInstance(WebPubSubServiceClient);
     appInsightsStub = { trackTrace: sinon.stub() };
-    emWebPubEventHandlerOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClientStub, appInsightsStub as unknown as TelemetryClient, redisClientStub);
+    emWebPubEventHandlerOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClientStub, appInsightsStub as unknown as TelemetryClient, redisClientStub, allowedOrigin);
   });
 
   afterEach(() => {
@@ -69,7 +61,7 @@ describe("EmWebPubEventHandlerOptions", () => {
   it("should allow Web PubSub connections from the configured XUI origin", async () => {
     const response = createConnectResponse();
 
-    await emWebPubEventHandlerOptions.handleConnect(createConnectRequest(configuredAllowedOrigin()), response);
+    await emWebPubEventHandlerOptions.handleConnect(createConnectRequest(allowedOrigin), response);
 
     expect(response.success.calledOnce).to.be.true;
     expect(response.fail.notCalled).to.be.true;
@@ -84,10 +76,20 @@ describe("EmWebPubEventHandlerOptions", () => {
     expect(response.fail.calledOnceWith(401, "Origin not authorized to access session")).to.be.true;
   });
 
+  it("should reject Web PubSub connections when the XUI origin is not configured", async () => {
+    emWebPubEventHandlerOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClientStub, appInsightsStub as unknown as TelemetryClient, redisClientStub, "");
+    const response = createConnectResponse();
+
+    await emWebPubEventHandlerOptions.handleConnect(createConnectRequest(allowedOrigin), response);
+
+    expect(response.success.notCalled).to.be.true;
+    expect(response.fail.calledOnceWith(401, "Origin not authorized to access session")).to.be.true;
+  });
+
   it("should reject Web PubSub connections from allowed origins when token roles do not match the requested session", async () => {
     const response = createConnectResponse();
 
-    await emWebPubEventHandlerOptions.handleConnect(createConnectRequest(configuredAllowedOrigin(), "otherCase--otherDocument"), response);
+    await emWebPubEventHandlerOptions.handleConnect(createConnectRequest(allowedOrigin, "otherCase--otherDocument"), response);
 
     expect(response.success.notCalled).to.be.true;
     expect(response.fail.calledOnceWith(401, "User not authorized to access session")).to.be.true;
