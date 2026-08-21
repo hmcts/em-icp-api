@@ -5,19 +5,28 @@ import { PresenterUpdate, Session } from "model/interfaces";
 import { RedisClient } from "./redis-client";
 import { TelemetryClient } from "applicationinsights";
 
+const config = require("config");
+
 export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions {
 
   private client: WebPubSubServiceClient;
   private appInsightClient: TelemetryClient;
   private redisClient: RedisClient;
+  private allowedOrigin?: string;
 
-  constructor(webPubSubServiceClient: WebPubSubServiceClient, appInsightClient: TelemetryClient, redisClient: RedisClient) {
+  constructor(webPubSubServiceClient: WebPubSubServiceClient, appInsightClient: TelemetryClient, redisClient: RedisClient, allowedOrigin?: string) {
     this.client = webPubSubServiceClient;
     this.appInsightClient = appInsightClient;
     this.redisClient = redisClient;
+    this.allowedOrigin = allowedOrigin === undefined ? this.getAllowedOrigin() : allowedOrigin.trim();
   }
 
   handleConnect = async (connectRequest: ConnectRequest, connectResponse: ConnectResponseHandler) => {
+    if (!this.isOriginAllowed(this.getOriginHeader(connectRequest))) {
+      connectResponse.fail(401, "Origin not authorized to access session");
+      return;
+    }
+
     if (connectRequest.claims.role) {
       const roles = this.extractRolesFromConnectRequest(connectRequest);
       const caseId: string = connectRequest.queries.caseId[0];
@@ -34,6 +43,18 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     }
     connectResponse.fail(401, "User not authorized to access session");
   };
+
+  isOriginAllowed(origin: string | undefined): boolean {
+    return !!origin && !!this.allowedOrigin && origin === this.allowedOrigin;
+  }
+
+  private getOriginHeader(connectRequest: ConnectRequest): string | undefined {
+    return connectRequest.headers?.origin?.[0] || connectRequest.headers?.Origin?.[0];
+  }
+
+  private getAllowedOrigin(): string | undefined {
+    return config.has("icp.allowedOrigin") ? `${config.get("icp.allowedOrigin")}`.trim() : undefined;
+  }
 
   extractRolesFromConnectRequest(connectionRequest: ConnectRequest): {
     caseId: string;
