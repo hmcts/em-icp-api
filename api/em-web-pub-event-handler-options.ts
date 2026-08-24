@@ -24,16 +24,9 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
   handleConnect = async (connectRequest: ConnectRequest, connectResponse: ConnectResponseHandler) => {
     const origin = this.getOriginHeader(connectRequest);
     if (!this.isOriginAllowed(origin)) {
-      console.log("ICP Web PubSub origin rejected", {
-        origin,
-        allowedOrigin: this.allowedOrigin,
-        headerNames: Object.keys(connectRequest.headers || {}),
-        contextOrigin: connectRequest.context?.origin,
-      });
       connectResponse.fail(401, "Origin not authorized to access session");
       return;
     }
-    console.log("ICP Web PubSub origin allowed", { origin, allowedOrigin: this.allowedOrigin });
 
     if (connectRequest.claims.role) {
       const roles = this.extractRolesFromConnectRequest(connectRequest);
