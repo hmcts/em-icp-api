@@ -39,4 +39,4 @@ s2s:
 tokenRefreshTime: 3600000 # (60 mins)
 
 icp:
-  allowedOrigin: ""
+  allowedOrigins: "https://manage-case.platform.hmcts.net"
