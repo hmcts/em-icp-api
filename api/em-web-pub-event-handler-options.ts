@@ -5,28 +5,19 @@ import { PresenterUpdate, Session } from "model/interfaces";
 import { RedisClient } from "./redis-client";
 import { TelemetryClient } from "applicationinsights";
 
-const config = require("config");
-
 export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions {
 
   private client: WebPubSubServiceClient;
   private appInsightClient: TelemetryClient;
   private redisClient: RedisClient;
-  private allowedOrigins: string[];
 
   constructor(webPubSubServiceClient: WebPubSubServiceClient, appInsightClient: TelemetryClient, redisClient: RedisClient) {
     this.client = webPubSubServiceClient;
     this.appInsightClient = appInsightClient;
     this.redisClient = redisClient;
-    this.allowedOrigins = this.getAllowedOrigins();
   }
 
   handleConnect = async (connectRequest: ConnectRequest, connectResponse: ConnectResponseHandler) => {
-    if (!this.isOriginAllowed(this.getOriginHeader(connectRequest))) {
-      connectResponse.fail(401, "Origin not authorized to access session");
-      return;
-    }
-
     if (connectRequest.claims.role) {
       const roles = this.extractRolesFromConnectRequest(connectRequest);
       const caseId: string = connectRequest.queries.caseId[0];
@@ -43,27 +34,6 @@ export class EmWebPubEventHandlerOptions implements WebPubSubEventHandlerOptions
     }
     connectResponse.fail(401, "User not authorized to access session");
   };
-
-  isOriginAllowed(origin: string | undefined): boolean {
-    return !!origin && this.allowedOrigins.includes(origin);
-  }
-
-  private getOriginHeader(connectRequest: ConnectRequest): string | undefined {
-    return connectRequest.headers?.origin?.[0] || connectRequest.headers?.Origin?.[0];
-  }
-
-  private getAllowedOrigins(): string[] {
-    const configuredOrigins = config.has("icp.allowedOrigins")
-      ? config.get("icp.allowedOrigins")
-      : "https://manage-case.platform.hmcts.net";
-    const origins = Array.isArray(configuredOrigins)
-      ? configuredOrigins
-      : `${configuredOrigins}`.split(",");
-
-    return origins
-      .map((origin: string) => origin.trim())
-      .filter(Boolean);
-  }
 
   extractRolesFromConnectRequest(connectionRequest: ConnectRequest): {
     caseId: string;

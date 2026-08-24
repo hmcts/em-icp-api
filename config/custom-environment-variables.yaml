@@ -23,4 +23,3 @@ rateLimit:
 
 icp:
   wsUrl: ICP_WS_URL
-  allowedOrigins: ICP_ALLOWED_ORIGINS

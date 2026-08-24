@@ -1,96 +1,26 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import { WebPubSubGroup, WebPubSubServiceClient } from "@azure/web-pubsub";
-import { ConnectRequest, ConnectResponseHandler } from "@azure/web-pubsub-express";
 import { EmWebPubEventHandlerOptions } from "../../../api/em-web-pub-event-handler-options";
 import { Actions } from "../../../api/model/actions";
 import { RedisClient } from "../../../api/redis-client";
 import { Session } from "../../../api/model/interfaces";
 import { TelemetryClient } from "applicationinsights";
 
-const config = require("config");
 
 describe("EmWebPubEventHandlerOptions", () => {
   let redisClientStub: sinon.SinonStubbedInstance<RedisClient>;
   let webPubSubServiceClientStub: sinon.SinonStubbedInstance<WebPubSubServiceClient>;
   let emWebPubEventHandlerOptions: EmWebPubEventHandlerOptions;
-  let appInsightsStub: { trackTrace: sinon.SinonStub };
-
-  const createConnectRequest = (origin: string, roleGroup = "caseId--documentId"): ConnectRequest => ({
-    context: {
-      connectionId: "connectionId",
-      eventName: "connect",
-      hub: "hub",
-      origin: "https://em-icp-webpubsub.demo.webpubsub.azure.com",
-      signature: "signature",
-      states: {},
-      clientProtocol: "default",
-    },
-    claims: {
-      role: [
-        `webpubsub.joinLeaveGroup.${roleGroup}`,
-        `webpubsub.sendToGroup.${roleGroup}`,
-      ],
-    },
-    queries: {
-      caseId: ["caseId"],
-      documentId: ["documentId"],
-    },
-    headers: {
-      origin: [origin],
-    },
-  });
-
-  const createConnectResponse = (): sinon.SinonStubbedInstance<ConnectResponseHandler> => ({
-    setState: sinon.stub(),
-    success: sinon.stub(),
-    fail: sinon.stub(),
-    failWith: sinon.stub(),
-  });
-
-  const configuredAllowedOrigin = (): string => {
-    const allowedOrigins = config.has("icp.allowedOrigins")
-      ? config.get("icp.allowedOrigins")
-      : "https://manage-case.platform.hmcts.net";
-    return (Array.isArray(allowedOrigins) ? allowedOrigins[0] : `${allowedOrigins}`.split(",")[0]).trim();
-  };
 
   beforeEach(() => {
     redisClientStub = sinon.createStubInstance(RedisClient);
     webPubSubServiceClientStub = sinon.createStubInstance(WebPubSubServiceClient);
-    appInsightsStub = { trackTrace: sinon.stub() };
-    emWebPubEventHandlerOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClientStub, appInsightsStub as unknown as TelemetryClient, redisClientStub);
+    emWebPubEventHandlerOptions = new EmWebPubEventHandlerOptions(webPubSubServiceClientStub, {} as unknown as TelemetryClient, redisClientStub);
   });
 
   afterEach(() => {
     sinon.restore();
-  });
-
-  it("should allow Web PubSub connections from the configured XUI origin", async () => {
-    const response = createConnectResponse();
-
-    await emWebPubEventHandlerOptions.handleConnect(createConnectRequest(configuredAllowedOrigin()), response);
-
-    expect(response.success.calledOnce).to.be.true;
-    expect(response.fail.notCalled).to.be.true;
-  });
-
-  it("should reject Web PubSub connections from arbitrary origins", async () => {
-    const response = createConnectResponse();
-
-    await emWebPubEventHandlerOptions.handleConnect(createConnectRequest("https://example.com"), response);
-
-    expect(response.success.notCalled).to.be.true;
-    expect(response.fail.calledOnceWith(401, "Origin not authorized to access session")).to.be.true;
-  });
-
-  it("should reject Web PubSub connections from allowed origins when token roles do not match the requested session", async () => {
-    const response = createConnectResponse();
-
-    await emWebPubEventHandlerOptions.handleConnect(createConnectRequest(configuredAllowedOrigin(), "otherCase--otherDocument"), response);
-
-    expect(response.success.notCalled).to.be.true;
-    expect(response.fail.calledOnceWith(401, "User not authorized to access session")).to.be.true;
   });
 
   it("should remove participant from session", async () => {
