@@ -42,7 +42,7 @@ node(nodeSelector) {
           corepack enable --install-directory "$HOME/.local/bin"
           export PATH="$HOME/.local/bin:$PATH"
           yarn --version
-          yarn install --check-cache
+          yarn install
           yarn lint
           yarn test
         '''
