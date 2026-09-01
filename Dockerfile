@@ -1,4 +1,4 @@
-FROM hmctsprod.azurecr.io/base/node:18-alpine as base
+FROM hmctsprod.azurecr.io/base/node:24-alpine as base
 
 USER hmcts
 
