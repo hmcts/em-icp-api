@@ -1,9 +1,9 @@
 variable "product" {
-  default = "em"
+  default = "xui"
 }
 
 variable "component" {
-  default = "icp"
+  default = "icp-api"
 }
 
 variable "location" {
