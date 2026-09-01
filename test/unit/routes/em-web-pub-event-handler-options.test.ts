@@ -86,6 +86,15 @@ describe("EmWebPubEventHandlerOptions", () => {
     expect(response.fail.calledOnceWith(401, "Origin not authorized to access session")).to.be.true;
   });
 
+  it("should read the allowed origin from application configuration", () => {
+    const config = require("config");
+    sinon.stub(config, "has").withArgs("icp.allowedOrigin").returns(true);
+    sinon.stub(config, "get").withArgs("icp.allowedOrigin").returns(allowedOrigin);
+
+    const options = new EmWebPubEventHandlerOptions(webPubSubServiceClientStub, appInsightsStub as unknown as TelemetryClient, redisClientStub);
+    expect(options.isOriginAllowed(allowedOrigin)).to.be.true;
+  });
+
   it("should reject Web PubSub connections from allowed origins when token roles do not match the requested session", async () => {
     const response = createConnectResponse();
 

@@ -15,7 +15,7 @@ if (env.BRANCH_NAME != 'master') {
 properties([
   [
     $class       : 'GithubProjectProperty',
-    displayName  : 'Presenting Evidence Digitally Backend API',
+    displayName  : 'XUI ICP API',
     projectUrlStr: 'https://github.com/hmcts/rpx-xui-icp-api'
   ],
   pipelineTriggers([cron('H 8 * * 1-5')])
