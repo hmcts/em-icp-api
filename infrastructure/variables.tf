@@ -3,7 +3,7 @@ variable "product" {
 }
 
 variable "component" {
-  default = "icp-api"
+  default = "icp"
 }
 
 variable "location" {
