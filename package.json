@@ -1,5 +1,5 @@
 {
-  "name": "@hmcts/icp-api",
+  "name": "em-icp-api",
   "version": "0.0.0",
   "private": true,
   "engines": {
