@@ -27,10 +27,9 @@ def secrets = [
   'rpa-${env}': [
     secret('show-oauth2-token', 'FUNCTIONAL_TEST_CLIENT_OAUTH_SECRET')
   ],
-  // The XUI application vault is created by the infrastructure stage. Use the
-  // existing EM vault only to bootstrap CI before that first XUI deployment.
-  'em-icp-${env}': [
-    secret('em-icp-web-pubsub-primary-connection-string', 'WEB_PUBSUB_PRIMARY_CONN_STRING')
+  // Use the shared XUI vault, matching the deployed Helm secret provider.
+  'rpx-${env}': [
+    secret('xui-icp-web-pubsub-primary-connection-string', 'WEB_PUBSUB_PRIMARY_CONN_STRING')
   ]
 ]
 
