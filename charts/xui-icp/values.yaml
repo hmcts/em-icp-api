@@ -1,17 +1,17 @@
 nodejs:
   applicationPort: 8080
   aadIdentityName: xui
-  ingressHost: xui-icp-api.{{ .Values.global.environment }}.platform.hmcts.net
-  image: 'hmctsprod.azurecr.io/xui/icp-api:latest'
+  ingressHost: xui-icp.{{ .Values.global.environment }}.platform.hmcts.net
+  image: 'hmctsprod.azurecr.io/xui/icp:latest'
   readinessDelay: 30
   readinessTimeout: 5
   livenessDelay: 30
   livenessTimeout: 5
   livenessFailureThreshold: 10
   environment:
-    REFORM_SERVICE_NAME: xui-icp-api
-    REFORM_TEAM: xui-icp-api
-    REDIS_HOST: xui-icp-api-redis-cache-{{ .Values.global.environment }}.redis.cache.windows.net
+    REFORM_SERVICE_NAME: xui-icp
+    REFORM_TEAM: xui-icp
+    REDIS_HOST: xui-icp-redis-cache-{{ .Values.global.environment }}.redis.cache.windows.net
     REDIS_PORT: 6380
     USE_REDIS: true
     REDIS_USE_TLS: true
@@ -19,18 +19,18 @@ nodejs:
     RATE_LIMITE_MAX: 10
     IDAM_API_BASE_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
     IDAM_S2S_URL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    ICP_WS_URL: wss://xui-icp-api-webpubsub.{{ .Values.global.environment }}.platform.hmcts.net/client/hubs/Hub
+    ICP_WS_URL: wss://xui-icp-webpubsub.{{ .Values.global.environment }}.platform.hmcts.net/client/hubs/Hub
     ICP_ALLOWED_ORIGIN: https://manage-case.{{ .Values.global.environment }}.platform.hmcts.net
   spotInstances:
     enabled: true
   keyVaults:
-    xui-icp-api:
-      resourceGroup: xui-icp-api
+    xui-icp:
+      resourceGroup: xui-icp
       secrets:
         - redis-password
-        - microservicekey-xui-icp-api
+        - microservicekey-xui-icp
         - AppInsightsInstrumentationKey
-        - xui-icp-api-web-pubsub-primary-connection-string
+        - xui-icp-web-pubsub-primary-connection-string
 
 redis:
   enabled: false

@@ -15,7 +15,7 @@ properties([
 
 def type = "nodejs"
 def product = "xui"
-def component = "icp-api"
+def component = "icp"
 def channel = '#xui-pipeline'
 
 def secrets = [
@@ -25,8 +25,8 @@ def secrets = [
   'rpa-${env}': [
     secret('show-oauth2-token', 'FUNCTIONAL_TEST_CLIENT_OAUTH_SECRET')
   ],
-  'xui-icp-api-${env}': [
-    secret('xui-icp-api-web-pubsub-primary-connection-string', 'WEB_PUBSUB_PRIMARY_CONN_STRING')
+  'xui-icp-${env}': [
+    secret('xui-icp-web-pubsub-primary-connection-string', 'WEB_PUBSUB_PRIMARY_CONN_STRING')
   ]
 ]
 

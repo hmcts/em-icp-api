@@ -31,7 +31,7 @@ locals {
   thumbprints_in_quotes_str = join(",", local.thumbprints_in_quotes)
   api_policy                = replace(file("template/api-policy.xml"), "ALLOWED_CERTIFICATE_THUMBPRINTS", local.thumbprints_in_quotes_str)
   api_base_path             = "${var.product}-${var.component}"
-  icp_event_handler_url     = var.env == "prod" ? "https://xui-icp-api.platform.hmcts.net/eventhandler" : "https://xui-icp-api.${var.env}.platform.hmcts.net/eventhandler"
+  icp_event_handler_url     = var.env == "prod" ? "https://xui-icp.platform.hmcts.net/eventhandler" : "https://xui-icp.${var.env}.platform.hmcts.net/eventhandler"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -72,12 +72,12 @@ data "azurerm_key_vault" "s2s_vault" {
 
 data "azurerm_key_vault_secret" "s2s_key" {
   # The XUI service-auth registration owns the XUI credential in the provider vault.
-  name         = "microservicekey-xui-icp-api"
+  name         = "microservicekey-xui-icp"
   key_vault_id = data.azurerm_key_vault.s2s_vault.id
 }
 
 resource "azurerm_key_vault_secret" "local_s2s_key" {
-  name         = "microservicekey-xui-icp-api"
+  name         = "microservicekey-xui-icp"
   value        = data.azurerm_key_vault_secret.s2s_key.value
   key_vault_id = module.local_key_vault.key_vault_id
 }
@@ -203,7 +203,7 @@ resource "azurerm_web_pubsub_hub" "icpHub" {
 }
 
 resource "azurerm_key_vault_secret" "xui_icp_api_web_pubsub_primary_connection_string" {
-  name         = "xui-icp-api-web-pubsub-primary-connection-string"
+  name         = "xui-icp-web-pubsub-primary-connection-string"
   value        = azurerm_web_pubsub.ped_web_pubsub.primary_connection_string
   key_vault_id = module.local_key_vault.key_vault_id
 }
