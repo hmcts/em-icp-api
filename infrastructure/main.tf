@@ -71,8 +71,8 @@ data "azurerm_key_vault" "s2s_vault" {
 }
 
 data "azurerm_key_vault_secret" "s2s_key" {
-  # The XUI service-auth registration owns the XUI credential in the provider vault.
-  name         = "microservicekey-xui-icp"
+  # Temporary compatibility: the XUI service-auth credential is not provisioned yet.
+  name         = "microservicekey-em-icp"
   key_vault_id = data.azurerm_key_vault.s2s_vault.id
 }
 
