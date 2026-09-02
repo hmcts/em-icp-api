@@ -3,7 +3,7 @@
 
 __metadata:
   version: 8
-  cacheKey: 10c0
+  cacheKey: 10
 
 "@azure-rest/core-client@npm:^2.3.3, @azure-rest/core-client@npm:^2.5.2":
   version: 2.8.0
@@ -633,7 +633,7 @@ __metadata:
   linkType: hard
 
 "@hmcts/icp-api@workspace:.":
-  version: 0.0.1-use.local
+  version: 0.0.0-use.local
   resolution: "@hmcts/icp-api@workspace:."
   dependencies:
     "@azure/web-pubsub": "npm:^1.2.0"
