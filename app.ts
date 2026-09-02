@@ -1,7 +1,7 @@
 import * as bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import express from "express";
-import * as path from "path";
+import * as path from "node:path";
 import { RouterFinder } from "./api/router/routerFinder";
 import { HttpError } from "./api/model/httpError";
 import csrf from "@dr.pogodin/csurf";

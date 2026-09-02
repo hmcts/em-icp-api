@@ -49,7 +49,7 @@ router.get("/icp/sessions/:caseId/:documentId", async (req, res) => {
     }
 
     const connectionUrl = config.icp.wsUrl;
-    if (!session || session.dateOfHearing !== today) {
+    if (session?.dateOfHearing !== today) {
       
       const newSession: Session = {
         sessionId: uuidv4(),
