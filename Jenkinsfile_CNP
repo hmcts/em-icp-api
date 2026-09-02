@@ -11,7 +11,9 @@ properties([
   ])
 ])
 
-@Library("Infrastructure@2.5.1")
+@Library("Infrastructure@2.4.4")
+
+import uk.gov.hmcts.contino.AppPipelineConfig
 
 def type = "nodejs"
 def product = "xui"
@@ -30,6 +32,12 @@ def secrets = [
   ]
 ]
 
+env.IDAM_API_BASE_URL = 'https://idam-api.aat.platform.hmcts.net'
+env.IDAM_WEBSHOW_WHITELIST = 'https://em-show-aat.service.core-compute-aat.internal/oauth2/callback'
+
+def pipelineConf = new AppPipelineConfig()
+pipelineConf.vaultSecrets = secrets
+
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   [$class: 'AzureKeyVaultSecret', secretType: 'Secret', name: secretName, envVariable: envVar]
 }
@@ -39,7 +47,6 @@ def branchesToSync = ['demo', 'ithc', 'perftest']
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   enableSlackNotifications(channel)
-  enableAksStagingDeployment()
   disableLegacyDeployment()
   syncBranchesWithMaster(branchesToSync)
 }
